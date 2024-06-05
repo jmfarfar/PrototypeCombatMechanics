@@ -41,6 +41,14 @@ public class Player1StateMachine : StateMachine, IPlayerStateMachine
     public bool isShieldDepleted;
     public bool isRolling;
 
+    // Radial Menu
+    [field: SerializeField] public GameObject[] RadialMenu { get; private set; }
+    [field: SerializeField] public string[] SpellNames { get; private set; }
+
+    public bool isRadialMenuActive;
+    public Transform selectedObject;
+    public Transform menuCenter;
+
     #endregion
 
     private void Start()
@@ -48,6 +56,7 @@ public class Player1StateMachine : StateMachine, IPlayerStateMachine
         SwitchState(new Player1MovementState(this));
 
         shieldEnergy = maxShieldEnergy;
+        isRadialMenuActive = false;
     }
 
     private void OnTriggerEnter(Collider other)
