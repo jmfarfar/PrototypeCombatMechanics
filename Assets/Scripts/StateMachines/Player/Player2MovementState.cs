@@ -27,7 +27,12 @@ public class Player2MovementState : Player2BaseState
 
         UpdateAnimation(movementInput);
 
-        Vector3 direction = new Vector3(movementInput.x, 0f, movementInput.y);
+        Vector3 direction = Camera.main.transform.forward * movementInput.y +
+            Camera.main.transform.right * movementInput.x;
+        direction.y = 0f;
+        direction.Normalize();
+
+        //Vector3 direction = new Vector3(movementInput.x, 0f, movementInput.y);
 
         if (!(direction == Vector3.zero))
         {

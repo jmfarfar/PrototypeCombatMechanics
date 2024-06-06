@@ -15,7 +15,12 @@ public class Player2DashState : Player2BaseState
 
         Vector2 movementInput = new Vector2(Input.GetAxisRaw("JHorizontal"), Input.GetAxisRaw("JVertical")).normalized;
 
-        Vector3 direction = new Vector3(movementInput.x, 0f, movementInput.y);
+        Vector3 direction = Camera.main.transform.forward * movementInput.y +
+            Camera.main.transform.right * movementInput.x;
+        direction.y = 0f;
+        direction.Normalize();
+
+        //Vector3 direction = new Vector3(movementInput.x, 0f, movementInput.y);
 
         if (!(direction == Vector3.zero))
         {

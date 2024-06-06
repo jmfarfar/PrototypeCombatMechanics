@@ -10,27 +10,23 @@ public class CameraSystem : MonoBehaviour
     [SerializeField] float minDistanceToTarget;
     [SerializeField] float cameraMovementSpeed;
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void LateUpdate()
     {
         Vector3 midPoint = (player1.position + player2.position) / 2;
 
         float distanceBetweenPlayers = Vector3.Distance(player1.position, player2.position);
-        
-        Vector3 targetPosition = 
-        midPoint + 
+
+        float clampedDistance = Mathf.Max(minDistanceToTarget, distanceBetweenPlayers);
+
+        Vector3 targetPosition =
+        new Vector3(midPoint.x * 0.5f, midPoint.y, midPoint.z) +
         new Vector3(
-            0f, 
-            distanceBetweenPlayers * 0.3f, 
-            -(Mathf.Max(minDistanceToTarget, 
-            distanceBetweenPlayers)));
-        
-        transform.position = Vector3.Lerp(transform.position, 
+            0f,
+            Mathf.Sqrt(clampedDistance),
+            -clampedDistance
+        );
+
+        transform.position = Vector3.Lerp(transform.position,
         targetPosition,
         cameraMovementSpeed * Time.deltaTime);
 

@@ -30,7 +30,12 @@ public class Player1MovementState : Player1BaseState
 
         UpdateAnimation(movementInput);
 
-        Vector3 direction = new Vector3(movementInput.x, 0f, movementInput.y);
+        Vector3 direction = Camera.main.transform.forward * movementInput.y +
+            Camera.main.transform.right * movementInput.x;
+        direction.y = 0f;
+        direction.Normalize();
+
+        //Vector3 direction = new Vector3(movementInput.x, 0f, movementInput.y);
 
         if (!(direction == Vector3.zero))
         {
@@ -44,7 +49,7 @@ public class Player1MovementState : Player1BaseState
             stateMachine.SwitchState(new Player1DashState(stateMachine));
         }
 
-        else if (Input.GetKeyDown(KeyCode.J))
+        else if (Input.GetKeyDown(KeyCode.LeftShift))
         {
 
             ActivateRadialMenu(0);
@@ -52,19 +57,19 @@ public class Player1MovementState : Player1BaseState
 
         }
 
-        else if (Input.GetKeyDown(KeyCode.K))
+        else if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             ActivateRadialMenu(1);
             //stateMachine.SwitchState(new Player1AttackState(stateMachine, 1));
         }
 
-        else if (Input.GetKeyDown(KeyCode.L))
+        else if (Input.GetKeyDown(KeyCode.LeftAlt))
         {
             ActivateRadialMenu(2);
             //stateMachine.SwitchState(new Player1AttackState(stateMachine, 3));
         }
 
-        else if (Input.GetKey(KeyCode.I) && !stateMachine.isShieldDepleted)
+        else if (Input.GetKey(KeyCode.O) && !stateMachine.isShieldDepleted)
         {
             stateMachine.SwitchState(new Player1BlockState(stateMachine));
         }
