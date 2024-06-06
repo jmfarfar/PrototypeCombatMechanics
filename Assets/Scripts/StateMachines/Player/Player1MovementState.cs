@@ -12,6 +12,8 @@ public class Player1MovementState : Player1BaseState
     private int MovementStateHash = Animator.StringToHash("MovementState");
     private int MovementSpeedHash = Animator.StringToHash("MovementSpeed");
 
+    private int menuSelected;
+
     public override void Enter()
     {
         stateMachine.Animator.CrossFadeInFixedTime(MovementStateHash, 0.1f);
@@ -47,19 +49,19 @@ public class Player1MovementState : Player1BaseState
 
             ActivateRadialMenu(0);
 
-            
+
         }
 
         else if (Input.GetKeyDown(KeyCode.K))
         {
             ActivateRadialMenu(1);
-            stateMachine.SwitchState(new Player1AttackState(stateMachine, 1));
+            //stateMachine.SwitchState(new Player1AttackState(stateMachine, 1));
         }
 
         else if (Input.GetKeyDown(KeyCode.L))
         {
             ActivateRadialMenu(2);
-            stateMachine.SwitchState(new Player1AttackState(stateMachine, 3));
+            //stateMachine.SwitchState(new Player1AttackState(stateMachine, 3));
         }
 
         else if (Input.GetKey(KeyCode.I) && !stateMachine.isShieldDepleted)
@@ -67,6 +69,7 @@ public class Player1MovementState : Player1BaseState
             stateMachine.SwitchState(new Player1BlockState(stateMachine));
         }
 
+        ExecuteRadialMenu(menuSelected);
         stateMachine.CharacterController.Move(direction * stateMachine.Speed * Time.deltaTime);
     }
 
@@ -89,12 +92,16 @@ public class Player1MovementState : Player1BaseState
         if (stateMachine.isRadialMenuActive)
         {
             stateMachine.RadialMenu[menuIndex].SetActive(true);
+            menuSelected = menuIndex;
         }
         else
         {
             stateMachine.RadialMenu[menuIndex].SetActive(false);
         }
+    }
 
+    private void ExecuteRadialMenu(int menuIndex)
+    {
         if (stateMachine.isRadialMenuActive)
         {
             Vector2 delta = stateMachine.menuCenter.position - Input.mousePosition;
@@ -111,14 +118,17 @@ public class Player1MovementState : Player1BaseState
 
             for (int i = 0; i < 360; i += 90)
             {
+                //Debug.Log($"Valor de i: {i}");
                 if (angle >= i && angle < i + 90)
                 {
+                    //Debug.Log($"Valor de angle: {angle}");
                     stateMachine.selectedObject.eulerAngles = new Vector3(0, 0, i);
-                    //highlightedSpellName.text = inventorySpellNames[currentSpell];
+                    stateMachine.highlightedSpellName.text = stateMachine.SpellNames[currentSpell];
 
                     if (Input.GetMouseButtonDown(0))
                     {
-                        stateMachine.SwitchState(new Player1AttackState(stateMachine, 0));
+                        Debug.Log($"Floor de i: {Mathf.FloorToInt(currentSpell / 4)}");
+                        stateMachine.SwitchState(new Player1AttackState(stateMachine, Mathf.FloorToInt(currentSpell / 4)));
                         Debug.Log($"{stateMachine.SpellNames[currentSpell]} spell casted");
                         stateMachine.isRadialMenuActive = false;
                         stateMachine.RadialMenu[menuIndex].SetActive(false);

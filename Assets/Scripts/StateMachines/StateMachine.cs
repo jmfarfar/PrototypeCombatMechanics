@@ -16,6 +16,7 @@ public class StateMachine : MonoBehaviour
 
     public void Update()
     {
+        //Debug.Log("Update del tick");
         currentState?.Tick(Time.deltaTime);
     }
 }

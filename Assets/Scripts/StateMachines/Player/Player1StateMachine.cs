@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class Player1StateMachine : StateMachine, IPlayerStateMachine
@@ -48,6 +50,8 @@ public class Player1StateMachine : StateMachine, IPlayerStateMachine
     public bool isRadialMenuActive;
     public Transform selectedObject;
     public Transform menuCenter;
+    public TextMeshProUGUI highlightedSpellName;
+
 
     #endregion
 
@@ -155,4 +159,6 @@ public class Player1StateMachine : StateMachine, IPlayerStateMachine
             0.5f)
         );
     }
+
+
 }

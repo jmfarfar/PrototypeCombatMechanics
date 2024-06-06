@@ -2065,9 +2065,21 @@ PrefabInstance:
       value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 1648676268412020031, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
+      propertyPath: menuCenter
+      value: 
+      objectReference: {fileID: 801667418}
+    - target: {fileID: 1648676268412020031, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
       propertyPath: shieldEnergy
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1648676268412020031, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
+      propertyPath: selectedObject
+      value: 
+      objectReference: {fileID: 820760261}
+    - target: {fileID: 1648676268412020031, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
+      propertyPath: highlightedSpellName
+      value: 
+      objectReference: {fileID: 2114457639}
     - target: {fileID: 1648676268412020031, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
       propertyPath: <Combatant>k__BackingField
       value: 

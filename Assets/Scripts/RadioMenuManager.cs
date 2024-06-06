@@ -24,18 +24,18 @@ public class RadioMenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.E))
-        //{
-        //    isRadialMenuActive = !isRadialMenuActive;
-        //    if (isRadialMenuActive)
-        //    {
-        //        radialMenuRoot.SetActive(true);
-        //    }
-        //    else
-        //    {
-        //        radialMenuRoot.SetActive(false);
-        //    }
-        //}
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            isRadialMenuActive = !isRadialMenuActive;
+            if (isRadialMenuActive)
+            {
+                radialMenuRoot.SetActive(true);
+            }
+            else
+            {
+                radialMenuRoot.SetActive(false);
+            }
+        }
 
         if (isRadialMenuActive)
         {
