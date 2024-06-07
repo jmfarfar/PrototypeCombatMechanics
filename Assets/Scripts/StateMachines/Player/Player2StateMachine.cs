@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Player2StateMachine : StateMachine, IPlayerStateMachine
@@ -39,6 +40,17 @@ public class Player2StateMachine : StateMachine, IPlayerStateMachine
     public bool isShieldDepleting;
     public bool isShieldDepleted;
     public bool isRolling;
+
+    // Radial Menu
+    [field: SerializeField] public GameObject[] RadialMenu { get; private set; }
+    [field: SerializeField] public string[] SpellNames { get; private set; }
+
+    public bool isRadialMenuActive;
+    public Transform selectedObject;
+    public Transform menuCenter;
+    public TextMeshProUGUI highlightedSpellName;
+
+
     #endregion
 
     private void Start()
@@ -46,6 +58,7 @@ public class Player2StateMachine : StateMachine, IPlayerStateMachine
         SwitchState(new Player2MovementState(this));
 
         shieldEnergy = maxShieldEnergy;
+        isRadialMenuActive = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -61,13 +74,20 @@ public class Player2StateMachine : StateMachine, IPlayerStateMachine
             Physics.IgnoreCollision(colliderComponent, other, true);
             colliderState = Hitbox.ColliderStates.SHIELDSTUN;
             shieldHit?.Invoke(hitbox.attackInfo);
+
+            if (hitbox.attackInfo.attackEffect == AttackInfo.AttackEffects.SHIELDBREAK)
+            {
+                shieldEnergy = 0f;
+            }
         }
+
         else
         {
             if (hitbox.attackInfo.attackAnimation >= AttackInfo.AttackAnimation.APPEAR)
             {
                 Debug.Log("Collision and knocked down");
-                Health.decreaseHealth(hitbox.attackInfo.damage);                
+                Health.decreaseHealth(hitbox.attackInfo.damage);
+
 
                 Physics.IgnoreCollision(colliderComponent, other, true);
                 hitbox.attackInfo.AttackEffectAction(hitbox);
@@ -81,7 +101,8 @@ public class Player2StateMachine : StateMachine, IPlayerStateMachine
             else
             {
                 Debug.Log("Collision");
-                Health.decreaseHealth(hitbox.attackInfo.damage);                
+                Health.decreaseHealth(hitbox.attackInfo.damage);
+
 
                 Physics.IgnoreCollision(colliderComponent, other, true);
                 hitbox.attackInfo.AttackEffectAction(hitbox);
@@ -92,9 +113,7 @@ public class Player2StateMachine : StateMachine, IPlayerStateMachine
                     SwitchState(new Player2KOState(this));
                 }
             }
-
         }
-
     }
 
 

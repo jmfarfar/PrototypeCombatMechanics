@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class Player1StateMachine : StateMachine, IPlayerStateMachine
@@ -27,7 +26,6 @@ public class Player1StateMachine : StateMachine, IPlayerStateMachine
 
     public float dashTime = 0.25f;
     public float dashCooldown = 1f;
-
     public float dashDistance = 1f;
     public float dashInvulnerabilityTime;
     public AnimationCurve dashAccelerationCurve;

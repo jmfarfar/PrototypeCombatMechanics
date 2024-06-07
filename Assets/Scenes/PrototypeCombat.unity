@@ -2402,9 +2402,89 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3420486803029942981, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: menuCenter
+      value: 
+      objectReference: {fileID: 801667418}
+    - target: {fileID: 3420486803029942981, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: selectedObject
+      value: 
+      objectReference: {fileID: 820760261}
+    - target: {fileID: 3420486803029942981, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: highlightedSpellName
+      value: 
+      objectReference: {fileID: 2114457639}
+    - target: {fileID: 3420486803029942981, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
       propertyPath: <Combatant>k__BackingField
       value: 
       objectReference: {fileID: 192270095}
+    - target: {fileID: 3420486803029942981, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: <RadialMenu>k__BackingField.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3420486803029942981, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: <SpellNames>k__BackingField.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3420486803029942981, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: <RadialMenu>k__BackingField.Array.data[0]
+      value: 
+      objectReference: {fileID: 649693418}
+    - target: {fileID: 3420486803029942981, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: <RadialMenu>k__BackingField.Array.data[1]
+      value: 
+      objectReference: {fileID: 885123646}
+    - target: {fileID: 3420486803029942981, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: <RadialMenu>k__BackingField.Array.data[2]
+      value: 
+      objectReference: {fileID: 476172424}
+    - target: {fileID: 3420486803029942981, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: <SpellNames>k__BackingField.Array.data[0]
+      value: Spell 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3420486803029942981, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: <SpellNames>k__BackingField.Array.data[1]
+      value: Spell 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3420486803029942981, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: <SpellNames>k__BackingField.Array.data[2]
+      value: Spell 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3420486803029942981, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: <SpellNames>k__BackingField.Array.data[3]
+      value: Spell 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3420486803029942981, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: <SpellNames>k__BackingField.Array.data[4]
+      value: Spell 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3420486803029942981, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: <SpellNames>k__BackingField.Array.data[5]
+      value: Spell 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3420486803029942981, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: <SpellNames>k__BackingField.Array.data[6]
+      value: Spell 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3420486803029942981, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: <SpellNames>k__BackingField.Array.data[7]
+      value: Spell 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3420486803029942981, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: <SpellNames>k__BackingField.Array.data[8]
+      value: Spell 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3420486803029942981, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: <SpellNames>k__BackingField.Array.data[9]
+      value: Spell 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3420486803029942981, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: <SpellNames>k__BackingField.Array.data[10]
+      value: Spell 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3420486803029942981, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: <SpellNames>k__BackingField.Array.data[11]
+      value: Spell 12
+      objectReference: {fileID: 0}
     - target: {fileID: 3425907884680450187, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
       propertyPath: m_Layer
       value: 9

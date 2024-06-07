@@ -51,22 +51,17 @@ public class Player1MovementState : Player1BaseState
 
         else if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-
             ActivateRadialMenu(0);
-
-
         }
 
         else if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             ActivateRadialMenu(1);
-            //stateMachine.SwitchState(new Player1AttackState(stateMachine, 1));
         }
 
-        else if (Input.GetKeyDown(KeyCode.LeftAlt))
+        else if (Input.GetKeyDown(KeyCode.CapsLock))
         {
             ActivateRadialMenu(2);
-            //stateMachine.SwitchState(new Player1AttackState(stateMachine, 3));
         }
 
         else if (Input.GetKey(KeyCode.O) && !stateMachine.isShieldDepleted)
@@ -74,7 +69,11 @@ public class Player1MovementState : Player1BaseState
             stateMachine.SwitchState(new Player1BlockState(stateMachine));
         }
 
-        ExecuteRadialMenu(menuSelected);
+        if (stateMachine.isRadialMenuActive)
+        {
+            ExecuteRadialMenu(menuSelected);
+        }
+
         stateMachine.CharacterController.Move(direction * stateMachine.Speed * Time.deltaTime);
     }
 
@@ -107,40 +106,45 @@ public class Player1MovementState : Player1BaseState
 
     private void ExecuteRadialMenu(int menuIndex)
     {
-        if (stateMachine.isRadialMenuActive)
+        //if (stateMachine.isRadialMenuActive)
+        //{
+        //Vector2 delta = stateMachine.menuCenter.position - Input.mousePosition;
+        //float angle = Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg;
+        float angle = float.MaxValue;
+        if (Input.GetKeyDown(KeyCode.L)) angle = 0f;
+        if (Input.GetKeyDown(KeyCode.I)) angle = 90f;
+        if (Input.GetKeyDown(KeyCode.J)) angle = 180f;
+        if (Input.GetKeyDown(KeyCode.K)) angle = 270f;
+        //angle += 180;
+
+        int currentSpell = menuIndex switch
         {
-            Vector2 delta = stateMachine.menuCenter.position - Input.mousePosition;
-            float angle = Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg;
-            angle += 180;
+            0 => 0, // spells for menu X
+            1 => 4, // spells for menu Y
+            2 => 8, // spells for menu B
+            _ => 0,
+        };
 
-            int currentSpell = menuIndex switch
+        for (int i = 0; i < 360; i += 90)
+        {
+            //Debug.Log($"Valor de i: {i}");
+            if (angle >= i && angle < i + 90)
             {
-                0 => 0, // spells for menu X
-                1 => 4, // spells for menu Y
-                2 => 8, // spells for menu B
-                _ => 0,
-            };
+                //Debug.Log($"Valor de angle: {angle}");
+                stateMachine.selectedObject.eulerAngles = new Vector3(0, 0, i);
+                stateMachine.highlightedSpellName.text = stateMachine.SpellNames[currentSpell];
 
-            for (int i = 0; i < 360; i += 90)
-            {
-                //Debug.Log($"Valor de i: {i}");
-                if (angle >= i && angle < i + 90)
-                {
-                    //Debug.Log($"Valor de angle: {angle}");
-                    stateMachine.selectedObject.eulerAngles = new Vector3(0, 0, i);
-                    stateMachine.highlightedSpellName.text = stateMachine.SpellNames[currentSpell];
 
-                    if (Input.GetMouseButtonDown(0))
-                    {
-                        Debug.Log($"Floor de i: {Mathf.FloorToInt(currentSpell / 4)}");
-                        stateMachine.SwitchState(new Player1AttackState(stateMachine, Mathf.FloorToInt(currentSpell / 4)));
-                        Debug.Log($"{stateMachine.SpellNames[currentSpell]} spell casted");
-                        stateMachine.isRadialMenuActive = false;
-                        stateMachine.RadialMenu[menuIndex].SetActive(false);
-                    }
-                }
-                currentSpell++;
+
+                Debug.Log($"Floor de i: {Mathf.FloorToInt(currentSpell / 4)}");
+                stateMachine.SwitchState(new Player1AttackState(stateMachine, Mathf.FloorToInt(currentSpell / 4)));
+                Debug.Log($"{stateMachine.SpellNames[currentSpell]} spell casted");
+                stateMachine.isRadialMenuActive = false;
+                stateMachine.RadialMenu[menuIndex].SetActive(false);
+
             }
+            currentSpell++;
         }
+        //}
     }
 }
