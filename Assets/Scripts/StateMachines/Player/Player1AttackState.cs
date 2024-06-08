@@ -12,12 +12,12 @@ public class Player1AttackState : Player1BaseState
         index = attackIndex;
     }
 
-    private int AttackHash => Animator.StringToHash(stateMachine.attacks[index].animationState);
+    private int AttackHash => Animator.StringToHash(stateMachine.AttackManager.attacks[index].name);
 
     public override void Enter()
     {
-        stateMachine.StartCoroutine(
-            AttackStartUp(stateMachine.attacks[index].startupTime));
+        stateMachine.AttackManager.StartAttack(index);
+        stateMachine.AttackManager.attackCompletedEvent += ReturnToMovingState;
 
         stateMachine.StartCoroutine(RotateTowardsCombatant());
 
@@ -26,6 +26,8 @@ public class Player1AttackState : Player1BaseState
 
     public override void Exit()
     {
+        stateMachine.AttackManager.attackCompletedEvent -= ReturnToMovingState;
+        stateMachine.AttackManager.CancelAttack();
         stateMachine.StopAllCoroutines();
     }
 
@@ -62,31 +64,8 @@ public class Player1AttackState : Player1BaseState
         }
     }
 
-    private IEnumerator AttackStartUp(float time)
+    private void ReturnToMovingState()
     {
-        yield return new WaitForSeconds(time);
-        ExecuteAttack();
-    }
-
-    private void ExecuteAttack()
-    {
-        GameObject instance = GameObject.Instantiate(
-            stateMachine.ProjectilePrefab, 
-            stateMachine.transform.position,
-            Quaternion.identity);
-        
-        instance.GetComponent<Hitbox>().attackInfo = stateMachine.attacks[index];
-        instance.GetComponent<Hitbox>().Target = stateMachine.Combatant;
-        instance.GetComponent<Hitbox>().Owner = stateMachine.gameObject;
-        instance.layer = LayerMask.NameToLayer("Player1Hitbox");
-
-        stateMachine.StartCoroutine(AttackRecovery(stateMachine.attacks[index].recoveryTime));
-    }
-
-    private IEnumerator AttackRecovery(float time)
-    {
-        yield return new WaitForSeconds(time);
-
         stateMachine.SwitchState(new Player1MovementState(stateMachine));
     }
 }

@@ -22,7 +22,7 @@ public class Player1StateMachine : StateMachine, IPlayerStateMachine
     [field: SerializeField] public GameObject Combatant { get; private set; }
     [field: SerializeField] public Animator Animator { get; private set; }
 
-    public AttackInfo[] attacks;
+    public AttackData[] attacks;
     [HideInInspector] public Collider colliderComponent => gameObject.GetComponent<Collider>();
 
     public float dashTime = 0.25f;
@@ -34,7 +34,7 @@ public class Player1StateMachine : StateMachine, IPlayerStateMachine
 
     public Hitbox.ColliderStates colliderState;
 
-    public Action<AttackInfo> shieldHit;
+    public Action<AttackData> shieldHit;
     public Action<Vector3> rollEvent;
 
     public float maxShieldEnergy = 1f;
@@ -51,6 +51,10 @@ public class Player1StateMachine : StateMachine, IPlayerStateMachine
     public Transform selectedObject;
     public Transform menuCenter;
     public TextMeshProUGUI highlightedSpellName;
+
+    // Attack Manager
+    [Header("Attack Manager")]
+    public AttackManager AttackManager;
 
 
     #endregion
@@ -72,49 +76,49 @@ public class Player1StateMachine : StateMachine, IPlayerStateMachine
 
         else if (colliderState == Hitbox.ColliderStates.BLOCKING)
         {
-            //SwitchState(new Player1StunState(this, hitbox.attackInfo.stunTime / 2));
+            // SwitchState(new Player1StunState(this, hitbox.attackData.stunTime / 2));
             Physics.IgnoreCollision(colliderComponent, other, true);
             colliderState = Hitbox.ColliderStates.SHIELDSTUN;
-            shieldHit?.Invoke(hitbox.attackInfo);
+            shieldHit?.Invoke(hitbox.attackData);
 
-            if (hitbox.attackInfo.attackEffect == AttackInfo.AttackEffects.SHIELDBREAK)
-            {
-                shieldEnergy = 0f;
-            }
+            // if (hitbox.attackData.attackEffects == AttackData.AttackEffects.SHIELDBREAK)
+            // {
+            //     shieldEnergy = 0f;
+            // }
         }
 
         else
         {
-            if (hitbox.attackInfo.attackAnimation >= AttackInfo.AttackAnimation.APPEAR)
+            for (int i = 0; i < hitbox.attackData.attackEffects.Length; i++)
             {
-                Debug.Log("Collided and knocked down");
-                Health.decreaseHealth(hitbox.attackInfo.damage);
-
-
-                Physics.IgnoreCollision(colliderComponent, other, true);
-                hitbox.attackInfo.AttackEffectAction(hitbox);
-                SwitchState(new Player1KnockdownState(this, 3f));
-
-                if (Health.CurrentHealth <= 0f)
+                if (hitbox.attackData.attackEffects[i] == AttackData.AttackEffects.KNOCKDOWN)
                 {
-                    SwitchState(new Player1KOState(this));
+                    Debug.Log("Collided and knocked down");
+                    Health.decreaseHealth(hitbox.attackData.damage);
+
+                    if (Health.CurrentHealth <= 0f)
+                    {
+                        SwitchState(new Player1KOState(this));
+                        return;
+                    }
+
+                    Physics.IgnoreCollision(colliderComponent, other, true);
+                    SwitchState(new Player1KnockdownState(this, 3f));
+                    return;
                 }
+            }
+            Debug.Log("Collided");
+            Health.decreaseHealth(hitbox.attackData.damage);
+
+            Physics.IgnoreCollision(colliderComponent, other, true);
+
+            if (Health.CurrentHealth <= 0)
+            {
+                SwitchState(new Player1KOState(this));
             }
             else
             {
-                Debug.Log("Collided");
-                Health.decreaseHealth(hitbox.attackInfo.damage);
-
-
-                Physics.IgnoreCollision(colliderComponent, other, true);
-                hitbox.attackInfo.AttackEffectAction(hitbox);
-                SwitchState(new Player1StunState(this, hitbox.attackInfo.stunTime));
-
-                if (Health.CurrentHealth <= 0)
-                {
-                    SwitchState(new Player1KOState(this));
-                }
-
+                SwitchState(new Player1StunState(this, hitbox.attackData.stunTime));
             }
         }
     }

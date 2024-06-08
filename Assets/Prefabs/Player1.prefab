@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9146839054247398961}
   - component: {fileID: 8424423014621396897}
   - component: {fileID: 1648676268412020031}
+  - component: {fileID: 3565946824552977181}
   m_Layer: 8
   m_Name: Player1
   m_TagString: Untagged
@@ -96,54 +97,42 @@ MonoBehaviour:
   <Combatant>k__BackingField: {fileID: 0}
   <Animator>k__BackingField: {fileID: 4064383722386798661}
   attacks:
-  - damage: 5
-    attackEffect: 4
-    startupTime: 0.2
-    recoveryTime: 0.5
-    attackAnimation: 0
+  - name: 
+    damage: 5
+    range: 20
+    activeTime: 0
     stunTime: 0.7
-    attachBehaviour: 1
-    range: 20
-    speed: 20
-    radius: 1
-    activeTime: 1
-    hitTarget: {fileID: 0}
-  - damage: 10
-    attackEffect: 0
-    startupTime: 0.3
-    recoveryTime: 0.7
-    attackAnimation: 1
-    stunTime: 0.9
-    attachBehaviour: 0
+    attackEffect: 4
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: 
+    damage: 10
     range: 8
-    speed: 20
-    radius: 1
-    activeTime: 1
-    hitTarget: {fileID: 0}
-  - damage: 15
+    activeTime: 0
+    stunTime: 0.9
     attackEffect: 0
-    startupTime: 0.5
-    recoveryTime: 1
-    attackAnimation: 2
-    stunTime: 1.2
-    attachBehaviour: 2
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: 
+    damage: 15
     range: 20
-    speed: 20
-    radius: 2
-    activeTime: 1
-    hitTarget: {fileID: 0}
-  - damage: 20
-    attackEffect: 1
-    startupTime: 0.5
-    recoveryTime: 1
-    attackAnimation: 1
+    activeTime: 0
     stunTime: 1.2
-    attachBehaviour: 0
+    attackEffect: 0
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: 
+    damage: 20
     range: 5
-    speed: 20
-    radius: 2
-    activeTime: 1
-    hitTarget: {fileID: 0}
+    activeTime: 0
+    stunTime: 1.2
+    attackEffect: 1
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls: []
   dashTime: 0.25
   dashCooldown: 0.1
   dashDistance: 3
@@ -186,6 +175,29 @@ MonoBehaviour:
   shieldEnergy: 5
   isShieldDepleting: 0
   isShieldDepleted: 0
+  isRolling: 0
+  <RadialMenu>k__BackingField: []
+  <SpellNames>k__BackingField: []
+  isRadialMenuActive: 0
+  selectedObject: {fileID: 0}
+  menuCenter: {fileID: 0}
+  highlightedSpellName: {fileID: 0}
+  AttackManager: {fileID: 6784795115328361854}
+--- !u!114 &3565946824552977181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2396030616143007682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13faa1b935b00656aa40371f72c2010c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  necroticDartHitbox: {fileID: 0}
+  enemy: {fileID: 0}
+  necroticDart_negativeEnergy: 0
 --- !u!1001 &4710876036231641874
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -517,6 +529,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d499be858763e376e90c7720253d9ce7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4064383722386798661}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d499be858763e376e90c7720253d9ce7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6784795115328361854}
   m_SourcePrefab: {fileID: 100100000, guid: d499be858763e376e90c7720253d9ce7, type: 3}
 --- !u!4 &5110140504427846905 stripped
 Transform:
@@ -549,3 +564,68 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6784795115328361854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5593766618907903555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c73d981e490b909b50a1077f65e9fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attacks:
+  - name: NecroticDart
+    damage: 5
+    range: 10
+    activeTime: 0.5
+    stunTime: 0.5
+    attackEffect: 0
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3565946824552977181}
+          m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
+          m_MethodName: NecroticDart
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: DeathScythe
+    damage: 5
+    range: 10
+    activeTime: 0.5
+    stunTime: 0.5
+    attackEffect: 0
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3565946824552977181}
+          m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
+          m_MethodName: NecroticDart
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  currentAttack:
+    name: 
+    damage: 0
+    range: 0
+    activeTime: 0
+    stunTime: 0
+    attackEffect: 0
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls: []

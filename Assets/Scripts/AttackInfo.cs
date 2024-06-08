@@ -110,7 +110,7 @@ public class AttackInfo
     private void StealLife(Hitbox hitbox)
     {
         float startTime = Time.time;
-        int stolenHPs = (int)Mathf.Ceil(hitbox.attackInfo.damage * 0.3f);
+        int stolenHPs = (int)Mathf.Ceil(hitbox.attackData.damage * 0.3f);
         hitbox.Owner.GetComponent<Health>().increaseHealth(stolenHPs);
     }
 

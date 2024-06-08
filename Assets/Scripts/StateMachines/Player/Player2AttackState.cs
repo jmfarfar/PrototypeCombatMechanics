@@ -12,16 +12,16 @@ public class Player2AttackState : Player2BaseState
         index = attackIndex;
     }
 
-    private int AttackHash => Animator.StringToHash(stateMachine.attacks[index].animationState);
+    // private int AttackHash => Animator.StringToHash(stateMachine.attacks[index].animationState);
 
     public override void Enter()
     {
-        stateMachine.StartCoroutine(
-            AttackStartUp(stateMachine.attacks[index].startupTime));
+        // stateMachine.StartCoroutine(
+        //     AttackStartUp(stateMachine.attacks[index].startupTime));
 
-        stateMachine.StartCoroutine(RotateTowardsCombatant());
+        // stateMachine.StartCoroutine(RotateTowardsCombatant());
 
-        stateMachine.Animator.CrossFadeInFixedTime(AttackHash, 0.1f);
+        // stateMachine.Animator.CrossFadeInFixedTime(AttackHash, 0.1f);
     }
 
     public override void Exit()
@@ -52,26 +52,26 @@ public class Player2AttackState : Player2BaseState
             yield return new WaitForEndOfFrame();
         }
     }
-    private IEnumerator AttackStartUp(float time)
-    {
-        yield return new WaitForSeconds(time);
-        ExecuteAttack();
-    }
+    // private IEnumerator AttackStartUp(float time)
+    // {
+    //     yield return new WaitForSeconds(time);
+    //     ExecuteAttack();
+    // }
 
-    private void ExecuteAttack()
-    {
-        GameObject instance = GameObject.Instantiate(
-            stateMachine.ProjectilePrefab,
-            stateMachine.transform.position,
-            Quaternion.identity);
+    // private void ExecuteAttack()
+    // {
+    //     GameObject instance = GameObject.Instantiate(
+    //         stateMachine.ProjectilePrefab,
+    //         stateMachine.transform.position,
+    //         Quaternion.identity);
 
-        instance.GetComponent<Hitbox>().attackInfo = stateMachine.attacks[index];
-        instance.GetComponent<Hitbox>().Target = stateMachine.Combatant;
-        instance.GetComponent<Hitbox>().Owner = stateMachine.gameObject;
-        instance.layer = LayerMask.NameToLayer("Player2Hitbox");
+    //     instance.GetComponent<Hitbox>().attackInfo = stateMachine.attacks[index];
+    //     instance.GetComponent<Hitbox>().Target = stateMachine.Combatant;
+    //     instance.GetComponent<Hitbox>().Owner = stateMachine.gameObject;
+    //     instance.layer = LayerMask.NameToLayer("Player2Hitbox");
 
-        stateMachine.StartCoroutine(AttackRecovery(stateMachine.attacks[index].recoveryTime));
-    }
+    //     stateMachine.StartCoroutine(AttackRecovery(stateMachine.attacks[index].recoveryTime));
+    // }
 
     private IEnumerator AttackRecovery(float time)
     {

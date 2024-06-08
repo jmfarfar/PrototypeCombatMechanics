@@ -22,91 +22,34 @@ public class Hitbox : MonoBehaviour
         SHIELDSTUN
     }
 
-    [HideInInspector] public AttackInfo attackInfo;
+    [HideInInspector] public AttackData attackData;
     public GameObject Owner;
     public GameObject Target;
 
-    private Vector3 vectorToTarget;
-    private Collider colliderComponent => gameObject.GetComponent<Collider>();
-
     Action triggerEnterAction;
+
+    Action hitboxAction;
+    Action startAction;
 
     private void Start() 
     {
-        switch (attackInfo.attachBehaviour)
-        {
-            case hitboxBehaviours.APPEAR:
-            {
-                StartCoroutine(AppearBehaviour());
-                break;
-            }
+        startAction?.Invoke();
+    }
 
-            case hitboxBehaviours.TRAVEL:
-            {
-                StartCoroutine(TravelBehaviour());
-                break;
-            }
+    private void Update() 
+    {
+        hitboxAction?.Invoke();
+    }
 
-            case hitboxBehaviours.GROW:
-            {
-                StartCoroutine(GrowBehaviour());
-                break;
-            }
-        }
+    public void SetUpHitboxActions(Action startAction, Action updateAction, Action triggerAction)
+    {
+        this.startAction = startAction;
+        this.hitboxAction = updateAction;
+        this.triggerEnterAction = triggerAction;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        OnTriggerEnterBehaviour(triggerEnterAction);
-    }
-
-    private IEnumerator TravelBehaviour()
-    {
-        Action action = () => 
-        {
-            StopAllCoroutines();
-            Destroy(this.gameObject);
-        };
-
-        triggerEnterAction = action;
-
-        float startTime = Time.time;
-
-        transform.position += Owner.transform.forward;
-
-        while (Time.time < startTime + (attackInfo.speed / attackInfo.range))
-        {
-            vectorToTarget = (Target.transform.position - transform.position).normalized;
-            transform.Translate(vectorToTarget * attackInfo.speed * Time.deltaTime);
-            yield return new WaitForEndOfFrame();
-        }
-
-        Destroy(this.gameObject);
-    }
-
-    private IEnumerator AppearBehaviour()
-    {
-        Vector3 vectorToTarget = Target.transform.position - Owner.transform.position;
-        float range = Mathf.Min(vectorToTarget.magnitude, attackInfo.range);
-        transform.position = Owner.transform.position + (vectorToTarget.normalized * range);
-        transform.localScale = Vector3.one * attackInfo.radius * 2f;
-        yield return new WaitForSeconds(attackInfo.activeTime);
-        Destroy(this.gameObject);
-    }
-
-    private IEnumerator GrowBehaviour()
-    {
-        transform.position = Owner.transform.position + Vector3.up;
-        transform.localScale = Vector3.one * attackInfo.radius * 2f;
-        yield return new WaitForSeconds(attackInfo.activeTime);
-        Destroy(this.gameObject);
-    }
-
-    private void OnTriggerEnterBehaviour(Action triggerBehaviour)
-    {
-        if (triggerBehaviour != null)
-        {
-            triggerBehaviour();
-        }
+        triggerEnterAction?.Invoke();
     }
 }

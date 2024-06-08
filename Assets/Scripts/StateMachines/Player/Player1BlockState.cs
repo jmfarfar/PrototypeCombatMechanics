@@ -53,20 +53,21 @@ public class Player1BlockState : Player1BaseState
         }
     }
 
-    void OnShieldHit(AttackInfo attackInfo)
+    void OnShieldHit(AttackData attackData)
     {
         startTime = Time.time;
         stateMachine.Animator.CrossFadeInFixedTime(stunHash, 0.1f);
-        stateMachine.StartCoroutine(ShieldStun(attackInfo.stunTime / 2));
+        stateMachine.StartCoroutine(ShieldStun(attackData.stunTime / 2));
 
-        if (attackInfo.attackEffect == AttackInfo.AttackEffects.SHIELDBREAK)
+        for (int i = 0; i < attackData.attackEffects.Length; i++)
         {
-            stateMachine.shieldEnergy = 0f;
+            if (attackData.attackEffects[i] == AttackData.AttackEffects.SHIELDBREAK)
+            {
+                stateMachine.shieldEnergy = 0f;
+            }
         }
-        else
-        {
-            stateMachine.shieldEnergy -= attackInfo.damage * 0.05f;
-        }
+        
+        stateMachine.shieldEnergy -= attackData.damage * 0.05f;
     }
 
     IEnumerator ShieldStun(float stunTime)
