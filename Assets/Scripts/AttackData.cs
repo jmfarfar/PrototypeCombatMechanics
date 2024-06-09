@@ -1,5 +1,4 @@
 using System;
-
 using UnityEngine;
 
 [Serializable]
@@ -21,6 +20,7 @@ public class AttackData
     public float range;
     public float activeTime;
     public float stunTime;
+    public AnimationClip attackAnimation;
     public AttackEffects[] attackEffects;
     public AttackEvent attackEvent;
 }

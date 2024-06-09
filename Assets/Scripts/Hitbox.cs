@@ -26,10 +26,11 @@ public class Hitbox : MonoBehaviour
     public GameObject Owner;
     public GameObject Target;
 
-    Action triggerEnterAction;
+    Action<Collider> triggerEnterAction;
 
-    Action hitboxAction;
+    Action updateAction;
     Action startAction;
+    Action onDestroyAction;
 
     private void Start() 
     {
@@ -38,18 +39,30 @@ public class Hitbox : MonoBehaviour
 
     private void Update() 
     {
-        hitboxAction?.Invoke();
+        updateAction?.Invoke();
     }
 
-    public void SetUpHitboxActions(Action startAction, Action updateAction, Action triggerAction)
+    public void SetUpHitboxActions(Action startAction, Action updateAction, Action<Collider> triggerAction)
     {
         this.startAction = startAction;
-        this.hitboxAction = updateAction;
+        this.updateAction = updateAction;
         this.triggerEnterAction = triggerAction;
+    }
+    public void SetUpHitboxActions(Action startAction, Action updateAction, Action<Collider> triggerEnterAction, Action onDestroyAction)
+    {
+        this.startAction = startAction;
+        this.updateAction = updateAction;
+        this.triggerEnterAction = triggerEnterAction;
+        this.onDestroyAction = onDestroyAction;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        triggerEnterAction?.Invoke();
+        triggerEnterAction?.Invoke(other);
+    }
+
+    private void OnDestroy() 
+    {
+        onDestroyAction?.Invoke();
     }
 }

@@ -7,10 +7,9 @@ using UnityEngine;
 public class AttackManager : MonoBehaviour
 {
     public AttackData[] attacks;
-
     public AttackData currentAttack;
-
     public Action attackCompletedEvent;
+    public Action hitboxActiveFramesEnd;
 
     public void StartAttack(int index)
     {
@@ -32,5 +31,10 @@ public class AttackManager : MonoBehaviour
     public void CompleteAttack()
     {
         attackCompletedEvent?.Invoke();
+    }
+
+    public void EndActiveHitboxFrames()
+    {
+        hitboxActiveFramesEnd?.Invoke();
     }
 }

@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 8424423014621396897}
   - component: {fileID: 1648676268412020031}
   - component: {fileID: 3565946824552977181}
+  - component: {fileID: 1791738227198925901}
+  - component: {fileID: 3617397833193917087}
   m_Layer: 8
   m_Name: Player1
   m_TagString: Untagged
@@ -102,7 +104,8 @@ MonoBehaviour:
     range: 20
     activeTime: 0
     stunTime: 0.7
-    attackEffect: 4
+    attackAnimation: {fileID: 0}
+    attackEffects: 
     attackEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -111,7 +114,8 @@ MonoBehaviour:
     range: 8
     activeTime: 0
     stunTime: 0.9
-    attackEffect: 0
+    attackAnimation: {fileID: 0}
+    attackEffects: 
     attackEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -120,7 +124,8 @@ MonoBehaviour:
     range: 20
     activeTime: 0
     stunTime: 1.2
-    attackEffect: 0
+    attackAnimation: {fileID: 0}
+    attackEffects: 
     attackEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -129,7 +134,8 @@ MonoBehaviour:
     range: 5
     activeTime: 0
     stunTime: 1.2
-    attackEffect: 1
+    attackAnimation: {fileID: 0}
+    attackEffects: 
     attackEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -195,9 +201,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13faa1b935b00656aa40371f72c2010c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  necroticDartHitbox: {fileID: 0}
+  sphereHitbox: {fileID: 6327006416360637003, guid: 0a9aeb4c934130348a4b4ab99d364689, type: 3}
   enemy: {fileID: 0}
-  necroticDart_negativeEnergy: 0
+  negativeEnergyManager: {fileID: 3617397833193917087}
+  necroticDart_negativeEnergy: 0.5
+--- !u!114 &1791738227198925901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2396030616143007682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ce444036d05967b19ea933215648bff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3617397833193917087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2396030616143007682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0e47678634448a4e8803caaf64ce69f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  negativeEnergy: 0
 --- !u!1001 &4710876036231641874
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -582,7 +614,8 @@ MonoBehaviour:
     range: 10
     activeTime: 0.5
     stunTime: 0.5
-    attackEffect: 0
+    attackAnimation: {fileID: 0}
+    attackEffects: 
     attackEvent:
       m_PersistentCalls:
         m_Calls:
@@ -598,12 +631,233 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: DeathScythe
+  - name: NecroticDart
     damage: 5
     range: 10
     activeTime: 0.5
     stunTime: 0.5
-    attackEffect: 0
+    attackAnimation: {fileID: 0}
+    attackEffects: 
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3565946824552977181}
+          m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
+          m_MethodName: NecroticDart
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: NecroticDart
+    damage: 5
+    range: 10
+    activeTime: 0.5
+    stunTime: 0.5
+    attackAnimation: {fileID: 0}
+    attackEffects: 
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3565946824552977181}
+          m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
+          m_MethodName: NecroticDart
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: NecroticDart
+    damage: 5
+    range: 10
+    activeTime: 0.5
+    stunTime: 0.5
+    attackAnimation: {fileID: 0}
+    attackEffects: 
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3565946824552977181}
+          m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
+          m_MethodName: NecroticDart
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: NecroticDart
+    damage: 5
+    range: 10
+    activeTime: 0.5
+    stunTime: 0.5
+    attackAnimation: {fileID: 0}
+    attackEffects: 
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3565946824552977181}
+          m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
+          m_MethodName: NecroticDart
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: NecroticDart
+    damage: 5
+    range: 10
+    activeTime: 0.5
+    stunTime: 0.5
+    attackAnimation: {fileID: 0}
+    attackEffects: 
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3565946824552977181}
+          m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
+          m_MethodName: NecroticDart
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: NecroticDart
+    damage: 5
+    range: 10
+    activeTime: 0.5
+    stunTime: 0.5
+    attackAnimation: {fileID: 0}
+    attackEffects: 
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3565946824552977181}
+          m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
+          m_MethodName: NecroticDart
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: NecroticDart
+    damage: 5
+    range: 10
+    activeTime: 0.5
+    stunTime: 0.5
+    attackAnimation: {fileID: 0}
+    attackEffects: 
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3565946824552977181}
+          m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
+          m_MethodName: NecroticDart
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: NecroticDart
+    damage: 5
+    range: 10
+    activeTime: 0.5
+    stunTime: 0.5
+    attackAnimation: {fileID: 0}
+    attackEffects: 
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3565946824552977181}
+          m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
+          m_MethodName: NecroticDart
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: NecroticDart
+    damage: 5
+    range: 10
+    activeTime: 0.5
+    stunTime: 0.5
+    attackAnimation: {fileID: 0}
+    attackEffects: 
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3565946824552977181}
+          m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
+          m_MethodName: NecroticDart
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: NecroticDart
+    damage: 5
+    range: 10
+    activeTime: 0.5
+    stunTime: 0.5
+    attackAnimation: {fileID: 0}
+    attackEffects: 
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3565946824552977181}
+          m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
+          m_MethodName: NecroticDart
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: NecroticDart
+    damage: 5
+    range: 10
+    activeTime: 0.5
+    stunTime: 0.5
+    attackAnimation: {fileID: 0}
+    attackEffects: 
     attackEvent:
       m_PersistentCalls:
         m_Calls:
@@ -625,7 +879,8 @@ MonoBehaviour:
     range: 0
     activeTime: 0
     stunTime: 0
-    attackEffect: 0
+    attackAnimation: {fileID: 0}
+    attackEffects: 
     attackEvent:
       m_PersistentCalls:
         m_Calls: []
