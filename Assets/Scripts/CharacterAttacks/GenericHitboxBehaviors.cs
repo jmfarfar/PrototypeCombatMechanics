@@ -7,7 +7,7 @@ using UnityEngine.Video;
 
 public class GenericHitboxBehaviors : MonoBehaviour
 {
-    public GameObject InstantiateHitbox(GameObject original, Vector3 position, Quaternion rotation, AttackData attackData, out Hitbox hitbox)
+    protected GameObject InstantiateHitbox(GameObject original, Vector3 position, Quaternion rotation, AttackData attackData, out Hitbox hitbox)
     {
         GameObject instance = GameObject.Instantiate(
             original, 
@@ -16,7 +16,9 @@ public class GenericHitboxBehaviors : MonoBehaviour
 
         Hitbox instanceHitbox = instance.GetComponent<Hitbox>();
         instanceHitbox.attackData = attackData;
+        instanceHitbox.Owner = this.gameObject;
         hitbox = instanceHitbox;
+
         return instance;
     }
 
@@ -47,5 +49,18 @@ public class GenericHitboxBehaviors : MonoBehaviour
           timer += Time.deltaTime;
             if (timer >= seconds) Destroy(hitbox);
         };
+    }
+
+    public IEnumerator BurnRoutine(float activeTime, int totalDamage, Health targetHealth)
+    {
+        int damageGiven = 0;
+        while (damageGiven < totalDamage)
+        {
+            targetHealth.DecreaseHealth(1);
+
+            damageGiven ++;
+
+            yield return new WaitForSeconds(activeTime / totalDamage);
+        }
     }
 }

@@ -9,7 +9,7 @@ public class AttackManager : MonoBehaviour
     public AttackData[] attacks;
     public AttackData currentAttack;
     public Action attackCompletedEvent;
-    public Action hitboxActiveFramesEnd;
+    public Action onActiveFramesEnd;
 
     public void StartAttack(int index)
     {
@@ -33,8 +33,8 @@ public class AttackManager : MonoBehaviour
         attackCompletedEvent?.Invoke();
     }
 
-    public void EndActiveHitboxFrames()
+    public void EndActiveFrames()
     {
-        hitboxActiveFramesEnd?.Invoke();
+        onActiveFramesEnd?.Invoke();
     }
 }

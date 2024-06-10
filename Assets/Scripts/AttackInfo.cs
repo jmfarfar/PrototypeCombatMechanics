@@ -103,7 +103,7 @@ public class AttackInfo
         for (int i = 0; i < 5; i++)
         {
             yield return new WaitForSeconds(1f);
-            health.decreaseHealth(1);
+            health.DecreaseHealth(1);
         }
     }
 
@@ -111,7 +111,7 @@ public class AttackInfo
     {
         float startTime = Time.time;
         int stolenHPs = (int)Mathf.Ceil(hitbox.attackData.damage * 0.3f);
-        hitbox.Owner.GetComponent<Health>().increaseHealth(stolenHPs);
+        hitbox.Owner.GetComponent<Health>().IncreaseHealth(stolenHPs);
     }
 
     private IEnumerator BurningCoroutine(Health health)
@@ -120,7 +120,7 @@ public class AttackInfo
 
         while (Time.time < startTime + 1f)
         {
-            health.decreaseHealth(1);
+            health.DecreaseHealth(1);
             yield return new WaitForEndOfFrame();
         }
     }

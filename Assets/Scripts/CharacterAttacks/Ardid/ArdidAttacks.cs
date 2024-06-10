@@ -11,17 +11,61 @@ public class ArdidAttacks : GenericHitboxBehaviors
     [SerializeField] private AttackManager attackManager;
 
     [Header("Negative energy ratio per attack")]
-    [SerializeField] private float necroticDart_negativeEnergy;
+    [SerializeField] private float necroticDartNegativeEnergy;
+    [SerializeField] private float deathScytheNegativeEnergy;
+
+    [Header("Drain ratio per attack")]
+    [SerializeField] private float deathScytheDrainRatio;
+    
+    private Health health;
+
+    private void Awake() 
+    {
+        health = GetComponent<Health>();
+    }
 
     // GENERAL METHODS
 
-    public void AddNegativeEnergyOnSuccessfulHit(Collider other, AttackData attackData, NegativeEnergyManager manager, float energyToDamageRatio)
+    public void AddNegativeEnergyOnSuccessfulHit(Collider other, AttackData attackData, NegativeEnergyManager manager, float damageToEnergyRatio)
     {
-        if (other.TryGetComponent<PlayerStateMachine>(out PlayerStateMachine player))
+        if (other.TryGetComponent(out PlayerStateMachine player))
         {
             if (player.colliderState == Hitbox.ColliderStates.ACTIVE)
             {
-                manager.AddNegativeEnergy(Mathf.Ceil(attackData.damage * energyToDamageRatio));
+                manager.AddNegativeEnergy(Mathf.Ceil(attackData.damage * damageToEnergyRatio));
+            }
+        }
+    }
+
+    public void AddNegativeEnergyOnAnyHit(Collider other, AttackData attackData, NegativeEnergyManager manager, float damageToEnergyRatio)
+    {
+        if (other.TryGetComponent(out PlayerStateMachine player))
+        {
+            if (player.colliderState != Hitbox.ColliderStates.INACTIVE)
+            {
+                manager.AddNegativeEnergy(Mathf.Ceil(attackData.damage * damageToEnergyRatio));
+            }
+        }
+    }
+
+    public void DrainLifeOnSuccessfulHit(Collider other, AttackData attackData, float damageToHealthPointsRatio)
+    {
+        if (other.TryGetComponent(out PlayerStateMachine player))
+        {
+            if (player.colliderState == Hitbox.ColliderStates.ACTIVE)
+            {
+                health.IncreaseHealth((int)Mathf.Ceil(attackData.damage * damageToHealthPointsRatio));
+            }
+        }
+    }
+
+    public void DrainLifeOnAnyHit(Collider other, AttackData attackData, float damageToHealthPointsRatio)
+    {
+        if (other.TryGetComponent(out PlayerStateMachine player))
+        {
+            if (player.colliderState != Hitbox.ColliderStates.INACTIVE)
+            {
+                health.IncreaseHealth((int)Mathf.Ceil(attackData.damage * damageToHealthPointsRatio));
             }
         }
     }
@@ -43,11 +87,11 @@ public class ArdidAttacks : GenericHitboxBehaviors
             () => {},
             
             //Hitbox update action
-            FollowTargetOverTime(enemy, instance.transform,attackData.range, attackData.activeTime),
+            FollowTargetOverTime(enemy, instance.transform, attackData.range, attackData.activeTime),
             
             //Hitbox OnTriggerEnter action
             (Collider other) => {
-                AddNegativeEnergyOnSuccessfulHit(other, hitbox.attackData, negativeEnergyManager, necroticDart_negativeEnergy);
+                AddNegativeEnergyOnSuccessfulHit(other, hitbox.attackData, negativeEnergyManager, necroticDartNegativeEnergy);
                 Destroy(instance);
                 }
             );
@@ -56,9 +100,9 @@ public class ArdidAttacks : GenericHitboxBehaviors
 
 #endregion
 
-    // DEATH SCYTHE
+    // SOUL TRAP SCYTHE
 #region 
-    public void DeathScythe(AttackData attackData)
+    public void SoulTrapScythe(AttackData attackData)
     {
         GameObject hitboxInstance = InstantiateHitbox(
             sphereHitbox,
@@ -67,14 +111,18 @@ public class ArdidAttacks : GenericHitboxBehaviors
             attackData,
             out Hitbox hitbox
         );
+        hitboxInstance.layer = LayerMask.NameToLayer("Player1Hitbox");
 
         hitboxInstance.transform.localScale = new Vector3(attackData.range/2f, attackData.range/2f, attackData.range/2f);
 
         hitbox.SetUpHitboxActions(
-            () => {attackManager.hitboxActiveFramesEnd += () => {Destroy(hitboxInstance);};},
+            () => {attackManager.onActiveFramesEnd += () => {Destroy(hitboxInstance);};},
             () => {},
-            (Collider other) => {},
-            () => {attackManager.hitboxActiveFramesEnd -= () => {Destroy(hitboxInstance);};}
+            (Collider other) => {
+                AddNegativeEnergyOnAnyHit(other, attackData, negativeEnergyManager, deathScytheNegativeEnergy);
+                DrainLifeOnAnyHit(other, attackData,deathScytheDrainRatio);
+                },
+            () => {attackManager.onActiveFramesEnd -= () => {Destroy(hitboxInstance);};}
         );
     }
 

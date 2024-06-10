@@ -25,6 +25,7 @@ public class Hitbox : MonoBehaviour
     [HideInInspector] public AttackData attackData;
     public GameObject Owner;
     public GameObject Target;
+    public Collider collider => GetComponent<Collider>();
 
     Action<Collider> triggerEnterAction;
 
@@ -37,7 +38,7 @@ public class Hitbox : MonoBehaviour
         startAction?.Invoke();
     }
 
-    private void Update() 
+    private void FixedUpdate() 
     {
         updateAction?.Invoke();
     }

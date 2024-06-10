@@ -16,4 +16,10 @@ public class NegativeEnergyManager : MonoBehaviour
     {
         negativeEnergy += amount;
     }
+
+    private void OnDrawGizmos() 
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawCube(transform.position + transform.right, new Vector3(0.5f, negativeEnergy, 0.5f));
+    }
 }

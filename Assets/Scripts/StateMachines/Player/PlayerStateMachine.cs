@@ -80,7 +80,7 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
 
         else if (colliderState == Hitbox.ColliderStates.BLOCKING)
         {
-            Physics.IgnoreCollision(colliderComponent, other, true);
+            // Physics.IgnoreCollision(colliderComponent, other, true);
             colliderState = Hitbox.ColliderStates.SHIELDSTUN;
             shieldHit?.Invoke(hitbox.attackData);
         }
@@ -92,7 +92,7 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
                 if (hitbox.attackData.attackEffects[i] == AttackData.AttackEffects.KNOCKDOWN)
                 {
                     Debug.Log("Collided and knocked down");
-                    Health.decreaseHealth(hitbox.attackData.damage);
+                    Health.DecreaseHealth(hitbox.attackData.damage);
 
                     if (Health.CurrentHealth <= 0f)
                     {
@@ -100,15 +100,15 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
                         return;
                     }
 
-                    Physics.IgnoreCollision(colliderComponent, other, true);
+                    // Physics.IgnoreCollision(colliderComponent, other, true);
                     SwitchState(new PlayerKnockdownState(this, 3f));
                     return;
                 }
             }
             Debug.Log("Collided");
-            Health.decreaseHealth(hitbox.attackData.damage);
+            Health.DecreaseHealth(hitbox.attackData.damage);
 
-            Physics.IgnoreCollision(colliderComponent, other, true);
+            // Physics.IgnoreCollision(colliderComponent, other, true);
 
             if (Health.CurrentHealth <= 0)
             {

@@ -2,10 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OberAttacks : MonoBehaviour
+public class OberAttacks : GenericHitboxBehaviors
 {
+    [SerializeField] private GameObject sphereHitbox;
+    [SerializeField] private Transform enemy;
+    [SerializeField] private AttackManager manager;
     public void SampleAttack(AttackData attackData)
     {
-        Debug.Log("Attacked");
+        GameObject instance = InstantiateHitbox(sphereHitbox, transform.position, Quaternion.identity, attackData, out Hitbox hitbox);
+
+        hitbox.SetUpHitboxActions(
+            () => {manager.onActiveFramesEnd += () => {Destroy(instance);};},
+            () => {},
+            (Collider other) => {},
+            () => {manager.onActiveFramesEnd -= () => {Destroy(instance);};}
+        );
+
+        hitbox.gameObject.layer = LayerMask.NameToLayer("Player2Hitbox");
     }
 }

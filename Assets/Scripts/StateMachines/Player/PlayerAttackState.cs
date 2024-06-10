@@ -22,6 +22,12 @@ public class PlayerAttackState : PlayerBaseState
 
         stateMachine.StartCoroutine(RotateTowardsCombatant());
 
+        if (stateMachine.AttackManager.attacks.Length <= index)
+        {
+            stateMachine.SwitchState(new PlayerMovementState(stateMachine));
+            return;
+        }
+        
         animatorOverrideController = new AnimatorOverrideController(stateMachine.Animator.runtimeAnimatorController);
         animatorOverrideController["BasicAttackAnimation"] = stateMachine.AttackManager.attacks[index].attackAnimation;
         stateMachine.Animator.runtimeAnimatorController = animatorOverrideController;
