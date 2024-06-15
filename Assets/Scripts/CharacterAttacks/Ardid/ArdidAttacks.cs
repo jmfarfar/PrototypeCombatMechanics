@@ -5,19 +5,62 @@ using UnityEngine;
 
 public class ArdidAttacks : GenericHitboxBehaviors
 {
-    [SerializeField] private GameObject sphereHitbox;
-    [SerializeField] private Transform enemy;
-    [SerializeField] private NegativeEnergyManager negativeEnergyManager;
-    [SerializeField] private AttackManager attackManager;
+    [Serializable] private struct GeneralReferences
+    {
+        public GameObject sphereHitbox;
+        public GameObject cubeHitbox;
+        public Transform enemy;
+        public NegativeEnergyManager negativeEnergyManager;
+        public AttackManager attackManager;
+    }
 
-    [Header("Negative energy ratio per attack")]
-    [SerializeField] private float necroticDartNegativeEnergy;
-    [SerializeField] private float deathScytheNegativeEnergy;
+    [Serializable] private struct SummoningReferences
+    {
+        public GameObject archerSkeletonObject;
+        public GameObject skeletonWall;
+        public GameObject spectrePortal;
+        public GameObject lichLord;
+    }
 
-    [Header("Drain ratio per attack")]
-    [SerializeField] private float deathScytheDrainRatio;
+    [Serializable] private struct EnergyCosts
+    {
+        public int archerSkeletonCost;
+        public int skeletonWallCost;
+        public int portalSpectreCost;
+        public int lichLordCost;
+    }
+
+    [Serializable] private struct NegativeEnergyRatios
+    {
+        public float necroticDart;
+        public float deathScythe;
+        public float necroticMist;
+        public float sacrifice;
+    }
+
+    [Serializable] private struct DrainRatios
+    {
+        public float deathScytheDrainRatio;
+    }
+
+    [Serializable] private struct MultihitRates
+    {
+        public float necroticMistTimeRate;
+    }
+
+    [SerializeField] GeneralReferences generalReferences;
+    [SerializeField] SummoningReferences summoningReferences;
+    [SerializeField] private EnergyCosts negativeEnergyCosts;
+    [SerializeField] private NegativeEnergyRatios negativeEnergyRatios;
+    [SerializeField] private DrainRatios drainRatios;
+    [SerializeField] private MultihitRates multihitRates;
+    
+    [Header("Negative energy subtract rates")]
+    [SerializeField] private float lichLordNegativeEnergySubtractRate;
     
     private Health health;
+    bool isPortalActive;
+    public Action<AttackData> onSummonSpectre;
 
     private void Awake() 
     {
@@ -26,24 +69,24 @@ public class ArdidAttacks : GenericHitboxBehaviors
 
     // GENERAL METHODS
 
-    public void AddNegativeEnergyOnSuccessfulHit(Collider other, AttackData attackData, NegativeEnergyManager manager, float damageToEnergyRatio)
+    public void AddNegativeEnergyOnSuccessfulHit(Collider other, NegativeEnergyManager manager, float negativeEnergyAmount)
     {
         if (other.TryGetComponent(out PlayerStateMachine player))
         {
             if (player.colliderState == Hitbox.ColliderStates.ACTIVE)
             {
-                manager.AddNegativeEnergy(Mathf.Ceil(attackData.damage * damageToEnergyRatio));
+                manager.AddNegativeEnergy(negativeEnergyAmount);
             }
         }
     }
 
-    public void AddNegativeEnergyOnAnyHit(Collider other, AttackData attackData, NegativeEnergyManager manager, float damageToEnergyRatio)
+    public void AddNegativeEnergyOnAnyHit(Collider other, NegativeEnergyManager manager, float negativeEnergyAmount)
     {
         if (other.TryGetComponent(out PlayerStateMachine player))
         {
             if (player.colliderState != Hitbox.ColliderStates.INACTIVE)
             {
-                manager.AddNegativeEnergy(Mathf.Ceil(attackData.damage * damageToEnergyRatio));
+                manager.AddNegativeEnergy(negativeEnergyAmount);
             }
         }
     }
@@ -71,11 +114,10 @@ public class ArdidAttacks : GenericHitboxBehaviors
     }
 
     // NECROTIC DART
-#region
     public void NecroticDart(AttackData attackData)
     {
-        GameObject instance = InstantiateHitbox(
-            sphereHitbox, 
+        GameObject hitboxInstance = InstantiateHitbox(
+            generalReferences.sphereHitbox, 
             transform.position,
             Quaternion.identity,
             attackData,
@@ -87,45 +129,317 @@ public class ArdidAttacks : GenericHitboxBehaviors
             () => {},
             
             //Hitbox update action
-            FollowTargetOverTime(enemy, instance.transform, attackData.range, attackData.activeTime),
+            FollowTargetOverTime(generalReferences.enemy, hitboxInstance.transform, attackData.range, attackData.activeTime),
             
             //Hitbox OnTriggerEnter action
             (Collider other) => {
-                AddNegativeEnergyOnSuccessfulHit(other, hitbox.attackData, negativeEnergyManager, necroticDartNegativeEnergy);
-                Destroy(instance);
+                AddNegativeEnergyOnSuccessfulHit(other, generalReferences.negativeEnergyManager, negativeEnergyRatios.necroticDart);
+                Destroy(hitboxInstance);
                 }
             );
-        instance.layer = LayerMask.NameToLayer("Player1Hitbox");
+        hitboxInstance.layer = AssignLayerToHitbox(gameObject.layer);
     }
 
-#endregion
-
     // SOUL TRAP SCYTHE
-#region 
     public void SoulTrapScythe(AttackData attackData)
     {
         GameObject hitboxInstance = InstantiateHitbox(
-            sphereHitbox,
+            generalReferences.sphereHitbox,
             transform.position + (transform.forward * attackData.range/2f),
             Quaternion.identity,
             attackData,
             out Hitbox hitbox
         );
-        hitboxInstance.layer = LayerMask.NameToLayer("Player1Hitbox");
+        hitboxInstance.layer = AssignLayerToHitbox(gameObject.layer);
 
-        hitboxInstance.transform.localScale = new Vector3(attackData.range/2f, attackData.range/2f, attackData.range/2f);
+        hitboxInstance.transform.localScale = new Vector3(attackData.range, attackData.range, attackData.range);
 
         hitbox.SetUpHitboxActions(
-            () => {attackManager.onActiveFramesEnd += () => {Destroy(hitboxInstance);};},
+            () => {generalReferences.attackManager.onActiveFramesEnd += () => {Destroy(hitboxInstance);};},
             () => {},
             (Collider other) => {
-                AddNegativeEnergyOnAnyHit(other, attackData, negativeEnergyManager, deathScytheNegativeEnergy);
-                DrainLifeOnAnyHit(other, attackData,deathScytheDrainRatio);
+                AddNegativeEnergyOnAnyHit(other, generalReferences.negativeEnergyManager, negativeEnergyRatios.deathScythe);
+                DrainLifeOnAnyHit(other, attackData, drainRatios.deathScytheDrainRatio);
                 },
-            () => {attackManager.onActiveFramesEnd -= () => {Destroy(hitboxInstance);};}
+            () => {generalReferences.attackManager.onActiveFramesEnd -= () => {Destroy(hitboxInstance);};}
         );
     }
 
-#endregion
-    
+    // SUMMON ARCHER SKELETON
+
+    public void SummonArcherSkeleton(AttackData attackData)
+    {
+        if (generalReferences.negativeEnergyManager.persistentNegativeEnergy < negativeEnergyCosts.archerSkeletonCost){ return;}
+
+        Vector3 spawnPosition = transform.position + (generalReferences.enemy.position - transform.position).normalized * 2f;
+
+        spawnPosition.y = 0f;
+
+        ArdidArcherSkeleton archerSkeleton = Instantiate(summoningReferences.archerSkeletonObject, spawnPosition, Quaternion.identity).GetComponent<ArdidArcherSkeleton>();
+
+        archerSkeleton.SetUpAttackData(attackData);
+        archerSkeleton.enemy = generalReferences.enemy;
+        archerSkeleton.gameObject.layer = gameObject.layer;
+
+        generalReferences.negativeEnergyManager.SubtractNegativeEnergy(negativeEnergyCosts.archerSkeletonCost);
+    }
+
+    // SUMMON SKELETON WALL
+    public void SummonSkeletonWall(AttackData attackData)
+    {
+        if (generalReferences.negativeEnergyManager.persistentNegativeEnergy < negativeEnergyCosts.skeletonWallCost){return;}
+
+        Vector3 vectorToTarget = (generalReferences.enemy.position - transform.position).normalized;
+
+        Quaternion wallRotation = Quaternion.LookRotation(vectorToTarget);
+
+        Vector3 spawnPosition = transform.position + vectorToTarget * 2f;
+        spawnPosition.y = 0f;
+
+        GameObject skeletonWallInstance = Instantiate(summoningReferences.skeletonWall, spawnPosition, wallRotation);
+
+        generalReferences.negativeEnergyManager.SubtractNegativeEnergy(negativeEnergyCosts.skeletonWallCost);
+
+        StartCoroutine(WallDestroyRoutine(attackData.activeTime, skeletonWallInstance));
+    }
+
+    private IEnumerator WallDestroyRoutine(float time, GameObject instance)
+    {
+        yield return new WaitForSeconds(time);
+        Destroy(instance);
+    }
+
+    // NECROTIC MIST
+    public void NecroticMist(AttackData attackData)
+    {
+        int attackDataDamage = attackData.damage;
+
+        GameObject hitboxInstance = InstantiateHitbox(generalReferences.sphereHitbox, transform, attackData, out Hitbox hitbox);
+
+        hitboxInstance.transform.localScale = Vector3.one * attackData.range;
+
+        hitbox.attackData.damage = 0;
+        hitbox.attackData.stunTime = 0f;
+
+        Dictionary<string, Health> enemies = new Dictionary<string, Health>();
+
+        hitboxInstance.layer = AssignLayerToHitbox(gameObject.layer);
+        
+        hitbox.SetUpHitboxActions(
+            // Start
+            () => {hitbox.StartCoroutine(NecroticMistRoutine(enemies, attackDataDamage));},
+            
+            // Update
+            DestroyHitboxAfterSeconds(hitboxInstance, attackData.activeTime),
+            
+            // OnTriggerEnter
+            (Collider other) => {
+                if (other.TryGetComponent(out Health health))
+                {
+                    enemies.Add(health.name, health);
+                }
+            },
+            
+            // OnDestroy
+            () => { 
+                hitbox.StopAllCoroutines();
+                hitbox.attackData.damage = attackDataDamage;
+            },
+            
+            // OnTriggerExit
+            (Collider other) => {
+                if (other.TryGetComponent(out Health health))
+                {
+                    enemies.Remove(health.name);
+                }
+                if (enemies.Count == 0)
+                {
+                    hitbox.StopAllCoroutines();
+                }
+            }
+        );
+    }
+
+    private IEnumerator NecroticMistRoutine(Dictionary<string,Health> enemies, int damage)
+    {
+        while (true)
+        {
+            foreach (KeyValuePair<string, Health> enemy in enemies)
+            {
+                if (enemy.Value.TryGetComponent(out PlayerStateMachine stateMachine))
+                {
+                    if (stateMachine.colliderState != Hitbox.ColliderStates.ACTIVE)
+                    {
+                        continue;
+                    }
+                }
+
+                enemy.Value.DecreaseHealth(damage);
+                generalReferences.negativeEnergyManager.AddNegativeEnergy(negativeEnergyRatios.necroticMist);
+            }
+            yield return new WaitForSeconds(multihitRates.necroticMistTimeRate);
+        }
+    }
+
+    // PHANTOM ONSLAUGHT
+    public void PhantomOnslaught(AttackData attackData)
+    {
+        Vector3 vectorToTarget = (generalReferences.enemy.position - transform.position).normalized;
+
+        GameObject hitboxInstance = InstantiateHitbox(generalReferences.cubeHitbox, transform.position, Quaternion.LookRotation(vectorToTarget), attackData, out Hitbox hitbox);
+
+        hitboxInstance.transform.localScale = new Vector3(5f, 0.5f, 1f);
+
+        hitboxInstance.layer = AssignLayerToHitbox(gameObject.layer);
+
+        float timer = attackData.activeTime;
+
+        hitbox.SetUpHitboxActions(
+            () => {},
+            () => {
+                hitboxInstance.transform.position += vectorToTarget * (attackData.range / attackData.activeTime) * Time.deltaTime;
+
+                timer -= Time.deltaTime;
+
+                if (timer <= 0)
+                {
+                    Destroy(hitboxInstance);
+                }
+            },
+            (Collider other) => {}
+        );
+    }
+
+    // SUMMON BONE STALKER
+    public void SummonBoneStalker(AttackData attackData)
+    {
+        int originalDamage = attackData.damage;
+        float originalStunTime = attackData.stunTime;
+
+        GameObject hitboxInstance = InstantiateHitbox(generalReferences.sphereHitbox, transform.position, Quaternion.identity, attackData, out Hitbox hitbox);
+
+        hitbox.attackData.damage = 0;
+        hitbox.attackData.stunTime = 0f;
+
+        hitboxInstance.layer = AssignLayerToHitbox(gameObject.layer);
+
+        hitbox.SetUpHitboxActions(
+            // Start
+            () => {},
+
+            // Update
+            FollowTargetOverTime(generalReferences.enemy, hitboxInstance.transform, attackData.range, attackData.activeTime),
+            
+            // OnTriggerEnter
+            (Collider other) => {
+                Destroy(hitboxInstance);
+            },
+
+            // OnDestroy
+            () => {
+                InstantiateSubHitbox(hitboxInstance.transform, originalDamage, originalStunTime);
+                attackData.damage = originalDamage;
+                attackData.stunTime = originalStunTime;
+                }
+        );
+    }
+
+    private Hitbox InstantiateSubHitbox(Transform hitboxInstance, int damage, float stunTime)
+    {
+        Hitbox hitbox;
+        AttackData subHitboxAttackData = new()
+        {
+            damage = damage,
+            range = 5f,
+            activeTime = 0.5f,
+            stunTime = stunTime,
+            attackEffects = new AttackData.AttackEffects[0]
+        };
+
+        GameObject subhitbox = InstantiateHitbox(generalReferences.sphereHitbox, hitboxInstance.position, Quaternion.identity, subHitboxAttackData, out hitbox);
+
+        subhitbox.layer = AssignLayerToHitbox(gameObject.layer);
+
+        subhitbox.transform.localScale = Vector3.one * subHitboxAttackData.range;
+
+        hitbox.SetUpHitboxActions(
+            () => { },
+            DestroyHitboxAfterSeconds(subhitbox, subHitboxAttackData.activeTime),
+            (Collider other) => { }
+        );
+        return hitbox;
+    }
+
+    // SACRIFICE
+    public void Sacrifice(AttackData attackData)
+    {
+        StartCoroutine(SacrificeRoutine(health, attackData.activeTime));
+    }
+
+    private IEnumerator SacrificeRoutine(Health health, float time)
+    {
+        Action<int> action = (int amount) => {
+            generalReferences.negativeEnergyManager.AddNegativeEnergy(amount * negativeEnergyRatios.sacrifice);
+            };
+        
+        health.onHealthDecreased += action;
+
+        yield return new WaitForSeconds(time);
+
+        health.onHealthDecreased -= action;
+    }
+
+    // PORTAL / SPECTRE
+    public void PortalSpectre(AttackData attackData)
+    {
+        onSummonSpectre?.Invoke(attackData);
+
+        if(isPortalActive){return;}
+
+        Vector3 spawnPosition = transform.position + Vector3.up * 2f;
+
+        Vector3 vectorToTarget = (generalReferences.enemy.position - transform.position).normalized;
+
+        GameObject portalInstance = Instantiate(summoningReferences.spectrePortal, spawnPosition, Quaternion.LookRotation(vectorToTarget));
+
+        portalInstance.layer = gameObject.layer;
+
+        ArdidSpectrePortal portalBehavior = portalInstance.GetComponent<ArdidSpectrePortal>();
+        
+        portalBehavior.negativeEnergyManager = generalReferences.negativeEnergyManager;
+        portalBehavior.spectreCost = negativeEnergyCosts.portalSpectreCost;
+        portalBehavior.enemy = generalReferences.enemy;
+
+        portalBehavior.negativeEnergyAmount += generalReferences.negativeEnergyManager.persistentNegativeEnergy;
+
+        onSummonSpectre += portalBehavior.SummonSpectre(attackData);
+
+        portalBehavior.onDestroy += () => {
+            isPortalActive = false;
+            onSummonSpectre = null;
+            };
+
+        generalReferences.negativeEnergyManager.persistentNegativeEnergy = 0;
+
+        isPortalActive = true;
+    }
+
+    // SUMMON LICH LORD
+    public void SummonLichLord(AttackData attackData)
+    {
+        if (generalReferences.negativeEnergyManager.persistentNegativeEnergy < negativeEnergyCosts.lichLordCost){ return;}
+
+        Vector3 spawnPosition = transform.position + (generalReferences.enemy.position - transform.position).normalized * 2f;
+
+        spawnPosition.y = 0f;
+
+        ArdidLichLord lichLord = Instantiate(summoningReferences.lichLord, spawnPosition, Quaternion.identity).GetComponent<ArdidLichLord>();
+
+        lichLord.SetUpAttackData(attackData);
+        lichLord.enemy = generalReferences.enemy;
+        lichLord.manager = generalReferences.negativeEnergyManager;
+        lichLord.gameObject.layer = gameObject.layer;
+
+        generalReferences.negativeEnergyManager.SubtractNegativeEnergy(negativeEnergyCosts.lichLordCost);
+    }
 }

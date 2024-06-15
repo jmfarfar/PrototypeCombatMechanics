@@ -58,6 +58,9 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
     [Header("Attack Manager")]
     public AttackManager AttackManager;
 
+    [Header("Restrained State Exit threshold")]
+    public float restrainedStateExitThreshold = 50f;
+
 
     #endregion
 
@@ -78,6 +81,11 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
             return;
         }
 
+        else if (colliderState == Hitbox.ColliderStates.RESTRAINED)
+        {
+            Health.DecreaseHealth(hitbox.attackData.damage);
+        }
+
         else if (colliderState == Hitbox.ColliderStates.BLOCKING)
         {
             // Physics.IgnoreCollision(colliderComponent, other, true);
@@ -91,7 +99,7 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
             {
                 if (hitbox.attackData.attackEffects[i] == AttackData.AttackEffects.KNOCKDOWN)
                 {
-                    Debug.Log("Collided and knocked down");
+                    // Debug.Log("Collided and knocked down");
                     Health.DecreaseHealth(hitbox.attackData.damage);
 
                     if (Health.CurrentHealth <= 0f)
@@ -105,7 +113,7 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
                     return;
                 }
             }
-            Debug.Log("Collided");
+            // Debug.Log("Collided");
             Health.DecreaseHealth(hitbox.attackData.damage);
 
             // Physics.IgnoreCollision(colliderComponent, other, true);

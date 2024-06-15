@@ -12,10 +12,10 @@ public class OberAttacks : GenericHitboxBehaviors
         GameObject instance = InstantiateHitbox(sphereHitbox, transform.position, Quaternion.identity, attackData, out Hitbox hitbox);
 
         hitbox.SetUpHitboxActions(
-            () => {manager.onActiveFramesEnd += () => {Destroy(instance);};},
-            () => {},
-            (Collider other) => {},
-            () => {manager.onActiveFramesEnd -= () => {Destroy(instance);};}
+            () => {/*manager.onActiveFramesEnd += () => {Destroy(instance);};*/},
+            FollowTargetOverTime(enemy, instance.transform, attackData.range, attackData.activeTime),
+            (Collider other) => {Destroy(instance);},
+            () => {/*manager.onActiveFramesEnd -= () => {Destroy(instance);};*/}
         );
 
         hitbox.gameObject.layer = LayerMask.NameToLayer("Player2Hitbox");

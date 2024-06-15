@@ -1989,17 +1989,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5593766618907903555, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
   m_PrefabInstance: {fileID: 5203564920181238498}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2064949863 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6784795115328361854, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
-  m_PrefabInstance: {fileID: 5203564920181238498}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2064949861}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4c73d981e490b909b50a1077f65e9fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!111 &2064949865
 Animation:
   m_ObjectHideFlags: 0
@@ -2319,6 +2308,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1544488264}
     - target: {fileID: 1648676268412020031, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
+      propertyPath: restrainedStateExitThreshold
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648676268412020031, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
       propertyPath: <RadialMenu>k__BackingField.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -2554,6 +2547,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player1
       objectReference: {fileID: 0}
+    - target: {fileID: 2396030616143007682, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2476634886501047759, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -52.401306
@@ -2643,17 +2640,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1544488265}
     - target: {fileID: 3565946824552977181, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
-      propertyPath: attackManager
+      propertyPath: generalReferences.enemy
       value: 
-      objectReference: {fileID: 2064949863}
-    - target: {fileID: 3565946824552977181, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
-      propertyPath: deathScytheNegativeEnergy
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3565946824552977181, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
-      propertyPath: necroticDartNegativeEnergy
-      value: 0.1
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1544488265}
     - target: {fileID: 3641813433763611535, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -1.5730295
@@ -2835,28 +2824,8 @@ PrefabInstance:
       value: -67.53787
       objectReference: {fileID: 0}
     - target: {fileID: 6784795115328361854, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
-      propertyPath: attacks.Array.data[1].name
-      value: DeathScythe
-      objectReference: {fileID: 0}
-    - target: {fileID: 6784795115328361854, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
-      propertyPath: attacks.Array.data[1].range
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6784795115328361854, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
-      propertyPath: attacks.Array.data[1].damage
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6784795115328361854, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
-      propertyPath: attacks.Array.data[1].attackAnimation
-      value: 
-      objectReference: {fileID: 7400000, guid: 1d77e74a2221fa67083df90c7b2bf5a7, type: 2}
-    - target: {fileID: 6784795115328361854, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
       propertyPath: attacks.Array.data[0].attackEffect.Array.size
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6784795115328361854, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
-      propertyPath: attacks.Array.data[0].attackEffects.Array.size
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6784795115328361854, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
       propertyPath: attacks.Array.data[1].animatorOverrideController
@@ -2881,10 +2850,6 @@ PrefabInstance:
     - target: {fileID: 6784795115328361854, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
       propertyPath: attacks.Array.data[0].attackEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: NecroticDart
-      objectReference: {fileID: 0}
-    - target: {fileID: 6784795115328361854, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
-      propertyPath: attacks.Array.data[1].attackEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DeathScythe
       objectReference: {fileID: 0}
     - target: {fileID: 6784795115328361854, guid: 52dd39bd72c40a6fabe9fb43c9435961, type: 3}
       propertyPath: attacks.Array.data[0].attackEvent.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -3496,6 +3461,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 192270095}
     - target: {fileID: 3824683787373365391, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: restrainedStateExitThreshold
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3824683787373365391, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
       propertyPath: <RadialMenu>k__BackingField.Array.data[0]
       value: 
       objectReference: {fileID: 649693418}
@@ -3549,7 +3518,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4089791212358782517, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4146214080431595590, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
       propertyPath: m_Layer

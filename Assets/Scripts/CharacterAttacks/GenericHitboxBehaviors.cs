@@ -22,6 +22,18 @@ public class GenericHitboxBehaviors : MonoBehaviour
         return instance;
     }
 
+    protected GameObject InstantiateHitbox(GameObject original, Transform parent, AttackData attackData, out Hitbox hitbox)
+    {
+        GameObject instance = GameObject.Instantiate(original, parent);
+
+        Hitbox instanceHitbox = instance.GetComponent<Hitbox>();
+        instanceHitbox.attackData = attackData;
+        instanceHitbox.Owner = this.gameObject;
+        hitbox = instanceHitbox;
+
+        return instance;
+    }
+
     public Action FollowTargetOverTime(Transform target, Transform objectToMove, float range, float activeTime)
     {
         float speed = range/activeTime; // estático
@@ -61,6 +73,22 @@ public class GenericHitboxBehaviors : MonoBehaviour
             damageGiven ++;
 
             yield return new WaitForSeconds(activeTime / totalDamage);
+        }
+    }
+
+    public LayerMask AssignLayerToHitbox(LayerMask ownerLayer)
+    {
+        if (ownerLayer == LayerMask.NameToLayer("Player1Hurtbox"))
+        {
+            return LayerMask.NameToLayer("Player1Hitbox");
+        }
+        else if (ownerLayer == LayerMask.NameToLayer("Player2Hurtbox"))
+        {
+            return LayerMask.NameToLayer("Player2Hitbox");
+        }
+        else
+        {
+            return LayerMask.NameToLayer("Default");
         }
     }
 }

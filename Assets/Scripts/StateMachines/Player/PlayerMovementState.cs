@@ -14,15 +14,19 @@ public class PlayerMovementState : PlayerBaseState
     private int MovementSpeedHash = Animator.StringToHash("MovementSpeed");
 
     private int menuSelected;
+    Action inputAction;
+
 
     public override void Enter()
     {
         stateMachine.Animator.CrossFadeInFixedTime(MovementStateHash, 0.1f);
+        inputAction = GetActivateRadialMenu();
     }
 
     public override void Exit()
     {
-
+        stateMachine.isRadialMenuActive = false;
+        stateMachine.RadialMenu[menuSelected].SetActive(false);
     }
 
     public override void Tick(float deltaTime)
@@ -44,38 +48,51 @@ public class PlayerMovementState : PlayerBaseState
             stateMachine.transform.rotation = Quaternion.RotateTowards(stateMachine.transform.rotation, toRotate, Time.deltaTime * stateMachine.RotationSpeed);
         }
 
+        inputAction?.Invoke();
+
         if (stateMachine.PlayerInput.GetDashButton())
         {
 
             stateMachine.SwitchState(new PlayerDashState(stateMachine));
         }
-
-        else if (stateMachine.PlayerInput.GetFirstRadialMenuButton())
-        {
-            ActivateRadialMenu(0);
-        }
-
-        else if (stateMachine.PlayerInput.GetSecondRadialMenuButton())
-        {
-            ActivateRadialMenu(1);
-        }
-
-        else if (stateMachine.PlayerInput.GetThirdRadialMenuButton())
-        {
-            ActivateRadialMenu(2);
-        }
-
         else if (stateMachine.PlayerInput.GetBlockButton() && !stateMachine.isShieldDepleted)
         {
             stateMachine.SwitchState(new PlayerBlockState(stateMachine));
         }
 
-        if (stateMachine.isRadialMenuActive)
+        stateMachine.CharacterController.Move(direction * stateMachine.Speed * Time.deltaTime);
+    }
+
+    private Action GetActivateRadialMenu()
+    {
+        return () =>
+        {
+            if (stateMachine.PlayerInput.GetFirstRadialMenuButton())
+            {
+                ActivateRadialMenu(0);
+                inputAction = GetExecuteRadialMenu();
+            }
+
+            else if (stateMachine.PlayerInput.GetSecondRadialMenuButton())
+            {
+                ActivateRadialMenu(1);
+                inputAction = GetExecuteRadialMenu();
+            }
+
+            else if (stateMachine.PlayerInput.GetThirdRadialMenuButton())
+            {
+                ActivateRadialMenu(2);
+                inputAction = GetExecuteRadialMenu();
+            }
+        };
+    }
+
+    private Action GetExecuteRadialMenu()
+    {
+        return () =>
         {
             ExecuteRadialMenu(menuSelected);
-        }
-
-        stateMachine.CharacterController.Move(direction * stateMachine.Speed * Time.deltaTime);
+        };
     }
 
     private void UpdateAnimation(Vector2 movementInput)
@@ -119,15 +136,15 @@ public class PlayerMovementState : PlayerBaseState
 
         int spellNumber = cuadrant + currentSpell;
 
-        if(spellNumber > currentSpell + 3) return;
+        if (spellNumber > currentSpell + 3) return;
 
         stateMachine.selectedObject.eulerAngles = new Vector3(0f, 0f, cuadrant * 90f);
         stateMachine.highlightedSpellName.text = stateMachine.SpellNames[spellNumber];
 
-        Debug.Log($"{stateMachine.SpellNames[spellNumber]} spell casted");
+        // Debug.Log($"{stateMachine.SpellNames[spellNumber]} spell casted");
         stateMachine.SwitchState(new PlayerAttackState(stateMachine, spellNumber));
 
-        stateMachine.isRadialMenuActive = false;
-        stateMachine.RadialMenu[menuIndex].SetActive(false);
+        //stateMachine.isRadialMenuActive = false;
+        //stateMachine.RadialMenu[menuIndex].SetActive(false);
     }
 }

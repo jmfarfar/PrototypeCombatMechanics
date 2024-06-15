@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+    public Action<int> onHealthDecreased;
     [SerializeField] private int maxHealth;
     [field: SerializeField] public int CurrentHealth { get; private set; }
 
@@ -21,5 +22,6 @@ public class Health : MonoBehaviour
     public void DecreaseHealth(int amount)
     {
         CurrentHealth = Mathf.Max(0, CurrentHealth - amount);
+        onHealthDecreased?.Invoke(amount);
     }
 }
