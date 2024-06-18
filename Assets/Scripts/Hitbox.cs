@@ -30,7 +30,9 @@ public class Hitbox : MonoBehaviour
     public Collider collider => GetComponent<Collider>();
 
     Action<Collider> triggerEnterAction;
+    Action<Collider> triggerStayAction;
     Action<Collider> triggerExitAction;
+
 
     Action updateAction;
     Action startAction;
@@ -60,7 +62,18 @@ public class Hitbox : MonoBehaviour
         this.onDestroyAction = onDestroyAction;
     }
 
+
+    public void SetUpHitboxActions(Action startAction, Action updateAction, Action<Collider> triggerEnterAction, Action<Collider> triggerStayAction , Action onDestroyAction)
+    {
+        this.startAction = startAction;
+        this.updateAction = updateAction;
+        this.triggerEnterAction = triggerEnterAction;
+        this.triggerStayAction = triggerStayAction;
+        this.onDestroyAction = onDestroyAction;
+    }
+
     public void SetUpHitboxActions(Action startAction, Action updateAction, Action<Collider> triggerEnterAction, Action onDestroyAction, Action<Collider> triggerExitAction)
+
     {
         this.startAction = startAction;
         this.updateAction = updateAction;
@@ -72,6 +85,12 @@ public class Hitbox : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         triggerEnterAction?.Invoke(other);
+    }
+
+
+    private void OnTriggerStay(Collider other)
+    {
+        triggerStayAction?.Invoke(other);
     }
 
     private void OnTriggerExit(Collider other) 

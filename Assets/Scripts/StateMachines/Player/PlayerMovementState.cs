@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 
 public class PlayerMovementState : PlayerBaseState
 {
+
     public PlayerMovementState(PlayerStateMachine stateMachine) : base(stateMachine)
     {
     }
@@ -28,6 +29,7 @@ public class PlayerMovementState : PlayerBaseState
         stateMachine.isRadialMenuActive = false;
         stateMachine.onRadialMenuActivated?.Invoke(stateMachine.gameObject.layer, menuSelected, false);
         // stateMachine.RadialMenu[menuSelected].SetActive(false);
+
     }
 
     public override void Tick(float deltaTime)
@@ -43,6 +45,7 @@ public class PlayerMovementState : PlayerBaseState
 
         //Vector3 direction = new Vector3(movementInput.x, 0f, movementInput.y);
 
+
         if (!(direction == Vector3.zero))
         {
             Quaternion toRotate = Quaternion.LookRotation(direction, Vector3.up);
@@ -50,7 +53,7 @@ public class PlayerMovementState : PlayerBaseState
         }
 
         inputAction?.Invoke();
-
+        
         if (stateMachine.PlayerInput.GetDashButton())
         {
 
@@ -142,7 +145,9 @@ public class PlayerMovementState : PlayerBaseState
 
         // stateMachine.selectedObject.eulerAngles = new Vector3(0f, 0f, cuadrant * 90f);
         // stateMachine.highlightedSpellName.text = stateMachine.SpellNames[spellNumber];
-
+        //stateMachine.isRadialMenuActive = false;
+        //stateMachine.RadialMenu[menuIndex].SetActive(false);
         stateMachine.SwitchState(new PlayerAttackState(stateMachine, spellNumber));
+
     }
 }
