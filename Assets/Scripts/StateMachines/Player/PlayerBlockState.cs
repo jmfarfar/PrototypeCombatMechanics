@@ -99,11 +99,17 @@ public class PlayerBlockState : PlayerBaseState
             if (timer < stateMachine.ShieldReleaseTime * stateMachine.parryTimePercentage)
             {
                 stateMachine.colliderState = Hitbox.ColliderStates.PARRY;
-            }
+            }            
             else
             {
                 stateMachine.colliderState = Hitbox.ColliderStates.ACTIVE;
             }
+
+            if (timer < stateMachine.ShieldReleaseTime * 0.5f)
+            {
+                stateMachine.ActivateAttackInput();
+            }
+
             timer += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }

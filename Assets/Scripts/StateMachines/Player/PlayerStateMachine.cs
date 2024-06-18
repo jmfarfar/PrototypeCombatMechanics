@@ -20,12 +20,8 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
     [field: SerializeField]
     public float RotationSpeed { get; set; }
 
-    [field: SerializeField] public GameObject ProjectilePrefab { get; private set; }
     [field: SerializeField] public GameObject Combatant { get; private set; }
     [field: SerializeField] public Animator Animator { get; private set; }
-
-    public AttackData[] attacks;
-    [HideInInspector] public Collider colliderComponent => gameObject.GetComponent<Collider>();
 
     public float dashTime = 0.25f;
     public float dashCooldown = 1f;
@@ -46,14 +42,7 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
     public bool isShieldDepleted;
     public bool isRolling;
 
-    // Radial Menu
-    [field: SerializeField] public GameObject[] RadialMenu { get; private set; }
-    [field: SerializeField] public string[] SpellNames { get; private set; }
-
     public bool isRadialMenuActive;
-    public Transform selectedObject;
-    public Transform menuCenter;
-    public TextMeshProUGUI highlightedSpellName;
 
     // Attack Manager
     [Header("Attack Manager")]
@@ -68,11 +57,17 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
     [field: SerializeField] public float ShieldReleaseTime {get; private set;}
     [field: SerializeField] public float parryTimePercentage {get; private set;}
 
+    private Action processAttackInput;
+    public Action bufferedAttack;
+    private int menuSelected;
+
     #endregion
 
     private void Start()
     {
         PlayerInput = GetComponent<IPlayerInput>();
+
+        AttackManager.activateAttackInput += ActivateAttackInput;
 
         GameManager.Instance.gameStart += OnGameStart;
         GameManager.Instance.onPlayerDefeated += OnPlayerDefeated;
@@ -163,12 +158,14 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
     {
         GameManager.Instance.gameStart -= OnGameStart;
         GameManager.Instance.onPlayerDefeated -= OnPlayerDefeated;
+        AttackManager.activateAttackInput -= ActivateAttackInput;
     }
 
     private void Update()
     {
         base.Update();
 
+        processAttackInput?.Invoke();
 
         if (isShieldDepleting)
         {
@@ -204,5 +201,81 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
             barHeight,
             0.3f)
         );
+    }
+
+    public void ActivateAttackInput()
+    {
+        if (processAttackInput != null){return;}
+        processAttackInput = GetActivateRadialMenu();
+    }
+
+    public void DeactivateAttackInput()
+    {
+        processAttackInput = null;
+    }
+    
+    private Action GetActivateRadialMenu()
+    {
+        return () =>
+        {
+            if (PlayerInput.GetFirstRadialMenuButton())
+            {
+                ActivateRadialMenu(0);
+                processAttackInput = GetExecuteRadialMenu();
+            }
+            else if (PlayerInput.GetSecondRadialMenuButton())
+            {
+                ActivateRadialMenu(1);
+                processAttackInput = GetExecuteRadialMenu();
+            }
+            else if (PlayerInput.GetThirdRadialMenuButton())
+            {
+                ActivateRadialMenu(2);
+                processAttackInput = GetExecuteRadialMenu();
+            }
+        };
+    }
+
+    private void ActivateRadialMenu(int menuIndex)
+    {
+        isRadialMenuActive = !isRadialMenuActive;
+
+        if (isRadialMenuActive)
+        {
+            onRadialMenuActivated?.Invoke(gameObject.layer, menuIndex, true);
+            menuSelected = menuIndex;
+        }
+    }
+
+    private void ExecuteRadialMenu(int menuIndex)
+    {
+        int cuadrant = PlayerInput.GetRadialMenuQuadrant();
+
+        int currentSpell = menuIndex switch
+        {
+            0 => 0, // spells for menu X
+            1 => 4, // spells for menu Y
+            2 => 8, // spells for menu B
+            _ => 0,
+        };
+
+        int spellNumber = cuadrant + currentSpell;
+
+        if (spellNumber > currentSpell + 3) return;
+
+        onRadialMenuExecuted?.Invoke(gameObject.layer, AttackManager.attacks[spellNumber].name, cuadrant);
+
+        bufferedAttack = () => {
+            SwitchState(new PlayerAttackState(this, spellNumber));
+        };
+
+    }
+
+    private Action GetExecuteRadialMenu()
+    {
+        return () =>
+        {
+            ExecuteRadialMenu(menuSelected);
+        };
     }
 }

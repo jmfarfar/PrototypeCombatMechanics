@@ -49,8 +49,6 @@ public class PlayerDashState : PlayerBaseState
 
         while (timer < stateMachine.dashTime)
         {
-            timer += Time.deltaTime;
-
             if (timer < stateMachine.dashTime * stateMachine.dashInvulnerabilityTime)
             {
                 stateMachine.colliderState = Hitbox.ColliderStates.INACTIVE;
@@ -60,9 +58,16 @@ public class PlayerDashState : PlayerBaseState
                 stateMachine.colliderState = Hitbox.ColliderStates.ACTIVE;
             }
 
+            if (timer < stateMachine.dashTime * 0.5f)
+            {
+                stateMachine.ActivateAttackInput();
+            }
+
             float speed = stateMachine.dashAccelerationCurve.Evaluate(timer/stateMachine.dashTime) * dashSpeed;
 
             stateMachine.CharacterController.Move(stateMachine.transform.forward * speed * Time.deltaTime);
+
+            timer += Time.deltaTime;
 
             yield return new WaitForEndOfFrame();
         }
