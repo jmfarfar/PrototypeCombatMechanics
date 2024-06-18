@@ -61,6 +61,11 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
     [Header("Restrained State Exit threshold")]
     public float restrainedStateExitThreshold = 50f;
 
+    [HideInInspector] public Action<LayerMask, string, int> onRadialMenuExecuted;
+    [HideInInspector] public Action<LayerMask, int, bool> onRadialMenuActivated;
+
+    [field: SerializeField] public float ShieldReleaseTime {get; private set;}
+    [field: SerializeField] public float parryTimePercentage {get; private set;}
 
     #endregion
 
@@ -68,10 +73,16 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
     {
         PlayerInput = GetComponent<IPlayerInput>();
 
-        SwitchState(new PlayerMovementState(this));
+        GameManager.Instance.gameStart += OnGameStart;
+        GameManager.Instance.onPlayerDefeated += OnPlayerDefeated;
 
         shieldEnergy = maxShieldEnergy;
         isRadialMenuActive = false;
+    }
+
+    private void OnPlayerDefeated(LayerMask layerMask)
+    {
+        PlayerInput = new EmptyPlayerInput();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -81,25 +92,36 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
             return;
         }
 
+        if (colliderState == Hitbox.ColliderStates.PARRY)
+        {
+            Debug.Log($"Parried {hitbox.attackData.name}");
+            GameManager.Instance.HitPause(15);
+            SwitchState(new PlayerMovementState(this));
+        }
         else if (colliderState == Hitbox.ColliderStates.RESTRAINED)
         {
             Health.DecreaseHealth(hitbox.attackData.damage);
         }
-
         else if (colliderState == Hitbox.ColliderStates.BLOCKING)
         {
-            // Physics.IgnoreCollision(colliderComponent, other, true);
             colliderState = Hitbox.ColliderStates.SHIELDSTUN;
             shieldHit?.Invoke(hitbox.attackData);
-        }
 
+            for (int i = 0; i < hitbox.attackData.attackEffects.Length; i++)
+            {
+                if (hitbox.attackData.attackEffects[i] == AttackData.AttackEffects.RESTRAIN)
+                {
+                    SwitchState(new PlayerRestrainedState(this));
+                    return;
+                }
+            }
+        }
         else
         {
             for (int i = 0; i < hitbox.attackData.attackEffects.Length; i++)
             {
                 if (hitbox.attackData.attackEffects[i] == AttackData.AttackEffects.KNOCKDOWN)
                 {
-                    // Debug.Log("Collided and knocked down");
                     Health.DecreaseHealth(hitbox.attackData.damage);
 
                     if (Health.CurrentHealth <= 0f)
@@ -108,15 +130,17 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
                         return;
                     }
 
-                    // Physics.IgnoreCollision(colliderComponent, other, true);
                     SwitchState(new PlayerKnockdownState(this, 3f));
                     return;
                 }
-            }
-            // Debug.Log("Collided");
-            Health.DecreaseHealth(hitbox.attackData.damage);
 
-            // Physics.IgnoreCollision(colliderComponent, other, true);
+                if (hitbox.attackData.attackEffects[i] == AttackData.AttackEffects.RESTRAIN)
+                {
+                    SwitchState(new PlayerRestrainedState(this));
+                    return;
+                }
+            }
+            Health.DecreaseHealth(hitbox.attackData.damage);
 
             if (Health.CurrentHealth <= 0)
             {
@@ -127,6 +151,17 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
                 SwitchState(new PlayerStunState(this, hitbox.attackData.stunTime));
             }
         }
+    }
+
+    private void OnGameStart()
+    {
+        SwitchState(new PlayerMovementState(this));
+    }
+
+    private void OnDestroy() 
+    {
+        GameManager.Instance.gameStart -= OnGameStart;
+        GameManager.Instance.onPlayerDefeated -= OnPlayerDefeated;
     }
 
     private void Update()
@@ -160,13 +195,13 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
         Gizmos.color = new Color(0.5f, 0.5f, 1f, 0.2f);
         Gizmos.DrawSphere(transform.position, shieldEnergy);
 
-        float barHeight = (float)Health.CurrentHealth * 0.005f;
+        float barHeight = (float)Health.CurrentHealth / (float)Health.MaxHealth * 2f;
         Gizmos.color = new Color(0f, 1f, 0f, 1f);
         Gizmos.DrawCube(transform.position +
         Vector3.up + (Vector3.up * barHeight / 2), new Vector3(
-            0.5f,
+            0.3f,
             barHeight,
-            0.5f)
+            0.3f)
         );
     }
 }

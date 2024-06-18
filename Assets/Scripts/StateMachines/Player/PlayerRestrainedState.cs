@@ -6,6 +6,7 @@ public class PlayerRestrainedState : PlayerBaseState
 {
     Vector2 lastVector = Vector2.zero;
     float restrainValue;
+    readonly int restrainedAnimationHash = Animator.StringToHash("Restrained");
 
     public PlayerRestrainedState(PlayerStateMachine stateMachine) : base(stateMachine)
     {
@@ -16,6 +17,8 @@ public class PlayerRestrainedState : PlayerBaseState
         stateMachine.colliderState = Hitbox.ColliderStates.RESTRAINED;
 
         restrainValue = stateMachine.restrainedStateExitThreshold;
+
+        stateMachine.Animator.CrossFadeInFixedTime(restrainedAnimationHash, 0.1f);
     }
 
     public override void Tick(float deltaTime)

@@ -6,17 +6,18 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     public Action<int> onHealthDecreased;
-    [SerializeField] private int maxHealth;
+    
+    [field: SerializeField] public int MaxHealth { get; private set; }
     [field: SerializeField] public int CurrentHealth { get; private set; }
 
     private void Awake() 
     {
-        CurrentHealth = maxHealth;
+        CurrentHealth = MaxHealth;
     }
 
     public void IncreaseHealth(int amount)
     {
-        CurrentHealth = Mathf.Min(CurrentHealth + amount, maxHealth);
+        CurrentHealth = Mathf.Min(CurrentHealth + amount, MaxHealth);
     }
 
     public void DecreaseHealth(int amount)

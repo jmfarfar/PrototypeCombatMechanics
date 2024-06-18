@@ -575,7 +575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49ddff488ba8d64c390f8a79aa04f34a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  <MaxHealth>k__BackingField: 10
   <CurrentHealth>k__BackingField: 0
 --- !u!114 &1648676268412020031
 MonoBehaviour:
@@ -688,6 +688,9 @@ MonoBehaviour:
   menuCenter: {fileID: 0}
   highlightedSpellName: {fileID: 0}
   AttackManager: {fileID: 6784795115328361854}
+  restrainedStateExitThreshold: 50
+  <ShieldReleaseTime>k__BackingField: 0.3
+  <parryTimePercentage>k__BackingField: 0.5
 --- !u!114 &3565946824552977181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -711,11 +714,13 @@ MonoBehaviour:
     skeletonWall: {fileID: 8682006249260618984, guid: d2f0634f75d078f6c862fdea3eb61a52, type: 3}
     spectrePortal: {fileID: 648181403791583308, guid: 8ab14fd200e95be06b04f14b1e6a49cb, type: 3}
     lichLord: {fileID: 7687485447221937533, guid: 14404bb796297e93f9bc1350be1fb52d, type: 3}
+    ghostGuardian: {fileID: 7283491710560900133, guid: e79c54f45560c9311a4700eb8895a999, type: 3}
   negativeEnergyCosts:
     archerSkeletonCost: 2
     skeletonWallCost: 1
     portalSpectreCost: 5
-    lichLordCost: 0
+    lichLordCost: 4
+    ghostGuardianCost: 2
   negativeEnergyRatios:
     necroticDart: 0.4
     deathScythe: 1
@@ -725,6 +730,8 @@ MonoBehaviour:
     deathScytheDrainRatio: 0.1
   multihitRates:
     necroticMistTimeRate: 0.2
+  attacksExtraParameters:
+    archerSkeletonShotCount: 3
   lichLordNegativeEnergySubtractRate: 1
 --- !u!114 &1791738227198925901
 MonoBehaviour:
@@ -1645,8 +1652,8 @@ MonoBehaviour:
   attacks:
   - name: 1 NecroticDart
     damage: 5
-    range: 10
-    activeTime: 0.5
+    range: 15
+    activeTime: 0.3
     stunTime: 0.5
     attackAnimation: {fileID: 0}
     attackEffects: 
@@ -1688,9 +1695,9 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   - name: 3 Summon Archer Skeleton
-    damage: 15
+    damage: 10
     range: 10
-    activeTime: 3
+    activeTime: 0.3
     stunTime: 0.5
     attackAnimation: {fileID: 0}
     attackEffects: 
@@ -1712,7 +1719,7 @@ MonoBehaviour:
   - name: 4 Summon Skeleton Wall
     damage: 0
     range: 0
-    activeTime: 2
+    activeTime: 3
     stunTime: 0
     attackAnimation: {fileID: 0}
     attackEffects: 
@@ -1754,7 +1761,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   - name: 6 Phantom Onslaught
-    damage: 10
+    damage: 15
     range: 10
     activeTime: 0.5
     stunTime: 1
@@ -1821,8 +1828,8 @@ MonoBehaviour:
           m_CallState: 2
   - name: 9 Portal / Spectre
     damage: 5
-    range: 10
-    activeTime: 0.5
+    range: 15
+    activeTime: 0.3
     stunTime: 1
     attackAnimation: {fileID: 0}
     attackEffects: 
@@ -1863,19 +1870,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: NecroticDart
-    damage: 5
+  - name: 11 Grip beyond the grave
+    damage: 0
     range: 10
     activeTime: 0.5
-    stunTime: 0.5
+    stunTime: 0
     attackAnimation: {fileID: 0}
-    attackEffects: 
+    attackEffects: 07000000
     attackEvent:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3565946824552977181}
           m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
-          m_MethodName: NecroticDart
+          m_MethodName: GripBeyondTheGrave
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1885,9 +1892,9 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: NecroticDart
-    damage: 5
-    range: 10
+  - name: 12 Ghost Guardian
+    damage: 10
+    range: 3
     activeTime: 0.5
     stunTime: 0.5
     attackAnimation: {fileID: 0}
@@ -1897,7 +1904,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 3565946824552977181}
           m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
-          m_MethodName: NecroticDart
+          m_MethodName: GhostGuardian
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

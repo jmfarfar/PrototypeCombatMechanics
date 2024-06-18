@@ -11,6 +11,7 @@ public class ArdidSpectrePortal : GenericHitboxBehaviors
     public NegativeEnergyManager negativeEnergyManager;
     public int negativeEnergyAmount;
     public int spectreCost;
+    public int summonedSpectres;
     Action<int> transferNegativeEnergy;
     public Action onDestroy;
 
@@ -38,24 +39,38 @@ public class ArdidSpectrePortal : GenericHitboxBehaviors
     public Action<AttackData> SummonSpectre(AttackData attackData)
     {
         return (AttackData AttackData) => {
-            if (negativeEnergyAmount < spectreCost){return;}
+            if (negativeEnergyAmount == 0){Destroy(gameObject); return;}
 
-            Vector3 vectorToTarget = (enemy.position - transform.position).normalized;
+            for (int i = 0; i < negativeEnergyAmount; i++)
+            {
+                StartCoroutine(SpectreRoutine(i * 0.2f, AttackData));
+            }
+        };
+    }
 
-            GameObject spectreInstance = InstantiateHitbox(spectrePrefab, transform.position, Quaternion.LookRotation(vectorToTarget), attackData, out Hitbox hitbox);
+    IEnumerator SpectreRoutine(float time, AttackData attackData)
+    {
+        yield return new WaitForSeconds(time);
 
-            hitbox.gameObject.layer = AssignLayerToHitbox(gameObject.layer);
+        Vector3 vectorToTarget = (enemy.position - transform.position).normalized;
 
-            hitbox.SetUpHitboxActions(
-                () => {},
-                () => {
-                    spectreInstance.transform.position += vectorToTarget * (attackData.range / attackData.activeTime) * Time.deltaTime;
-                    } + DestroyHitboxAfterSeconds(spectreInstance, attackData.activeTime),
-                (Collider other) => {}
-            );
-            
-            
+        GameObject spectreInstance = InstantiateHitbox(spectrePrefab, transform.position, Quaternion.LookRotation(vectorToTarget), attackData, out Hitbox hitbox);
+
+        hitbox.gameObject.layer = AssignLayerToHitbox(gameObject.layer);
+
+        hitbox.SetUpHitboxActions(
+            () => {},
+            () => {
+                spectreInstance.transform.position += vectorToTarget * (attackData.range / attackData.activeTime) * Time.deltaTime;
+                } + DestroyHitboxAfterSeconds(spectreInstance, attackData.activeTime),
+            (Collider other) => {Destroy(spectreInstance);}
+        );
+
+        summonedSpectres++;
+
+        if (summonedSpectres == negativeEnergyAmount)
+        {
             Destroy(gameObject);
-            };
+        }
     }
 }

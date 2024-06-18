@@ -20,7 +20,8 @@ public class Hitbox : MonoBehaviour
         INACTIVE,
         BLOCKING,
         SHIELDSTUN,
-        RESTRAINED
+        RESTRAINED,
+        PARRY
     }
 
     [HideInInspector] public AttackData attackData;

@@ -12,7 +12,8 @@ public class AttackData
         SLOWDOWN,
         LIFESTEAL,
         POISON,
-        KNOCKDOWN
+        KNOCKDOWN,
+        RESTRAIN
     }
 
     public string name;

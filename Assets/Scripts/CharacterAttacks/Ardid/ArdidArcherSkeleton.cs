@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ArdidArcherSkeleton : GenericHitboxBehaviors
 {
+    public int maxShots;
     public Transform enemy;
     private AttackData attackData;
     [SerializeField] private GameObject sphereHitbox;
@@ -33,7 +34,7 @@ public class ArdidArcherSkeleton : GenericHitboxBehaviors
             () => {},
             
             //Hitbox update action
-            FollowTargetOverTime(enemy, hitboxInstance.transform, 10f, 0.5f),
+            FollowTargetOverTime(enemy, hitboxInstance.transform, attackData.range, attackData.activeTime),
             
             //Hitbox OnTriggerEnter action
             (Collider other) => {
@@ -46,7 +47,7 @@ public class ArdidArcherSkeleton : GenericHitboxBehaviors
 
     public void DestroyAfterAllShots()
     {
-        if (shotCount == 3)
+        if (shotCount == maxShots)
         {
             Destroy(gameObject);
         }

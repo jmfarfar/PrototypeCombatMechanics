@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 
 public class ArdidAttacks : GenericHitboxBehaviors
@@ -20,6 +22,7 @@ public class ArdidAttacks : GenericHitboxBehaviors
         public GameObject skeletonWall;
         public GameObject spectrePortal;
         public GameObject lichLord;
+        public GameObject ghostGuardian;
     }
 
     [Serializable] private struct EnergyCosts
@@ -28,6 +31,7 @@ public class ArdidAttacks : GenericHitboxBehaviors
         public int skeletonWallCost;
         public int portalSpectreCost;
         public int lichLordCost;
+        public int ghostGuardianCost;
     }
 
     [Serializable] private struct NegativeEnergyRatios
@@ -47,6 +51,11 @@ public class ArdidAttacks : GenericHitboxBehaviors
     {
         public float necroticMistTimeRate;
     }
+    
+    [Serializable] private struct AttacksExtraParameters
+    {
+        public int archerSkeletonShotCount;
+    }
 
     [SerializeField] GeneralReferences generalReferences;
     [SerializeField] SummoningReferences summoningReferences;
@@ -54,6 +63,7 @@ public class ArdidAttacks : GenericHitboxBehaviors
     [SerializeField] private NegativeEnergyRatios negativeEnergyRatios;
     [SerializeField] private DrainRatios drainRatios;
     [SerializeField] private MultihitRates multihitRates;
+    [SerializeField] private AttacksExtraParameters attacksExtraParameters;
     
     [Header("Negative energy subtract rates")]
     [SerializeField] private float lichLordNegativeEnergySubtractRate;
@@ -180,6 +190,7 @@ public class ArdidAttacks : GenericHitboxBehaviors
         archerSkeleton.SetUpAttackData(attackData);
         archerSkeleton.enemy = generalReferences.enemy;
         archerSkeleton.gameObject.layer = gameObject.layer;
+        archerSkeleton.maxShots = attacksExtraParameters.archerSkeletonShotCount;
 
         generalReferences.negativeEnergyManager.SubtractNegativeEnergy(negativeEnergyCosts.archerSkeletonCost);
     }
@@ -441,5 +452,47 @@ public class ArdidAttacks : GenericHitboxBehaviors
         lichLord.gameObject.layer = gameObject.layer;
 
         generalReferences.negativeEnergyManager.SubtractNegativeEnergy(negativeEnergyCosts.lichLordCost);
+    }
+
+    // GRIP BEYOND THE GRAVE
+    public void GripBeyondTheGrave(AttackData attackData)
+    {
+        Vector3 vectorToTarget = generalReferences.enemy.position - transform.position;
+
+        Vector3 spawnPosition = transform.position + Vector3.ClampMagnitude(vectorToTarget, attackData.range);
+
+        GameObject hitboxInstance = InstantiateHitbox(generalReferences.sphereHitbox, spawnPosition, Quaternion.identity, attackData, out Hitbox hitbox);
+
+        hitbox.SetUpHitboxActions(
+            () => {},
+            DestroyHitboxAfterSeconds(hitboxInstance, attackData.activeTime),
+            (Collider other) => {}
+        );
+    }
+
+    // GHOST GUARDIAN
+    public void GhostGuardian(AttackData attackData)
+    {
+        if (generalReferences.negativeEnergyManager.persistentNegativeEnergy < negativeEnergyCosts.ghostGuardianCost)
+        {
+            return;
+        }
+
+        Vector3 vectorToCenter = Vector3.zero - transform.position;
+        vectorToCenter.y = 0f;
+        vectorToCenter.Normalize();
+
+        GameObject ghostGuardianInstance = Instantiate(summoningReferences.ghostGuardian, transform.position + vectorToCenter * 2f, Quaternion.identity);
+
+        GhostGuardian ghostGuardian = ghostGuardianInstance.GetComponent<GhostGuardian>();
+
+        ghostGuardian.enemy = generalReferences.enemy;
+        ghostGuardian.owner = transform;
+        ghostGuardian.attackData = attackData;
+        ghostGuardian.sphereHitbox = generalReferences.sphereHitbox;
+
+        ghostGuardianInstance.layer = gameObject.layer;
+
+        generalReferences.negativeEnergyManager.SubtractNegativeEnergy(negativeEnergyCosts.ghostGuardianCost);
     }
 }
