@@ -19,7 +19,9 @@ public class Hitbox : MonoBehaviour
         ACTIVE,
         INACTIVE,
         BLOCKING,
-        SHIELDSTUN
+        SHIELDSTUN,
+        RESTRAINED,
+        PARRY
     }
 
     [HideInInspector] public AttackData attackData;
@@ -29,6 +31,8 @@ public class Hitbox : MonoBehaviour
 
     Action<Collider> triggerEnterAction;
     Action<Collider> triggerStayAction;
+    Action<Collider> triggerExitAction;
+
 
     Action updateAction;
     Action startAction;
@@ -58,6 +62,7 @@ public class Hitbox : MonoBehaviour
         this.onDestroyAction = onDestroyAction;
     }
 
+
     public void SetUpHitboxActions(Action startAction, Action updateAction, Action<Collider> triggerEnterAction, Action<Collider> triggerStayAction , Action onDestroyAction)
     {
         this.startAction = startAction;
@@ -67,14 +72,30 @@ public class Hitbox : MonoBehaviour
         this.onDestroyAction = onDestroyAction;
     }
 
+    public void SetUpHitboxActions(Action startAction, Action updateAction, Action<Collider> triggerEnterAction, Action onDestroyAction, Action<Collider> triggerExitAction)
+
+    {
+        this.startAction = startAction;
+        this.updateAction = updateAction;
+        this.triggerEnterAction = triggerEnterAction;
+        this.onDestroyAction = onDestroyAction;
+        this.triggerExitAction = triggerExitAction;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         triggerEnterAction?.Invoke(other);
     }
 
+
     private void OnTriggerStay(Collider other)
     {
         triggerStayAction?.Invoke(other);
+    }
+
+    private void OnTriggerExit(Collider other) 
+    {
+        triggerExitAction?.Invoke(other);
     }
 
     private void OnDestroy() 

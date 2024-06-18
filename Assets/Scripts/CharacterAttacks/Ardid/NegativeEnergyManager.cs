@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -5,21 +6,41 @@ using UnityEngine;
 
 public class NegativeEnergyManager : MonoBehaviour
 {
-    public float negativeEnergy;
+    public float temporalNegativeEnergy;
+    public int persistentNegativeEnergy;
+    public int summoningSlots = 3;
+    [SerializeField] private float energyDecayRate = 1f;
+    public Action<int> onAddPersistentNegativeEnergy;
 
     private void Update() 
     {
-        negativeEnergy = Mathf.Max(negativeEnergy - Time.deltaTime, 0f);
+        if (temporalNegativeEnergy >= 1f)
+        {
+            AddPersistentNegativeEnergy();
+            temporalNegativeEnergy = 0f;
+        }
+
+        temporalNegativeEnergy = Mathf.Max(temporalNegativeEnergy - Time.deltaTime * energyDecayRate, 0f);
     }
 
-    public void AddNegativeEnergy(float amount)
+    private void AddPersistentNegativeEnergy()
     {
-        negativeEnergy += amount;
+        persistentNegativeEnergy += (int)temporalNegativeEnergy;
+        persistentNegativeEnergy = Mathf.Min(persistentNegativeEnergy, summoningSlots);
+        onAddPersistentNegativeEnergy?.Invoke((int)temporalNegativeEnergy);
     }
+
+    public void AddNegativeEnergy(float amount){temporalNegativeEnergy += amount;}
+    public void SubtractNegativeEnergy(int cost){
+        persistentNegativeEnergy = Mathf.Max(persistentNegativeEnergy-= cost, 0);
+        }
 
     private void OnDrawGizmos() 
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawCube(transform.position + transform.right, new Vector3(0.5f, negativeEnergy, 0.5f));
+        for (int i = 0; i < persistentNegativeEnergy; i++)
+        {
+            Gizmos.DrawCube(transform.position + transform.right + (Vector3.up/summoningSlots * i), Vector3.one * (1f / (summoningSlots * 2)));
+        }
     }
 }

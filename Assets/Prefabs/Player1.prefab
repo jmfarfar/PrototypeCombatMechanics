@@ -575,7 +575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49ddff488ba8d64c390f8a79aa04f34a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  <MaxHealth>k__BackingField: 10
   <CurrentHealth>k__BackingField: 0
 --- !u!114 &1648676268412020031
 MonoBehaviour:
@@ -688,6 +688,9 @@ MonoBehaviour:
   menuCenter: {fileID: 0}
   highlightedSpellName: {fileID: 0}
   AttackManager: {fileID: 6784795115328361854}
+  restrainedStateExitThreshold: 50
+  <ShieldReleaseTime>k__BackingField: 0.3
+  <parryTimePercentage>k__BackingField: 0.5
 --- !u!114 &3565946824552977181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -700,13 +703,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13faa1b935b00656aa40371f72c2010c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sphereHitbox: {fileID: 6327006416360637003, guid: 0a9aeb4c934130348a4b4ab99d364689, type: 3}
-  enemy: {fileID: 0}
-  negativeEnergyManager: {fileID: 3617397833193917087}
-  necroticDartNegativeEnergy: 0
-  deathScytheNegativeEnergy: 0
-  deathScytheDrainRatio: 0
-  attackManager: {fileID: 6784795115328361854}
+  generalReferences:
+    sphereHitbox: {fileID: 6327006416360637003, guid: 0a9aeb4c934130348a4b4ab99d364689, type: 3}
+    cubeHitbox: {fileID: 6327006416360637003, guid: 227ffbadf7946a87aa547b57616d6414, type: 3}
+    enemy: {fileID: 0}
+    negativeEnergyManager: {fileID: 3617397833193917087}
+    attackManager: {fileID: 6784795115328361854}
+  summoningReferences:
+    archerSkeletonObject: {fileID: 6136170470777684266, guid: 7af95f6d3c0849adab15b06fb23078cb, type: 3}
+    skeletonWall: {fileID: 8682006249260618984, guid: d2f0634f75d078f6c862fdea3eb61a52, type: 3}
+    spectrePortal: {fileID: 648181403791583308, guid: 8ab14fd200e95be06b04f14b1e6a49cb, type: 3}
+    lichLord: {fileID: 7687485447221937533, guid: 14404bb796297e93f9bc1350be1fb52d, type: 3}
+    ghostGuardian: {fileID: 7283491710560900133, guid: e79c54f45560c9311a4700eb8895a999, type: 3}
+  negativeEnergyCosts:
+    archerSkeletonCost: 2
+    skeletonWallCost: 1
+    portalSpectreCost: 5
+    lichLordCost: 4
+    ghostGuardianCost: 2
+  negativeEnergyRatios:
+    necroticDart: 0.4
+    deathScythe: 1
+    necroticMist: 0.2
+    sacrifice: 0.3
+  drainRatios:
+    deathScytheDrainRatio: 0.1
+  multihitRates:
+    necroticMistTimeRate: 0.2
+  attacksExtraParameters:
+    archerSkeletonShotCount: 3
+  lichLordNegativeEnergySubtractRate: 1
 --- !u!114 &1791738227198925901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -731,7 +757,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0e47678634448a4e8803caaf64ce69f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  negativeEnergy: 0
+  temporalNegativeEnergy: 0
+  persistentNegativeEnergy: 0
+  summoningSlots: 5
+  energyDecayRate: 0.1
 --- !u!1 &2481806759012908966
 GameObject:
   m_ObjectHideFlags: 0
@@ -1621,10 +1650,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attacks:
-  - name: NecroticDart
+  - name: 1 NecroticDart
     damage: 5
-    range: 10
-    activeTime: 0.5
+    range: 15
+    activeTime: 0.3
     stunTime: 0.5
     attackAnimation: {fileID: 0}
     attackEffects: 
@@ -1643,19 +1672,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: NecroticDart
-    damage: 5
-    range: 10
+  - name: 2 Soul Trap Scythe
+    damage: 10
+    range: 5
     activeTime: 0.5
     stunTime: 0.5
-    attackAnimation: {fileID: 0}
+    attackAnimation: {fileID: 7400000, guid: 1d77e74a2221fa67083df90c7b2bf5a7, type: 2}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3565946824552977181}
           m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
-          m_MethodName: NecroticDart
+          m_MethodName: SoulTrapScythe
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1665,10 +1694,10 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: NecroticDart
-    damage: 5
+  - name: 3 Summon Archer Skeleton
+    damage: 10
     range: 10
-    activeTime: 0.5
+    activeTime: 0.3
     stunTime: 0.5
     attackAnimation: {fileID: 0}
     attackEffects: 
@@ -1677,7 +1706,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 3565946824552977181}
           m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
-          m_MethodName: NecroticDart
+          m_MethodName: SummonArcherSkeleton
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1687,11 +1716,11 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: NecroticDart
-    damage: 5
-    range: 10
-    activeTime: 0.5
-    stunTime: 0.5
+  - name: 4 Summon Skeleton Wall
+    damage: 0
+    range: 0
+    activeTime: 3
+    stunTime: 0
     attackAnimation: {fileID: 0}
     attackEffects: 
     attackEvent:
@@ -1699,7 +1728,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 3565946824552977181}
           m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
-          m_MethodName: NecroticDart
+          m_MethodName: SummonSkeletonWall
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1709,11 +1738,11 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: NecroticDart
+  - name: 5 Necrotic Mist
     damage: 5
     range: 10
-    activeTime: 0.5
-    stunTime: 0.5
+    activeTime: 5
+    stunTime: 0
     attackAnimation: {fileID: 0}
     attackEffects: 
     attackEvent:
@@ -1721,7 +1750,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 3565946824552977181}
           m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
-          m_MethodName: NecroticDart
+          m_MethodName: NecroticMist
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1731,19 +1760,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: NecroticDart
-    damage: 5
+  - name: 6 Phantom Onslaught
+    damage: 15
     range: 10
     activeTime: 0.5
-    stunTime: 0.5
+    stunTime: 1
     attackAnimation: {fileID: 0}
-    attackEffects: 
+    attackEffects: 0100000006000000
     attackEvent:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3565946824552977181}
           m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
-          m_MethodName: NecroticDart
+          m_MethodName: PhantomOnslaught
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1753,10 +1782,10 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: NecroticDart
-    damage: 5
-    range: 10
-    activeTime: 0.5
+  - name: 7 Summon Bone Stalker
+    damage: 15
+    range: 30
+    activeTime: 5
     stunTime: 0.5
     attackAnimation: {fileID: 0}
     attackEffects: 
@@ -1765,7 +1794,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 3565946824552977181}
           m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
-          m_MethodName: NecroticDart
+          m_MethodName: SummonBoneStalker
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1775,11 +1804,11 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: NecroticDart
-    damage: 5
-    range: 10
-    activeTime: 0.5
-    stunTime: 0.5
+  - name: 8 Sacrifice
+    damage: 0
+    range: 0
+    activeTime: 1
+    stunTime: 0
     attackAnimation: {fileID: 0}
     attackEffects: 
     attackEvent:
@@ -1787,7 +1816,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 3565946824552977181}
           m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
-          m_MethodName: NecroticDart
+          m_MethodName: Sacrifice
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1797,11 +1826,11 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: NecroticDart
+  - name: 9 Portal / Spectre
     damage: 5
-    range: 10
-    activeTime: 0.5
-    stunTime: 0.5
+    range: 15
+    activeTime: 0.3
+    stunTime: 1
     attackAnimation: {fileID: 0}
     attackEffects: 
     attackEvent:
@@ -1809,7 +1838,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 3565946824552977181}
           m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
-          m_MethodName: NecroticDart
+          m_MethodName: PortalSpectre
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1819,11 +1848,11 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: NecroticDart
-    damage: 5
+  - name: 10 Summon Lich Lord
+    damage: 15
     range: 10
     activeTime: 0.5
-    stunTime: 0.5
+    stunTime: 1
     attackAnimation: {fileID: 0}
     attackEffects: 
     attackEvent:
@@ -1831,7 +1860,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 3565946824552977181}
           m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
-          m_MethodName: NecroticDart
+          m_MethodName: SummonLichLord
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1841,19 +1870,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: NecroticDart
-    damage: 5
+  - name: 11 Grip beyond the grave
+    damage: 0
     range: 10
     activeTime: 0.5
-    stunTime: 0.5
+    stunTime: 0
     attackAnimation: {fileID: 0}
-    attackEffects: 
+    attackEffects: 07000000
     attackEvent:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3565946824552977181}
           m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
-          m_MethodName: NecroticDart
+          m_MethodName: GripBeyondTheGrave
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1863,9 +1892,9 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: NecroticDart
-    damage: 5
-    range: 10
+  - name: 12 Ghost Guardian
+    damage: 10
+    range: 3
     activeTime: 0.5
     stunTime: 0.5
     attackAnimation: {fileID: 0}
@@ -1875,7 +1904,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 3565946824552977181}
           m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
-          m_MethodName: NecroticDart
+          m_MethodName: GhostGuardian
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

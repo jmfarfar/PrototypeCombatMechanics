@@ -12,15 +12,16 @@ public class PlayerKOState : PlayerBaseState
     public override void Enter()
     {
         stateMachine.Animator.CrossFadeInFixedTime(KOHash, 0.1f);
+        stateMachine.Health.enabled = false;
+        stateMachine.CharacterController.enabled = false;
+        GameManager.Instance.OnPlayerDefeated(stateMachine.gameObject.layer);
     }
 
     public override void Exit()
     {
-        
     }
 
     public override void Tick(float deltaTime)
     {
-        stateMachine.CharacterController.Move(Vector3.zero * deltaTime);
     }
 }

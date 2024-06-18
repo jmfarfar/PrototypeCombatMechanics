@@ -27,7 +27,9 @@ public class PlayerMovementState : PlayerBaseState
     public override void Exit()
     {
         stateMachine.isRadialMenuActive = false;
-        stateMachine.RadialMenu[menuSelected].SetActive(false);
+        stateMachine.onRadialMenuActivated?.Invoke(stateMachine.gameObject.layer, menuSelected, false);
+        // stateMachine.RadialMenu[menuSelected].SetActive(false);
+
     }
 
     public override void Tick(float deltaTime)
@@ -51,8 +53,7 @@ public class PlayerMovementState : PlayerBaseState
         }
 
         inputAction?.Invoke();
-
-
+        
         if (stateMachine.PlayerInput.GetDashButton())
         {
 
@@ -62,7 +63,6 @@ public class PlayerMovementState : PlayerBaseState
         {
             stateMachine.SwitchState(new PlayerBlockState(stateMachine));
         }
-
 
         stateMachine.CharacterController.Move(direction * stateMachine.Speed * Time.deltaTime);
     }
@@ -75,16 +75,12 @@ public class PlayerMovementState : PlayerBaseState
             {
                 ActivateRadialMenu(0);
                 inputAction = GetExecuteRadialMenu();
-
             }
-
             else if (stateMachine.PlayerInput.GetSecondRadialMenuButton())
             {
                 ActivateRadialMenu(1);
                 inputAction = GetExecuteRadialMenu();
-
             }
-
             else if (stateMachine.PlayerInput.GetThirdRadialMenuButton())
             {
                 ActivateRadialMenu(2);
@@ -119,12 +115,13 @@ public class PlayerMovementState : PlayerBaseState
 
         if (stateMachine.isRadialMenuActive)
         {
-            stateMachine.RadialMenu[menuIndex].SetActive(true);
+            // stateMachine.RadialMenu[menuIndex].SetActive(true);
+            stateMachine.onRadialMenuActivated?.Invoke(stateMachine.gameObject.layer, menuIndex, true);
             menuSelected = menuIndex;
         }
         else
         {
-            stateMachine.RadialMenu[menuIndex].SetActive(false);
+            // stateMachine.RadialMenu[menuIndex].SetActive(false);
         }
     }
 
@@ -144,13 +141,13 @@ public class PlayerMovementState : PlayerBaseState
 
         if (spellNumber > currentSpell + 3) return;
 
-        stateMachine.selectedObject.eulerAngles = new Vector3(0f, 0f, cuadrant * 90f);
-        stateMachine.highlightedSpellName.text = stateMachine.SpellNames[spellNumber];
+        stateMachine.onRadialMenuExecuted?.Invoke(stateMachine.gameObject.layer, stateMachine.AttackManager.attacks[spellNumber].name, cuadrant);
 
-        Debug.Log($"{stateMachine.SpellNames[spellNumber]} spell casted");
-        stateMachine.SwitchState(new PlayerAttackState(stateMachine, spellNumber));
-
+        // stateMachine.selectedObject.eulerAngles = new Vector3(0f, 0f, cuadrant * 90f);
+        // stateMachine.highlightedSpellName.text = stateMachine.SpellNames[spellNumber];
         //stateMachine.isRadialMenuActive = false;
         //stateMachine.RadialMenu[menuIndex].SetActive(false);
+        stateMachine.SwitchState(new PlayerAttackState(stateMachine, spellNumber));
+
     }
 }
