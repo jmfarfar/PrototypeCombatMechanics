@@ -24,7 +24,13 @@ public class HUD : MonoBehaviour
         GameManager.Instance.onPlayerDefeated += OnPlayerDefeated;
         GameManager.Instance.roundStart += OnRoundStart;
         GameManager.Instance.onTimeUp += OnTimeUp;
+        GameManager.Instance.clearHUD += ClearPanels;
 
+        ClearPanels();
+    }
+
+    public void ClearPanels()
+    {
         fightPanel.SetActive(false);
         timerPanel.SetActive(false);
         roundPanel.SetActive(false);
@@ -77,6 +83,7 @@ public class HUD : MonoBehaviour
         GameManager.Instance.onPlayerDefeated -= OnPlayerDefeated;
         GameManager.Instance.roundStart -= OnRoundStart;
         GameManager.Instance.onTimeUp -= OnTimeUp;
+        GameManager.Instance.clearHUD += ClearPanels;
     }
 
     IEnumerator RoundStartRoutine(int round)

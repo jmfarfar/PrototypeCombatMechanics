@@ -38,6 +38,7 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
 
     public Action<AttackData> shieldHit;
     public Action<Vector3> rollEvent;
+    public Action<LayerMask> playerKO;
 
     public float maxShieldEnergy = 1f;
     [HideInInspector] public float shieldEnergy;

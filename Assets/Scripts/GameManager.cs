@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,11 +12,13 @@ public class GameManager : MonoBehaviour
     public Action<int> roundStart;
     public Action gameStart;
     public Action onTimeUp;
+    public Action clearHUD;
     int round = 1;
-    int player1Wins;
-    int player2Wins;
+    int player1WinnedRounds;
+    int player2WinnedRounds;
     int numberOfRounds = 3;
     public string gameSceneName;
+    PlayerStateMachine[] players;
 
     private void Awake() 
     {
@@ -28,6 +31,12 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        players = FindObjectsOfType<PlayerStateMachine>();
+        foreach (PlayerStateMachine player in players)
+        {
+            player.playerKO += OnPlayerDefeated;
+        }
     }
 
     private IEnumerator Start() 
@@ -39,9 +48,32 @@ public class GameManager : MonoBehaviour
     public void OnTimeOut()
     {
         onTimeUp?.Invoke();
+
+        float highestHealthPoints = 0f;
+        foreach (PlayerStateMachine player in players)
+        {
+            highestHealthPoints = Mathf.Max(highestHealthPoints, player.Health.CurrentHealth);
+        }
+
+        foreach (PlayerStateMachine player in players)
+        {
+            if (!(player.Health.CurrentHealth == highestHealthPoints))
+            {
+                StartCoroutine(DelayOnPlayerDefeated(player.gameObject.layer));
+                return;
+            }
+        }
+
         round++;
         numberOfRounds++;
         StartCoroutine(NextRoundRoutine());
+    }
+
+    IEnumerator DelayOnPlayerDefeated(LayerMask loserLayer)
+    {
+        yield return new WaitForSeconds(1f);
+        clearHUD?.Invoke();
+        OnPlayerDefeated(loserLayer);
     }
 
     public void StartRound()
@@ -68,32 +100,43 @@ public class GameManager : MonoBehaviour
 
     public void OnPlayerDefeated(LayerMask playerLayer)
     {
-        if (playerLayer == LayerMask.NameToLayer("Player1Hurtbox"))
-        {
-            player2Wins++;
-        }
-        else
-        {
-            player1Wins++;
-        }
+        CalculateRoundWinner(playerLayer);
 
-        if (player1Wins == Mathf.CeilToInt(numberOfRounds/2f))
-        {
-            onPlayerDefeated?.Invoke(playerLayer);
-            Debug.Log("Player 1 Wins the Set");
-            return;
-        }
-        else if (player2Wins == Mathf.CeilToInt(numberOfRounds/2f))
-        {
-            onPlayerDefeated?.Invoke(playerLayer);
-            Debug.Log("Player 1 Wins the Set");
-            return;
-        }
+        if(IsPlayerMatchWinner(playerLayer))return;
 
         onPlayerDefeated?.Invoke(playerLayer);
         StartCoroutine(NextRoundRoutine());
-        
+
         round++;
+    }
+
+    private void CalculateRoundWinner(LayerMask playerLayer)
+    {
+        if (playerLayer == LayerMask.NameToLayer("Player1Hurtbox"))
+        {
+            player2WinnedRounds++;
+        }
+        else
+        {
+            player1WinnedRounds++;
+        }
+    }
+
+    private bool IsPlayerMatchWinner(LayerMask playerLayer)
+    {
+        if (player1WinnedRounds == Mathf.CeilToInt(numberOfRounds / 2f))
+        {
+            onPlayerDefeated?.Invoke(playerLayer);
+            Debug.Log("Player 1 Wins the Set");
+            return true;
+        }
+        else if (player2WinnedRounds == Mathf.CeilToInt(numberOfRounds / 2f))
+        {
+            onPlayerDefeated?.Invoke(playerLayer);
+            Debug.Log("Player 1 Wins the Set");
+            return true;
+        }
+        return false;
     }
 
     IEnumerator NextRoundRoutine()
@@ -103,5 +146,13 @@ public class GameManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
         roundStart?.Invoke(round);
+    }
+
+    private void OnDestroy() 
+    {
+        foreach (PlayerStateMachine player in players)
+        {
+            player.playerKO -= OnPlayerDefeated;
+        }
     }
 }
