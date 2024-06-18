@@ -19,94 +19,68 @@ public class Hitbox : MonoBehaviour
         ACTIVE,
         INACTIVE,
         BLOCKING,
-        SHIELDSTUN
+        SHIELDSTUN,
+        RESTRAINED,
+        PARRY
     }
 
-    [HideInInspector] public AttackInfo attackInfo;
+    [HideInInspector] public AttackData attackData;
     public GameObject Owner;
     public GameObject Target;
+    public Collider collider => GetComponent<Collider>();
 
-    private Vector3 vectorToTarget;
-    private Collider colliderComponent => gameObject.GetComponent<Collider>();
+    Action<Collider> triggerEnterAction;
+    Action<Collider> triggerExitAction;
 
-    Action triggerEnterAction;
+    Action updateAction;
+    Action startAction;
+    Action onDestroyAction;
 
     private void Start() 
     {
-        switch (attackInfo.attachBehaviour)
-        {
-            case hitboxBehaviours.APPEAR:
-            {
-                StartCoroutine(AppearBehaviour());
-                break;
-            }
+        startAction?.Invoke();
+    }
 
-            case hitboxBehaviours.TRAVEL:
-            {
-                StartCoroutine(TravelBehaviour());
-                break;
-            }
+    private void FixedUpdate() 
+    {
+        updateAction?.Invoke();
+    }
 
-            case hitboxBehaviours.GROW:
-            {
-                StartCoroutine(GrowBehaviour());
-                break;
-            }
-        }
+    public void SetUpHitboxActions(Action startAction, Action updateAction, Action<Collider> triggerAction)
+    {
+        this.startAction = startAction;
+        this.updateAction = updateAction;
+        this.triggerEnterAction = triggerAction;
+    }
+    public void SetUpHitboxActions(Action startAction, Action updateAction, Action<Collider> triggerEnterAction, Action onDestroyAction)
+    {
+        this.startAction = startAction;
+        this.updateAction = updateAction;
+        this.triggerEnterAction = triggerEnterAction;
+        this.onDestroyAction = onDestroyAction;
+    }
+
+    public void SetUpHitboxActions(Action startAction, Action updateAction, Action<Collider> triggerEnterAction, Action onDestroyAction, Action<Collider> triggerExitAction)
+    {
+        this.startAction = startAction;
+        this.updateAction = updateAction;
+        this.triggerEnterAction = triggerEnterAction;
+        this.onDestroyAction = onDestroyAction;
+        this.triggerExitAction = triggerExitAction;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        OnTriggerEnterBehaviour(triggerEnterAction);
+        triggerEnterAction?.Invoke(other);
     }
 
-    private IEnumerator TravelBehaviour()
+    private void OnTriggerExit(Collider other) 
     {
-        Action action = () => 
-        {
-            StopAllCoroutines();
-            Destroy(this.gameObject);
-        };
-
-        triggerEnterAction = action;
-
-        float startTime = Time.time;
-
-        transform.position += Owner.transform.forward;
-
-        while (Time.time < startTime + (attackInfo.speed / attackInfo.range))
-        {
-            vectorToTarget = (Target.transform.position - transform.position).normalized;
-            transform.Translate(vectorToTarget * attackInfo.speed * Time.deltaTime);
-            yield return new WaitForEndOfFrame();
-        }
-
-        Destroy(this.gameObject);
+        triggerExitAction?.Invoke(other);
     }
 
-    private IEnumerator AppearBehaviour()
+    private void OnDestroy() 
     {
-        Vector3 vectorToTarget = Target.transform.position - Owner.transform.position;
-        float range = Mathf.Min(vectorToTarget.magnitude, attackInfo.range);
-        transform.position = Owner.transform.position + (vectorToTarget.normalized * range);
-        transform.localScale = Vector3.one * attackInfo.radius * 2f;
-        yield return new WaitForSeconds(attackInfo.activeTime);
-        Destroy(this.gameObject);
-    }
-
-    private IEnumerator GrowBehaviour()
-    {
-        transform.position = Owner.transform.position + Vector3.up;
-        transform.localScale = Vector3.one * attackInfo.radius * 2f;
-        yield return new WaitForSeconds(attackInfo.activeTime);
-        Destroy(this.gameObject);
-    }
-
-    private void OnTriggerEnterBehaviour(Action triggerBehaviour)
-    {
-        if (triggerBehaviour != null)
-        {
-            triggerBehaviour();
-        }
+        onDestroyAction?.Invoke();
     }
 }
