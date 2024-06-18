@@ -359,12 +359,100 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attacks:
-  - name: AttackAppear
-    damage: 5
+  - name: FireBreath
+    damage: 15
     range: 5
     activeTime: 1
     stunTime: 0.5
-    attackAnimation: {fileID: 0}
+    attackAnimation: {fileID: 7400000, guid: 895d7c14743a1b04c849369e2927bafb, type: 2}
+    attackEffects: 02000000
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8623906853497246452}
+          m_TargetAssemblyTypeName: OberAttacks, Assembly-CSharp
+          m_MethodName: FireBreath
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: SalamanderNest
+    damage: 10
+    range: 20
+    activeTime: 5
+    stunTime: 0.5
+    attackAnimation: {fileID: 7400000, guid: 895d7c14743a1b04c849369e2927bafb, type: 2}
+    attackEffects: 00000000
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8623906853497246452}
+          m_TargetAssemblyTypeName: OberAttacks, Assembly-CSharp
+          m_MethodName: SalamanderNest
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: Impetus
+    damage: 0
+    range: 0
+    activeTime: 5
+    stunTime: 0
+    attackAnimation: {fileID: 7400000, guid: 895d7c14743a1b04c849369e2927bafb, type: 2}
+    attackEffects: 00000000
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8623906853497246452}
+          m_TargetAssemblyTypeName: OberAttacks, Assembly-CSharp
+          m_MethodName: Impetus
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: LavaFloor
+    damage: 20
+    range: 0
+    activeTime: 5
+    stunTime: 0
+    attackAnimation: {fileID: 7400000, guid: 895d7c14743a1b04c849369e2927bafb, type: 2}
+    attackEffects: 02000000
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8623906853497246452}
+          m_TargetAssemblyTypeName: OberAttacks, Assembly-CSharp
+          m_MethodName: LavaFloor
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: FireFist
+    damage: 5
+    range: 10
+    activeTime: 1
+    stunTime: 0.5
+    attackAnimation: {fileID: 7400000, guid: d56d98a86f5b3a649aef81fac61753f4, type: 2}
     attackEffects: 02000000
     attackEvent:
       m_PersistentCalls:
@@ -381,19 +469,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: AttackAppear
-    damage: 5
-    range: 5
-    activeTime: 1
+  - name: Jump
+    damage: 20
+    range: 10
+    activeTime: 2
     stunTime: 0.5
-    attackAnimation: {fileID: 0}
-    attackEffects: 02000000
+    attackAnimation: {fileID: 7400000, guid: d56d98a86f5b3a649aef81fac61753f4, type: 2}
+    attackEffects: 00000000
     attackEvent:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 8623906853497246452}
           m_TargetAssemblyTypeName: OberAttacks, Assembly-CSharp
-          m_MethodName: SampleAttack
+          m_MethodName: Jump
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -403,19 +491,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: AttackAppear
-    damage: 5
-    range: 5
-    activeTime: 1
+  - name: Fury
+    damage: 20
+    range: 10
+    activeTime: 2
     stunTime: 0.5
-    attackAnimation: {fileID: 0}
+    attackAnimation: {fileID: 7400000, guid: d56d98a86f5b3a649aef81fac61753f4, type: 2}
     attackEffects: 02000000
     attackEvent:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 8623906853497246452}
           m_TargetAssemblyTypeName: OberAttacks, Assembly-CSharp
-          m_MethodName: SampleAttack
+          m_MethodName: Fury
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -425,19 +513,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: AttackAppear
-    damage: 5
-    range: 5
-    activeTime: 1
+  - name: ScaleHardness
+    damage: 0
+    range: 0
+    activeTime: 5
     stunTime: 0.5
-    attackAnimation: {fileID: 0}
-    attackEffects: 02000000
+    attackAnimation: {fileID: 7400000, guid: d56d98a86f5b3a649aef81fac61753f4, type: 2}
+    attackEffects: 00000000
     attackEvent:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 8623906853497246452}
           m_TargetAssemblyTypeName: OberAttacks, Assembly-CSharp
-          m_MethodName: SampleAttack
+          m_MethodName: ScaleHardness
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -447,19 +535,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: AttackAppear
-    damage: 5
-    range: 5
-    activeTime: 1
+  - name: Firewall
+    damage: 10
+    range: 0
+    activeTime: 5
     stunTime: 0.5
-    attackAnimation: {fileID: 0}
+    attackAnimation: {fileID: 7400000, guid: d56d98a86f5b3a649aef81fac61753f4, type: 2}
     attackEffects: 02000000
     attackEvent:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 8623906853497246452}
           m_TargetAssemblyTypeName: OberAttacks, Assembly-CSharp
-          m_MethodName: SampleAttack
+          m_MethodName: FireWall
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -469,19 +557,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: AttackAppear
-    damage: 5
-    range: 5
-    activeTime: 1
+  - name: BloodMoon
+    damage: 0
+    range: 10
+    activeTime: 10
     stunTime: 0.5
-    attackAnimation: {fileID: 0}
+    attackAnimation: {fileID: 7400000, guid: d56d98a86f5b3a649aef81fac61753f4, type: 2}
     attackEffects: 02000000
     attackEvent:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 8623906853497246452}
           m_TargetAssemblyTypeName: OberAttacks, Assembly-CSharp
-          m_MethodName: SampleAttack
+          m_MethodName: BloodMoon
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -491,19 +579,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: AttackAppear
-    damage: 5
-    range: 5
-    activeTime: 1
+  - name: Concentration
+    damage: 0
+    range: 10
+    activeTime: 10
     stunTime: 0.5
-    attackAnimation: {fileID: 0}
+    attackAnimation: {fileID: 7400000, guid: d56d98a86f5b3a649aef81fac61753f4, type: 2}
     attackEffects: 02000000
     attackEvent:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 8623906853497246452}
           m_TargetAssemblyTypeName: OberAttacks, Assembly-CSharp
-          m_MethodName: SampleAttack
+          m_MethodName: Concentration
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -513,107 +601,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: AttackAppear
-    damage: 5
-    range: 5
-    activeTime: 1
+  - name: Pyromaniac
+    damage: 0
+    range: 10
+    activeTime: 10
     stunTime: 0.5
-    attackAnimation: {fileID: 0}
+    attackAnimation: {fileID: 7400000, guid: d56d98a86f5b3a649aef81fac61753f4, type: 2}
     attackEffects: 02000000
     attackEvent:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 8623906853497246452}
           m_TargetAssemblyTypeName: OberAttacks, Assembly-CSharp
-          m_MethodName: SampleAttack
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - name: AttackAppear
-    damage: 5
-    range: 5
-    activeTime: 1
-    stunTime: 0.5
-    attackAnimation: {fileID: 0}
-    attackEffects: 02000000
-    attackEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 8623906853497246452}
-          m_TargetAssemblyTypeName: OberAttacks, Assembly-CSharp
-          m_MethodName: SampleAttack
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - name: AttackAppear
-    damage: 5
-    range: 5
-    activeTime: 1
-    stunTime: 0.5
-    attackAnimation: {fileID: 0}
-    attackEffects: 02000000
-    attackEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 8623906853497246452}
-          m_TargetAssemblyTypeName: OberAttacks, Assembly-CSharp
-          m_MethodName: SampleAttack
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - name: AttackAppear
-    damage: 5
-    range: 5
-    activeTime: 1
-    stunTime: 0.5
-    attackAnimation: {fileID: 0}
-    attackEffects: 02000000
-    attackEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 8623906853497246452}
-          m_TargetAssemblyTypeName: OberAttacks, Assembly-CSharp
-          m_MethodName: SampleAttack
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - name: AttackAppear
-    damage: 5
-    range: 5
-    activeTime: 1
-    stunTime: 0.5
-    attackAnimation: {fileID: 0}
-    attackEffects: 02000000
-    attackEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 8623906853497246452}
-          m_TargetAssemblyTypeName: OberAttacks, Assembly-CSharp
-          m_MethodName: SampleAttack
+          m_MethodName: Pyromaniac
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -641,10 +641,12 @@ Animation:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1632743147741517545}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Animation: {fileID: 0}
-  m_Animations: []
+  m_Animations:
+  - {fileID: 7400000, guid: d56d98a86f5b3a649aef81fac61753f4, type: 2}
+  - {fileID: 7400000, guid: 895d7c14743a1b04c849369e2927bafb, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -1611,8 +1613,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 573b7a124db9bc309988be64348c9e9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sphereHitbox: {fileID: 0}
+  sphereHitbox: {fileID: 6327006416360637003, guid: 0a9aeb4c934130348a4b4ab99d364689, type: 3}
+  fireBreathHitbox: {fileID: 1191260500703550224, guid: 37ed624b91ad5d64580a01cdb9fd3d52, type: 3}
+  salamanderNest: {fileID: 5263728034556087349, guid: d0913ebe8c44645488f366426fdd5783, type: 3}
+  lavaFloor: {fileID: 292650543827331819, guid: 4afac84e85995ae4c8261853b8bbb218, type: 3}
+  impactZone: {fileID: 292650543827331819, guid: 4afac84e85995ae4c8261853b8bbb218, type: 3}
+  firewall: {fileID: 8409520074791595535, guid: 4722d23b10721e64fba54346ff230213, type: 3}
+  bloodMoon: {fileID: 6033525945011129255, guid: cff3dcf04dd71c64abce81095a626649, type: 3}
+  isFuryActive: 0
   enemy: {fileID: 0}
+  manager: {fileID: 3337474742709272771}
+  Projectiles:
+  - projectile: {fileID: 6327006416360637003, guid: 0a9aeb4c934130348a4b4ab99d364689, type: 3}
+    damage: 10
+  Salamanders: []
+  placementStrategy: {fileID: 11400000, guid: e3dd2c806b9f56c44ab7c820ca0a11ed, type: 2}
+  maxSpawns: 10
 --- !u!1 &4146214080431595590
 GameObject:
   m_ObjectHideFlags: 0
