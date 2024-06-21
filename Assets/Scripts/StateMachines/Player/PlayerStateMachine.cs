@@ -91,7 +91,8 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
         if (colliderState == Hitbox.ColliderStates.PARRY)
         {
             Debug.Log($"Parried {hitbox.attackData.name}");
-            GameManager.Instance.HitPause(15);
+            Physics.IgnoreCollision(GetComponent<Collider>(), other);
+            GameManager.Instance.HitPause(1f);
             SwitchState(new PlayerMovementState(this));
         }
         else if (colliderState == Hitbox.ColliderStates.RESTRAINED)
@@ -191,6 +192,10 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(0.5f, 0.5f, 1f, 0.2f);
+        if (colliderState == Hitbox.ColliderStates.PARRY)
+        {
+            Gizmos.color = new(1f, 1f, 1f, 0.3f);
+        }
         Gizmos.DrawSphere(transform.position, shieldEnergy);
 
         float barHeight = (float)Health.CurrentHealth / (float)Health.MaxHealth * 2f;

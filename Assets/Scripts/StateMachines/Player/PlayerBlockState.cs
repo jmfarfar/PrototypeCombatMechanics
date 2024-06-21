@@ -28,7 +28,8 @@ public class PlayerBlockState : PlayerBaseState
 
     public override void Exit()
     {        
-        stateMachine.StopCoroutine(OnShieldReleaseRoutine());
+        // stateMachine.StopCoroutine(OnShieldReleaseRoutine());
+        stateMachine.StopAllCoroutines();
     }
 
     public override void Tick(float deltaTime)

@@ -81,19 +81,25 @@ public class GameManager : MonoBehaviour
         gameStart?.Invoke();
     }
 
-    public void HitPause(int frames)
+    public void HitPause(float time)
     {
-        StartCoroutine(HitPauseRoutine(frames));
+        StartCoroutine(HitPauseRoutine(time));
     }
 
-    IEnumerator HitPauseRoutine(int frames)
+    IEnumerator HitPauseRoutine(float time)
     {
-        int frameNumber = 0;
-        while (frameNumber < frames)
+        Time.timeScale = 0f;
+        for (int i = 0; i < 5; i++)
         {
-            Time.timeScale = 0;
             yield return new WaitForEndOfFrame();
-            frameNumber++;
+        }
+
+        float timer = 0f;
+        while (timer < time)
+        {
+            Time.timeScale = 0.1f;
+            timer += Time.unscaledDeltaTime;
+            yield return new WaitForEndOfFrame();
         }
         Time.timeScale = 1f;
     }

@@ -594,50 +594,8 @@ MonoBehaviour:
   <DashForce>k__BackingField: 1.5
   <Health>k__BackingField: {fileID: 8424423014621396897}
   <RotationSpeed>k__BackingField: 1200
-  <ProjectilePrefab>k__BackingField: {fileID: 6327006416360637003, guid: 0a9aeb4c934130348a4b4ab99d364689, type: 3}
   <Combatant>k__BackingField: {fileID: 0}
   <Animator>k__BackingField: {fileID: 4064383722386798661}
-  attacks:
-  - name: 
-    damage: 5
-    range: 20
-    activeTime: 0
-    stunTime: 0.7
-    attackAnimation: {fileID: 0}
-    attackEffects: 
-    attackEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: 
-    damage: 10
-    range: 8
-    activeTime: 0
-    stunTime: 0.9
-    attackAnimation: {fileID: 0}
-    attackEffects: 
-    attackEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: 
-    damage: 15
-    range: 20
-    activeTime: 0
-    stunTime: 1.2
-    attackAnimation: {fileID: 0}
-    attackEffects: 
-    attackEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: 
-    damage: 20
-    range: 5
-    activeTime: 0
-    stunTime: 1.2
-    attackAnimation: {fileID: 0}
-    attackEffects: 
-    attackEvent:
-      m_PersistentCalls:
-        m_Calls: []
   dashTime: 0.25
   dashCooldown: 0.1
   dashDistance: 3
@@ -681,15 +639,10 @@ MonoBehaviour:
   isShieldDepleting: 0
   isShieldDepleted: 0
   isRolling: 0
-  <RadialMenu>k__BackingField: []
-  <SpellNames>k__BackingField: []
   isRadialMenuActive: 0
-  selectedObject: {fileID: 0}
-  menuCenter: {fileID: 0}
-  highlightedSpellName: {fileID: 0}
   AttackManager: {fileID: 6784795115328361854}
   restrainedStateExitThreshold: 50
-  <ShieldReleaseTime>k__BackingField: 0.3
+  <ShieldReleaseTime>k__BackingField: 0.4
   <parryTimePercentage>k__BackingField: 0.5
 --- !u!114 &3565946824552977181
 MonoBehaviour:
