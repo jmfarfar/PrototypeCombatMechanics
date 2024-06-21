@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class PlayerBlockState : PlayerBaseState
 {
-    int blockHash = Animator.StringToHash("Block");
-    int stunHash = Animator.StringToHash("Stun");
+    readonly int blockHash = Animator.StringToHash("Block");
+    readonly int stunHash = Animator.StringToHash("Stun");
+    readonly int movementStateHash = Animator.StringToHash("MovementState");
     float startTime;
+    bool isShieldReleasing;
 
 
     public PlayerBlockState(PlayerStateMachine stateMachine) : base(stateMachine)
@@ -25,20 +27,19 @@ public class PlayerBlockState : PlayerBaseState
     }
 
     public override void Exit()
-    {
-        stateMachine.colliderState = Hitbox.ColliderStates.ACTIVE;
-        stateMachine.shieldHit -= OnShieldHit;
-
-        stateMachine.isShieldDepleting = false;
+    {        
+        stateMachine.StopCoroutine(OnShieldReleaseRoutine());
     }
 
     public override void Tick(float deltaTime)
     {
+        if (isShieldReleasing){return;}
+
         if (stateMachine.colliderState != Hitbox.ColliderStates.SHIELDSTUN)
         {
             if (!stateMachine.PlayerInput.GetBlockButton() || stateMachine.isShieldDepleted)
             {
-                stateMachine.SwitchState(new PlayerMovementState(stateMachine));
+                stateMachine.StartCoroutine(OnShieldReleaseRoutine());
             }
 
             // if (Input.GetKeyDown(KeyCode.J))
@@ -81,4 +82,32 @@ public class PlayerBlockState : PlayerBaseState
         stateMachine.Animator.CrossFadeInFixedTime(blockHash, 0.1f);
     }
 
+    IEnumerator OnShieldReleaseRoutine()
+    {
+        float timer = 0f;
+
+        isShieldReleasing = true;
+
+        stateMachine.shieldHit -= OnShieldHit;
+
+        stateMachine.isShieldDepleting = false;
+
+        stateMachine.Animator.CrossFadeInFixedTime(movementStateHash, stateMachine.ShieldReleaseTime);
+        
+        while (timer < stateMachine.ShieldReleaseTime)
+        {
+            if (timer < stateMachine.ShieldReleaseTime * stateMachine.parryTimePercentage)
+            {
+                stateMachine.colliderState = Hitbox.ColliderStates.PARRY;
+            }
+            else
+            {
+                stateMachine.colliderState = Hitbox.ColliderStates.ACTIVE;
+            }
+            timer += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        stateMachine.SwitchState(new PlayerMovementState(stateMachine));
+    }
 }

@@ -7,7 +7,7 @@ public class Player2Input : MonoBehaviour, IPlayerInput
 {
     public bool GetFirstRadialMenuButton()
     {
-        return Input.GetKeyDown(KeyCode.JoystickButton1);
+        return Input.GetKeyDown(KeyCode.JoystickButton2);
     }
 
     public bool GetDashButton()
@@ -22,12 +22,12 @@ public class Player2Input : MonoBehaviour, IPlayerInput
 
     public bool GetSecondRadialMenuButton()
     {
-        return Input.GetKeyDown(KeyCode.JoystickButton2);
+        return Input.GetKeyDown(KeyCode.JoystickButton3);
     }
 
     public bool GetThirdRadialMenuButton()
     {
-        return Input.GetKeyDown(KeyCode.JoystickButton3);
+        return Input.GetKeyDown(KeyCode.JoystickButton1);
     }
 
     public bool GetBlockButton()
