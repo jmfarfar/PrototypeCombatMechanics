@@ -226,7 +226,7 @@ public class OberAttacks : GenericHitboxBehaviors
     {
         GameObject impactInstance = InstantiateHitbox(impactZone, transform.position, Quaternion.identity, attackData, out Hitbox hitbox);
         float animation = 0;
-        //float time = attackData.activeTime;
+        float time = attackData.activeTime;
 
         hitbox.SetUpHitboxActions(
             () =>
@@ -235,34 +235,34 @@ public class OberAttacks : GenericHitboxBehaviors
             },
 
             //ParabolicJump(transform, transform.position, enemy.transform.position, 5f, attackData.activeTime),
-            //() =>
-            //{
-            //    time -= Time.deltaTime;
-
-            //    if (time > 0f)
-            //    {
-            //        animation += Time.deltaTime;
-
-            //        animation = animation % attackData.activeTime;
-
-            //        transform.position = Parabolic(transform.position, transform.forward * attackData.range, 5f, animation / attackData.activeTime);
-
-            //    }
-            //},
-
             () =>
             {
-                Vector3 direction = enemy.transform.position - transform.position;
-                Vector3 groundDirection = new Vector3(direction.x, 0, direction.z);
-                Vector3 targetPos = new Vector3(groundDirection.magnitude, direction.y, 0);
-                float height = targetPos.y + targetPos.magnitude / 2f;
+                time -= Time.deltaTime;
+                 
+                if (time > 0f)
+                {
+                    animation += Time.deltaTime;
 
-                CalculatePathWithHeight(targetPos, height, out float v0, out float angle, out float time);
+                    animation = animation % attackData.activeTime;
 
-                StopAllCoroutines();
-                StartCoroutine(ParabolicJump(groundDirection.normalized, v0, angle, time));
+                    transform.position = Parabolic(transform.position, /*transform.forward * attackData.range*/ enemy.transform.position, 5f, animation / attackData.activeTime);
 
+                }
             },
+
+            //() =>
+            //{
+            //    Vector3 direction = enemy.transform.position - transform.position;
+            //    Vector3 groundDirection = new Vector3(direction.x, 0, direction.z);
+            //    Vector3 targetPos = new Vector3(groundDirection.magnitude, direction.y, 0);
+            //    float height = targetPos.y + targetPos.magnitude / 2f;
+
+            //    CalculatePathWithHeight(targetPos, height, out float v0, out float angle, out float time);
+
+            //    StopAllCoroutines();
+            //    StartCoroutine(ParabolicJump(groundDirection.normalized, v0, angle, time));
+
+            //},
             (Collider other) =>
             {
                 Destroy(impactInstance);
@@ -271,6 +271,24 @@ public class OberAttacks : GenericHitboxBehaviors
 
         hitbox.gameObject.layer = LayerMask.NameToLayer("Player2Hitbox");
 
+    }
+
+    IEnumerator Start()
+    {
+        float maxTime = 2f;
+        float time = maxTime;
+        Vector3 force = new Vector3(0f, 10f, 0f);
+        while (time > 0f)
+        {
+            force.z = 5f;
+
+            transform.Translate(force * Time.deltaTime);
+
+            force.y -= 20f * Time.deltaTime;
+
+            time -= Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     public static Vector3 Parabolic(Vector3 start, Vector3 end, float height, float time)
