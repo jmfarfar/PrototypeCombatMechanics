@@ -200,7 +200,9 @@ public class ArdidAttacks : GenericHitboxBehaviors
     {
         if (generalReferences.negativeEnergyManager.persistentNegativeEnergy < negativeEnergyCosts.skeletonWallCost){return;}
 
-        Vector3 vectorToTarget = (generalReferences.enemy.position - transform.position).normalized;
+        Vector3 vectorToTarget = generalReferences.enemy.position - transform.position;
+        vectorToTarget.y = 0f;
+        vectorToTarget.Normalize();
 
         Quaternion wallRotation = Quaternion.LookRotation(vectorToTarget);
 
@@ -409,7 +411,9 @@ public class ArdidAttacks : GenericHitboxBehaviors
 
         Vector3 spawnPosition = transform.position + Vector3.up * 2f;
 
-        Vector3 vectorToTarget = (generalReferences.enemy.position - transform.position).normalized;
+        Vector3 vectorToTarget = generalReferences.enemy.position - transform.position;
+        vectorToTarget.y = 0f;
+        vectorToTarget.Normalize();
 
         GameObject portalInstance = Instantiate(summoningReferences.spectrePortal, spawnPosition, Quaternion.LookRotation(vectorToTarget));
 
@@ -462,6 +466,8 @@ public class ArdidAttacks : GenericHitboxBehaviors
         Vector3 spawnPosition = transform.position + Vector3.ClampMagnitude(vectorToTarget, attackData.range);
 
         GameObject hitboxInstance = InstantiateHitbox(generalReferences.sphereHitbox, spawnPosition, Quaternion.identity, attackData, out Hitbox hitbox);
+
+        hitboxInstance.layer = AssignLayerToHitbox(gameObject.layer);
 
         hitbox.SetUpHitboxActions(
             () => {},
