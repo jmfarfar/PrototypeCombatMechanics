@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using UnityEngine;
 
 [Serializable]
@@ -24,4 +25,5 @@ public class AttackData
     public AnimationClip attackAnimation;
     public AttackEffects[] attackEffects;
     public AttackEvent attackEvent;
+    public Sprite attackIcon;
 }

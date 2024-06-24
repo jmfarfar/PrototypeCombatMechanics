@@ -30,7 +30,7 @@ public class PlayerMovementState : PlayerBaseState
         stateMachine.isRadialMenuActive = false;
         stateMachine.onRadialMenuActivated?.Invoke(stateMachine.gameObject.layer, menuSelected, false);
         stateMachine.DeactivateAttackInput();
-
+        stateMachine.Animator.SetFloat(MovementSpeedHash, 0f);
     }
 
     public override void Tick(float deltaTime)

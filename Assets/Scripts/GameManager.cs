@@ -13,19 +13,16 @@ public class GameManager : MonoBehaviour
     public Action gameStart;
     public Action onTimeUp;
     public Action clearHUD;
-    int round = 1;
-    int player1WinnedRounds;
-    int player2WinnedRounds;
     int numberOfRounds = 3;
     public string gameSceneName;
     PlayerStateMachine[] players;
+    [SerializeField] private RoundDataSO roundData;
 
     private void Awake() 
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -42,7 +39,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator Start() 
     {
         yield return new WaitForEndOfFrame();
-        roundStart?.Invoke(round);
+        roundStart?.Invoke(roundData.round);
     }
 
     public void OnTimeOut()
@@ -64,7 +61,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        round++;
+        roundData.round++;
         numberOfRounds++;
         StartCoroutine(NextRoundRoutine());
     }
@@ -113,33 +110,35 @@ public class GameManager : MonoBehaviour
         onPlayerDefeated?.Invoke(playerLayer);
         StartCoroutine(NextRoundRoutine());
 
-        round++;
+        roundData.round++;
     }
 
     private void CalculateRoundWinner(LayerMask playerLayer)
     {
         if (playerLayer == LayerMask.NameToLayer("Player1Hurtbox"))
         {
-            player2WinnedRounds++;
+            roundData.player2WinnedRounds++;
         }
         else
         {
-            player1WinnedRounds++;
+            roundData.player1WinnedRounds++;
         }
     }
 
     private bool IsPlayerMatchWinner(LayerMask playerLayer)
     {
-        if (player1WinnedRounds == Mathf.CeilToInt(numberOfRounds / 2f))
+        if (roundData.player1WinnedRounds == Mathf.CeilToInt(numberOfRounds / 2f))
         {
             onPlayerDefeated?.Invoke(playerLayer);
             Debug.Log("Player 1 Wins the Set");
+            StartCoroutine(FinishGame());
             return true;
         }
-        else if (player2WinnedRounds == Mathf.CeilToInt(numberOfRounds / 2f))
+        else if (roundData.player2WinnedRounds == Mathf.CeilToInt(numberOfRounds / 2f))
         {
             onPlayerDefeated?.Invoke(playerLayer);
-            Debug.Log("Player 1 Wins the Set");
+            Debug.Log("Player 2 Wins the Set");
+            StartCoroutine(FinishGame());
             return true;
         }
         return false;
@@ -151,7 +150,14 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(gameSceneName);
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
-        roundStart?.Invoke(round);
+        roundStart?.Invoke(roundData.round);
+    }
+
+    IEnumerator FinishGame()
+    {
+        yield return new WaitForSecondsRealtime(3f);
+        SceneManager.LoadScene(gameSceneName);
+        roundData.ResetData();
     }
 
     private void OnDestroy() 
