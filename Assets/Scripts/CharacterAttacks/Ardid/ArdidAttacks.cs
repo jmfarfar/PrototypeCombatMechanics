@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEditor.ShaderGraph;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class ArdidAttacks : GenericHitboxBehaviors
@@ -32,6 +33,7 @@ public class ArdidAttacks : GenericHitboxBehaviors
         public int portalSpectreCost;
         public int lichLordCost;
         public int ghostGuardianCost;
+        public int necroticMistCost;
     }
 
     [Serializable] private struct NegativeEnergyRatios
@@ -71,6 +73,8 @@ public class ArdidAttacks : GenericHitboxBehaviors
     private Health health;
     bool isPortalActive;
     public Action<AttackData> onSummonSpectre;
+    private GameObject necroticMistInstance;
+    private List<GhostGuardian> ghostGuardians = new List<GhostGuardian>();
 
     private void Awake() 
     {
@@ -225,9 +229,20 @@ public class ArdidAttacks : GenericHitboxBehaviors
     // NECROTIC MIST
     public void NecroticMist(AttackData attackData)
     {
+        if (necroticMistInstance != null){return;}
+
+        if (generalReferences.negativeEnergyManager.persistentNegativeEnergy < negativeEnergyCosts.necroticMistCost)
+        {
+            return;
+        }
+
+        generalReferences.negativeEnergyManager.SubtractNegativeEnergy(negativeEnergyCosts.necroticMistCost);
+
         int attackDataDamage = attackData.damage;
 
         GameObject hitboxInstance = InstantiateHitbox(generalReferences.sphereHitbox, transform, attackData, out Hitbox hitbox);
+
+        necroticMistInstance = hitboxInstance;
 
         hitboxInstance.transform.localScale = Vector3.one * attackData.range;
 
@@ -240,7 +255,10 @@ public class ArdidAttacks : GenericHitboxBehaviors
         
         hitbox.SetUpHitboxActions(
             // Start
-            () => {hitbox.StartCoroutine(NecroticMistRoutine(enemies, attackDataDamage));},
+            () => {
+                health.onHealthDecreased += NecroticMistCancel;
+                hitbox.StartCoroutine(NecroticMistRoutine(enemies, attackDataDamage));
+            },
             
             // Update
             DestroyHitboxAfterSeconds(hitboxInstance, attackData.activeTime),
@@ -255,6 +273,7 @@ public class ArdidAttacks : GenericHitboxBehaviors
             
             // OnDestroy
             () => { 
+                health.onHealthDecreased -= NecroticMistCancel;
                 hitbox.StopAllCoroutines();
                 hitbox.attackData.damage = attackDataDamage;
             },
@@ -271,6 +290,15 @@ public class ArdidAttacks : GenericHitboxBehaviors
                 }
             }
         );
+    }
+
+    private void NecroticMistCancel(int damage)
+    {
+        if (necroticMistInstance)
+        {
+            Destroy(necroticMistInstance);
+            necroticMistInstance = null;
+        }
     }
 
     private IEnumerator NecroticMistRoutine(Dictionary<string,Health> enemies, int damage)
@@ -425,7 +453,7 @@ public class ArdidAttacks : GenericHitboxBehaviors
         portalBehavior.spectreCost = negativeEnergyCosts.portalSpectreCost;
         portalBehavior.enemy = generalReferences.enemy;
 
-        portalBehavior.negativeEnergyAmount += generalReferences.negativeEnergyManager.persistentNegativeEnergy;
+        portalBehavior.negativeEnergyAmount += Mathf.Min(generalReferences.negativeEnergyManager.persistentNegativeEnergy, negativeEnergyCosts.portalSpectreCost);
 
         onSummonSpectre += portalBehavior.SummonSpectre(attackData);
 
@@ -434,7 +462,7 @@ public class ArdidAttacks : GenericHitboxBehaviors
             onSummonSpectre = null;
             };
 
-        generalReferences.negativeEnergyManager.persistentNegativeEnergy = 0;
+        generalReferences.negativeEnergyManager.SubtractNegativeEnergy(Mathf.Min(generalReferences.negativeEnergyManager.persistentNegativeEnergy, negativeEnergyCosts.portalSpectreCost));
 
         isPortalActive = true;
     }
@@ -477,13 +505,15 @@ public class ArdidAttacks : GenericHitboxBehaviors
     }
 
     // GHOST GUARDIAN
-    public void GhostGuardian(AttackData attackData)
+    public void SummonGhostGuardian(AttackData attackData)
     {
         if (generalReferences.negativeEnergyManager.persistentNegativeEnergy < negativeEnergyCosts.ghostGuardianCost)
         {
             return;
         }
 
+        if (ghostGuardians.Count >= 3){return;}
+        
         Vector3 vectorToCenter = Vector3.zero - transform.position;
         vectorToCenter.y = 0f;
         vectorToCenter.Normalize();
@@ -491,6 +521,16 @@ public class ArdidAttacks : GenericHitboxBehaviors
         GameObject ghostGuardianInstance = Instantiate(summoningReferences.ghostGuardian, transform.position + vectorToCenter * 2f, Quaternion.identity);
 
         GhostGuardian ghostGuardian = ghostGuardianInstance.GetComponent<GhostGuardian>();
+
+        ghostGuardians.Add(ghostGuardian);
+        ghostGuardian.OnDestroyAction += () => {
+            ghostGuardians.Remove(ghostGuardian);
+            ghostGuardian.OnDestroyAction = null;
+        };
+
+        ghostGuardian.index = ghostGuardians.Count -1;
+
+        GhostGuardian.ghostGuardianInstances = ghostGuardians.Count;
 
         ghostGuardian.enemy = generalReferences.enemy;
         ghostGuardian.owner = transform;

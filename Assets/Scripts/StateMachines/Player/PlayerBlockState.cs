@@ -31,6 +31,7 @@ public class PlayerBlockState : PlayerBaseState
         // stateMachine.StopCoroutine(OnShieldReleaseRoutine());
         stateMachine.StopAllCoroutines();
         stateMachine.colliderState = Hitbox.ColliderStates.ACTIVE;
+        stateMachine.isShieldDepleting = false;
     }
 
     public override void Tick(float deltaTime)
