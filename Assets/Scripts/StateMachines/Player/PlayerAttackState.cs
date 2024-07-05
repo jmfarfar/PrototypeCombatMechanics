@@ -65,11 +65,12 @@ public class PlayerAttackState : PlayerBaseState
         
         while (Time.time < startTime + rotationTime)
         {
-            stateMachine.transform.rotation = Quaternion.Lerp(
-                stateMachine.transform.rotation,
-                targetRotation,
-                Time.deltaTime * 10f
-            );
+            //stateMachine.transform.rotation = Quaternion.Lerp(
+            //    stateMachine.transform.rotation,
+            //    targetRotation,
+            //    Time.deltaTime * 10f
+            //);
+            stateMachine.transform.rotation = targetRotation;
 
             yield return new WaitForEndOfFrame();
         }

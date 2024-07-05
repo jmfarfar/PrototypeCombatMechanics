@@ -301,6 +301,7 @@ GameObject:
   - component: {fileID: 7198695539708236885}
   - component: {fileID: 3337474742709272771}
   - component: {fileID: 8463165309902400367}
+  - component: {fileID: 1788527545920986578}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -359,12 +360,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attacks:
+  - name: Pyromaniac
+    damage: 0
+    range: 10
+    activeTime: 0.5
+    stunTime: 0.5
+    attackAnimation: {fileID: 7400000, guid: 73455bb4e495c254191b6c0e55710612, type: 2}
+    attackSFX: {fileID: 0}
+    attackEffects: 02000000
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8623906853497246452}
+          m_TargetAssemblyTypeName: OberAttacks, Assembly-CSharp
+          m_MethodName: Pyromaniac
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - name: FireBreath
     damage: 15
     range: 5
     activeTime: 1
     stunTime: 0.5
-    attackAnimation: {fileID: 7400000, guid: 895d7c14743a1b04c849369e2927bafb, type: 2}
+    attackAnimation: {fileID: 7400000, guid: c1942995a9bfca140a8f9c0ae26ff4c6, type: 2}
+    attackSFX: {fileID: 0}
     attackEffects: 02000000
     attackEvent:
       m_PersistentCalls:
@@ -382,11 +407,12 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   - name: SalamanderNest
-    damage: 10
+    damage: 100
     range: 20
-    activeTime: 5
+    activeTime: 2
     stunTime: 0.5
     attackAnimation: {fileID: 7400000, guid: 895d7c14743a1b04c849369e2927bafb, type: 2}
+    attackSFX: {fileID: 0}
     attackEffects: 00000000
     attackEvent:
       m_PersistentCalls:
@@ -409,6 +435,7 @@ MonoBehaviour:
     activeTime: 5
     stunTime: 0
     attackAnimation: {fileID: 7400000, guid: 895d7c14743a1b04c849369e2927bafb, type: 2}
+    attackSFX: {fileID: 0}
     attackEffects: 00000000
     attackEvent:
       m_PersistentCalls:
@@ -426,11 +453,12 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   - name: LavaFloor
-    damage: 20
+    damage: 1
     range: 0
     activeTime: 5
     stunTime: 0
     attackAnimation: {fileID: 7400000, guid: 895d7c14743a1b04c849369e2927bafb, type: 2}
+    attackSFX: {fileID: 0}
     attackEffects: 02000000
     attackEvent:
       m_PersistentCalls:
@@ -453,6 +481,7 @@ MonoBehaviour:
     activeTime: 1
     stunTime: 0.5
     attackAnimation: {fileID: 7400000, guid: d56d98a86f5b3a649aef81fac61753f4, type: 2}
+    attackSFX: {fileID: 0}
     attackEffects: 02000000
     attackEvent:
       m_PersistentCalls:
@@ -472,9 +501,10 @@ MonoBehaviour:
   - name: Jump
     damage: 20
     range: 10
-    activeTime: 2
+    activeTime: 0.7
     stunTime: 0.5
-    attackAnimation: {fileID: 7400000, guid: d56d98a86f5b3a649aef81fac61753f4, type: 2}
+    attackAnimation: {fileID: 7400000, guid: ee6634dd1cd02bc41be703ba45eb71b4, type: 2}
+    attackSFX: {fileID: 0}
     attackEffects: 00000000
     attackEvent:
       m_PersistentCalls:
@@ -497,6 +527,7 @@ MonoBehaviour:
     activeTime: 2
     stunTime: 0.5
     attackAnimation: {fileID: 7400000, guid: d56d98a86f5b3a649aef81fac61753f4, type: 2}
+    attackSFX: {fileID: 0}
     attackEffects: 02000000
     attackEvent:
       m_PersistentCalls:
@@ -519,6 +550,7 @@ MonoBehaviour:
     activeTime: 5
     stunTime: 0.5
     attackAnimation: {fileID: 7400000, guid: d56d98a86f5b3a649aef81fac61753f4, type: 2}
+    attackSFX: {fileID: 0}
     attackEffects: 00000000
     attackEvent:
       m_PersistentCalls:
@@ -541,6 +573,7 @@ MonoBehaviour:
     activeTime: 5
     stunTime: 0.5
     attackAnimation: {fileID: 7400000, guid: d56d98a86f5b3a649aef81fac61753f4, type: 2}
+    attackSFX: {fileID: 0}
     attackEffects: 02000000
     attackEvent:
       m_PersistentCalls:
@@ -560,9 +593,10 @@ MonoBehaviour:
   - name: BloodMoon
     damage: 0
     range: 10
-    activeTime: 10
+    activeTime: 0.5
     stunTime: 0.5
     attackAnimation: {fileID: 7400000, guid: d56d98a86f5b3a649aef81fac61753f4, type: 2}
+    attackSFX: {fileID: 0}
     attackEffects: 02000000
     attackEvent:
       m_PersistentCalls:
@@ -580,11 +614,12 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   - name: Concentration
-    damage: 0
+    damage: 20
     range: 10
-    activeTime: 10
+    activeTime: 0.5
     stunTime: 0.5
-    attackAnimation: {fileID: 7400000, guid: d56d98a86f5b3a649aef81fac61753f4, type: 2}
+    attackAnimation: {fileID: 7400000, guid: 05d2cdc2d6d77494a97fd92026385eb7, type: 2}
+    attackSFX: {fileID: 0}
     attackEffects: 02000000
     attackEvent:
       m_PersistentCalls:
@@ -601,28 +636,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: Pyromaniac
-    damage: 0
-    range: 10
-    activeTime: 10
-    stunTime: 0.5
-    attackAnimation: {fileID: 7400000, guid: d56d98a86f5b3a649aef81fac61753f4, type: 2}
-    attackEffects: 02000000
-    attackEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 8623906853497246452}
-          m_TargetAssemblyTypeName: OberAttacks, Assembly-CSharp
-          m_MethodName: Pyromaniac
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
   currentAttack:
     name: 
     damage: 0
@@ -630,6 +643,7 @@ MonoBehaviour:
     activeTime: 0
     stunTime: 0
     attackAnimation: {fileID: 0}
+    attackSFX: {fileID: 0}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:
@@ -647,10 +661,28 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: d56d98a86f5b3a649aef81fac61753f4, type: 2}
   - {fileID: 7400000, guid: 895d7c14743a1b04c849369e2927bafb, type: 2}
+  - {fileID: 7400000, guid: ee6634dd1cd02bc41be703ba45eb71b4, type: 2}
+  - {fileID: 7400000, guid: a5fdcc5d52375e642a376b2674d13437, type: 2}
+  - {fileID: 7400000, guid: 73455bb4e495c254191b6c0e55710612, type: 2}
+  - {fileID: 7400000, guid: c1942995a9bfca140a8f9c0ae26ff4c6, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &1788527545920986578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632743147741517545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a2ee0fafb68c54dbc9018c97b37bbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flamethrower: {fileID: 1986006405636780769}
+  flamethrowerAudioClip: {fileID: 8300000, guid: de27666fac28abf49ba50c1316d697a0, type: 3}
 --- !u!1 &1762843231596472830
 GameObject:
   m_ObjectHideFlags: 0
@@ -1421,6 +1453,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2153700916361317459}
+  - {fileID: 416824883495328735}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &745673425195330722
@@ -1461,7 +1494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49ddff488ba8d64c390f8a79aa04f34a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1000
+  <MaxHealth>k__BackingField: 1000
   <CurrentHealth>k__BackingField: 0
 --- !u!114 &8981334057035109411
 MonoBehaviour:
@@ -1492,50 +1525,8 @@ MonoBehaviour:
   <DashForce>k__BackingField: 1.5
   <Health>k__BackingField: {fileID: 3947659475152461671}
   <RotationSpeed>k__BackingField: 1200
-  <ProjectilePrefab>k__BackingField: {fileID: 6327006416360637003, guid: 0a9aeb4c934130348a4b4ab99d364689, type: 3}
   <Combatant>k__BackingField: {fileID: 0}
   <Animator>k__BackingField: {fileID: 7198695539708236885}
-  attacks:
-  - name: 
-    damage: 5
-    range: 20
-    activeTime: 0
-    stunTime: 0.7
-    attackAnimation: {fileID: 0}
-    attackEffects: 
-    attackEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: 
-    damage: 10
-    range: 8
-    activeTime: 0
-    stunTime: 0.9
-    attackAnimation: {fileID: 0}
-    attackEffects: 
-    attackEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: 
-    damage: 15
-    range: 20
-    activeTime: 0
-    stunTime: 1.2
-    attackAnimation: {fileID: 0}
-    attackEffects: 
-    attackEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: 
-    damage: 20
-    range: 5
-    activeTime: 0
-    stunTime: 1.2
-    attackAnimation: {fileID: 0}
-    attackEffects: 
-    attackEvent:
-      m_PersistentCalls:
-        m_Calls: []
   dashTime: 0.25
   dashCooldown: 0.1
   dashDistance: 3
@@ -1579,28 +1570,11 @@ MonoBehaviour:
   isShieldDepleting: 0
   isShieldDepleted: 0
   isRolling: 0
-  <RadialMenu>k__BackingField:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  <SpellNames>k__BackingField:
-  - Spell1
-  - Spell2
-  - Spell3
-  - Spell4
-  - Spell5
-  - Spell6
-  - Spell7
-  - Spell8
-  - Spell9
-  - Spell10
-  - Spell11
-  - Spell12
   isRadialMenuActive: 0
-  selectedObject: {fileID: 0}
-  menuCenter: {fileID: 0}
-  highlightedSpellName: {fileID: 0}
   AttackManager: {fileID: 3337474742709272771}
+  restrainedStateExitThreshold: 50
+  <ShieldReleaseTime>k__BackingField: 0.3
+  <parryTimePercentage>k__BackingField: 0.55
 --- !u!114 &8623906853497246452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1614,7 +1588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphereHitbox: {fileID: 6327006416360637003, guid: 0a9aeb4c934130348a4b4ab99d364689, type: 3}
-  fireBreathHitbox: {fileID: 1191260500703550224, guid: 37ed624b91ad5d64580a01cdb9fd3d52, type: 3}
+  fireBreathHitbox: {fileID: 4367031842467170618, guid: 7dc25c12e1fd2f748a33c11ee8e39eb4, type: 3}
   salamanderNest: {fileID: 5263728034556087349, guid: d0913ebe8c44645488f366426fdd5783, type: 3}
   lavaFloor: {fileID: 292650543827331819, guid: 4afac84e85995ae4c8261853b8bbb218, type: 3}
   impactZone: {fileID: 292650543827331819, guid: 4afac84e85995ae4c8261853b8bbb218, type: 3}
@@ -1623,10 +1597,8 @@ MonoBehaviour:
   isFuryActive: 0
   enemy: {fileID: 0}
   manager: {fileID: 3337474742709272771}
-  Projectiles:
-  - projectile: {fileID: 6327006416360637003, guid: 0a9aeb4c934130348a4b4ab99d364689, type: 3}
-    damage: 10
-  Salamanders: []
+  projectiles: []
+  salamanders: []
   placementStrategy: {fileID: 11400000, guid: e3dd2c806b9f56c44ab7c820ca0a11ed, type: 2}
   maxSpawns: 10
 --- !u!1 &4146214080431595590
@@ -2376,6 +2348,117 @@ Transform:
   - {fileID: 4785615905954067636}
   m_Father: {fileID: 278218385134769264}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7260557540844694278
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 416824883495328735}
+  - component: {fileID: 1986006405636780769}
+  - component: {fileID: 8812059188704609041}
+  m_Layer: 0
+  m_Name: VFX_DragonBreath
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &416824883495328735
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7260557540844694278}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.013, y: 0.636, z: 0.53}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8504118451914247454}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!2083052967 &1986006405636780769
+VisualEffect:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7260557540844694278}
+  m_Enabled: 1
+  m_Asset: {fileID: 8926484042661614526, guid: 6a9c0cfeaefc13d45bfe40e4fca9f52b, type: 3}
+  m_InitialEventName: 
+  m_InitialEventNameOverriden: 1
+  m_StartSeed: 0
+  m_ResetSeedOnPlay: 1
+  m_AllowInstancing: 1
+  m_ResourceVersion: 1
+  m_PropertySheet:
+    m_Float:
+      m_Array: []
+    m_Vector2f:
+      m_Array: []
+    m_Vector3f:
+      m_Array: []
+    m_Vector4f:
+      m_Array: []
+    m_Uint:
+      m_Array: []
+    m_Int:
+      m_Array: []
+    m_Matrix4x4f:
+      m_Array: []
+    m_AnimationCurve:
+      m_Array: []
+    m_Gradient:
+      m_Array: []
+    m_NamedObject:
+      m_Array: []
+    m_Bool:
+      m_Array: []
+--- !u!73398921 &8812059188704609041
+VFXRenderer:
+  serializedVersion: 1
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7260557540844694278}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &7362017785923908924
 GameObject:
   m_ObjectHideFlags: 0

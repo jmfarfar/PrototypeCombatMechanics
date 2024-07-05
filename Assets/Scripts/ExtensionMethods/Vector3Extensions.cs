@@ -17,7 +17,7 @@ public static class Vector3Extensions
     /// a centrall Vector3 point(origin).
     /// </summary>
     /// <param name="origin">The center Vector3 point of the annulus.</param>
-    /// <param name="midRadius">Minimum radius of the annulus.</param>
+    /// <param name="minRadius">Minimum radius of the annulus.</param>
     /// <param name="maxRadius">Maximum radius of the annulus.</param>
     /// <returns>A random Vector3 point within the specified annulus.</returns>
     public static Vector3 RandomPointInAnnulus(this Vector3 origin, float minRadius, float maxRadius)

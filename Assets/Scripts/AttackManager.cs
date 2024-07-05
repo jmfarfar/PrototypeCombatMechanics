@@ -10,10 +10,11 @@ public class AttackManager : MonoBehaviour
     public AttackData currentAttack;
     public Action attackCompletedEvent;
     public Action onActiveFramesEnd;
+    public Action activateAttackInput;
 
     public void StartAttack(int index)
     {
-        if (index >= attacks.Length) {attackCompletedEvent?.Invoke(); return;}
+        if (index >= attacks.Length) { attackCompletedEvent?.Invoke(); return; }
 
         currentAttack = attacks[index];
     }
@@ -36,5 +37,10 @@ public class AttackManager : MonoBehaviour
     public void EndActiveFrames()
     {
         onActiveFramesEnd?.Invoke();
+    }
+
+    public void ActivateAttackInput()
+    {
+        activateAttackInput?.Invoke();
     }
 }

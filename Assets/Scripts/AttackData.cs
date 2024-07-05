@@ -22,6 +22,7 @@ public class AttackData
     public float activeTime;
     public float stunTime;
     public AnimationClip attackAnimation;
+    public AudioClip attackSFX;
     public AttackEffects[] attackEffects;
     public AttackEvent attackEvent;
 }

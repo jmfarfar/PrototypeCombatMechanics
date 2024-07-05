@@ -63,7 +63,7 @@ public class RadioMenuManager : MonoBehaviour
         GameObject selectedSprite = menu.GetChild(2).gameObject;
         selectedSprite.SetActive(true);
         selectedSprite.transform.rotation = Quaternion.Euler(0f, 0f, cuadrant * 90f);
-        menu.GetChild(7).GetComponent<TextMeshProUGUI>().text = spellName;
+        //menu.GetChild(7).GetComponent<TextMeshProUGUI>().text = spellName;
         StartCoroutine(DeactivateRadioMenuRoutine(menu.gameObject, deactivationTime));
     }
 
@@ -73,7 +73,7 @@ public class RadioMenuManager : MonoBehaviour
         yield return new WaitForSeconds(time);
         menu.SetActive(false);
         isMenuExecuting = false;
-        menu.transform.GetChild(1).GetComponent<Image>().color = menuColors[3];
-        menu.transform.GetChild(7).GetComponent<TextMeshProUGUI>().text = "Attack name";
+        //menu.transform.GetChild(1).GetComponent<Image>().color = menuColors[3];
+        //menu.transform.GetChild(7).GetComponent<TextMeshProUGUI>().text = "Attack name";
     }
 }

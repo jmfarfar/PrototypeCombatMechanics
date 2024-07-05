@@ -21,19 +21,22 @@ public class PlayerMovementState : PlayerBaseState
     public override void Enter()
     {
         stateMachine.Animator.CrossFadeInFixedTime(MovementStateHash, 0.1f);
-        inputAction = GetActivateRadialMenu();
+        stateMachine.ActivateAttackInput();
+        ExecuteBufferedAttack();
     }
 
     public override void Exit()
     {
         stateMachine.isRadialMenuActive = false;
         stateMachine.onRadialMenuActivated?.Invoke(stateMachine.gameObject.layer, menuSelected, false);
-        // stateMachine.RadialMenu[menuSelected].SetActive(false);
+        stateMachine.DeactivateAttackInput();
 
     }
 
     public override void Tick(float deltaTime)
     {
+        ExecuteBufferedAttack();
+
         Vector2 movementInput = stateMachine.PlayerInput.GetMovementInputVector();
 
         UpdateAnimation(movementInput);
@@ -52,8 +55,6 @@ public class PlayerMovementState : PlayerBaseState
             stateMachine.transform.rotation = Quaternion.RotateTowards(stateMachine.transform.rotation, toRotate, Time.deltaTime * stateMachine.RotationSpeed);
         }
 
-        inputAction?.Invoke();
-        
         if (stateMachine.PlayerInput.GetDashButton())
         {
 
@@ -67,36 +68,6 @@ public class PlayerMovementState : PlayerBaseState
         stateMachine.CharacterController.Move(direction * stateMachine.Speed * Time.deltaTime);
     }
 
-    private Action GetActivateRadialMenu()
-    {
-        return () =>
-        {
-            if (stateMachine.PlayerInput.GetFirstRadialMenuButton())
-            {
-                ActivateRadialMenu(0);
-                inputAction = GetExecuteRadialMenu();
-            }
-            else if (stateMachine.PlayerInput.GetSecondRadialMenuButton())
-            {
-                ActivateRadialMenu(1);
-                inputAction = GetExecuteRadialMenu();
-            }
-            else if (stateMachine.PlayerInput.GetThirdRadialMenuButton())
-            {
-                ActivateRadialMenu(2);
-                inputAction = GetExecuteRadialMenu();
-            }
-        };
-    }
-
-    private Action GetExecuteRadialMenu()
-    {
-        return () =>
-        {
-            ExecuteRadialMenu(menuSelected);
-        };
-    }
-
     private void UpdateAnimation(Vector2 movementInput)
     {
         float movementFactor = Mathf.Ceil(movementInput.sqrMagnitude);
@@ -106,48 +77,11 @@ public class PlayerMovementState : PlayerBaseState
         movementFactor,
         Time.deltaTime * 10f
         ));
-
     }
 
-    private void ActivateRadialMenu(int menuIndex)
+    private void ExecuteBufferedAttack()
     {
-        stateMachine.isRadialMenuActive = !stateMachine.isRadialMenuActive;
-
-        if (stateMachine.isRadialMenuActive)
-        {
-            // stateMachine.RadialMenu[menuIndex].SetActive(true);
-            stateMachine.onRadialMenuActivated?.Invoke(stateMachine.gameObject.layer, menuIndex, true);
-            menuSelected = menuIndex;
-        }
-        else
-        {
-            // stateMachine.RadialMenu[menuIndex].SetActive(false);
-        }
-    }
-
-    private void ExecuteRadialMenu(int menuIndex)
-    {
-        int cuadrant = stateMachine.PlayerInput.GetRadialMenuQuadrant();
-
-        int currentSpell = menuIndex switch
-        {
-            0 => 0, // spells for menu X
-            1 => 4, // spells for menu Y
-            2 => 8, // spells for menu B
-            _ => 0,
-        };
-
-        int spellNumber = cuadrant + currentSpell;
-
-        if (spellNumber > currentSpell + 3) return;
-
-        stateMachine.onRadialMenuExecuted?.Invoke(stateMachine.gameObject.layer, stateMachine.AttackManager.attacks[spellNumber].name, cuadrant);
-
-        // stateMachine.selectedObject.eulerAngles = new Vector3(0f, 0f, cuadrant * 90f);
-        // stateMachine.highlightedSpellName.text = stateMachine.SpellNames[spellNumber];
-        //stateMachine.isRadialMenuActive = false;
-        //stateMachine.RadialMenu[menuIndex].SetActive(false);
-        stateMachine.SwitchState(new PlayerAttackState(stateMachine, spellNumber));
-
+        stateMachine.bufferedAttack?.Invoke();
+        stateMachine.bufferedAttack = null;
     }
 }
