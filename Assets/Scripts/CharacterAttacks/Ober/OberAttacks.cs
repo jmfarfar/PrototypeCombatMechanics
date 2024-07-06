@@ -77,8 +77,10 @@ public class OberAttacks : GenericHitboxBehaviors
     public void FireBreath(AttackData attackData)
     {
         GameObject instance = InstantiateHitbox(fireBreathHitbox,
-            transform.position + (transform.forward * attackData.range), transform.rotation, attackData,
+            transform.position + (transform.forward * (attackData.range/2)), transform.rotation, attackData,
             out Hitbox hitbox);
+        instance.transform.localScale = new Vector3(instance.transform.localScale.x, instance.transform.localScale.y,
+            attackData.range);
         // AudioManager.Instance.PlaySound(attackData.attackSFX);
 
         hitbox.SetUpHitboxActions(
@@ -136,7 +138,13 @@ public class OberAttacks : GenericHitboxBehaviors
             salamander.GetComponent<Hitbox>().SetUpHitboxActions(
                 () => { },
                 FollowTargetOverTime(enemy, salamander.transform, attackData.range, attackData.activeTime),
-                (Collider other) => { Destroy(salamander.gameObject); }
+                (Collider other) =>
+                {
+                    if (salamander.gameObject != null)
+                    {
+                        Destroy(salamander.gameObject);
+                    }
+                }
             );
 
             salamander.GetComponent<Hitbox>().gameObject.layer = AssignLayerToHitbox(gameObject.layer);
