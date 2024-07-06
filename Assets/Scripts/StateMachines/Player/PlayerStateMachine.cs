@@ -62,11 +62,7 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
     private Action processAttackInput;
     public Action bufferedAttack;
     private int menuSelected;
-
-    private Action processAttackInput;
-    public Action bufferedAttack;
-    private int menuSelected;
-
+    
     #endregion
 
     private void Start()

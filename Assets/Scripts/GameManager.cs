@@ -169,12 +169,4 @@ public class GameManager : MonoBehaviour
             player.playerKO -= OnPlayerDefeated;
         }
     }
-
-    private void OnDestroy()
-    {
-        foreach (PlayerStateMachine player in players)
-        {
-            player.playerKO -= OnPlayerDefeated;
-        }
-    }
 }
