@@ -27,9 +27,11 @@ public class PlayerBlockState : PlayerBaseState
     }
 
     public override void Exit()
-    {
+    {        
         // stateMachine.StopCoroutine(OnShieldReleaseRoutine());
         stateMachine.StopAllCoroutines();
+        stateMachine.colliderState = Hitbox.ColliderStates.ACTIVE;
+        stateMachine.isShieldDepleting = false;
     }
 
     public override void Tick(float deltaTime)
@@ -100,7 +102,7 @@ public class PlayerBlockState : PlayerBaseState
             if (timer < stateMachine.ShieldReleaseTime * stateMachine.parryTimePercentage)
             {
                 stateMachine.colliderState = Hitbox.ColliderStates.PARRY;
-            }
+            }            
             else
             {
                 stateMachine.colliderState = Hitbox.ColliderStates.ACTIVE;

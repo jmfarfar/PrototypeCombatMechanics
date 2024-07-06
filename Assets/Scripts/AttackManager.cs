@@ -44,3 +44,4 @@ public class AttackManager : MonoBehaviour
         activateAttackInput?.Invoke();
     }
 }
+

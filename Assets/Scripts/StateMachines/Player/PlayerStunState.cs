@@ -14,12 +14,13 @@ public class PlayerStunState : PlayerBaseState
 
     public override void Enter()
     {
+        stateMachine.Animator.fireEvents = false;
         stateMachine.Animator.CrossFadeInFixedTime(StunHash, 0.1f);
     }
 
     public override void Exit()
     {
-
+        stateMachine.Animator.fireEvents = true;
     }
 
     public override void Tick(float deltaTime)

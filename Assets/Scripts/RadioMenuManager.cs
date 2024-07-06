@@ -13,6 +13,8 @@ public class RadioMenuManager : MonoBehaviour
     private PlayerStateMachine[] players;
     private bool isMenuExecuting;
     private Color[] menuColors = {new(0f, 0.8f, 1f), new(1f, 0.6f, 0.3f), new(0.9f, 0.2f, 0.3f), Color.white};
+    private AttackData[] player1Attacks;
+    private AttackData[] player2Attacks;
 
     private void Start() 
     {
@@ -23,6 +25,8 @@ public class RadioMenuManager : MonoBehaviour
             player.onRadialMenuActivated += OnRadialMenuActivated;
             player.onRadialMenuExecuted += OnRadialMenuExecuted;
         }
+        player1Attacks = players[0].AttackManager.attacks;
+        player2Attacks = players[1].AttackManager.attacks;
     }
 
     private void OnRadialMenuExecuted(LayerMask layerMask, string spellName, int cuadrant)
@@ -43,19 +47,23 @@ public class RadioMenuManager : MonoBehaviour
 
         if (layerMask == LayerMask.NameToLayer("Player1Hurtbox"))
         {
-            ToogleRadioMenu(radioMenuPlayer1.gameObject, isActive, index);
+            ToogleRadioMenu(radioMenuPlayer1, isActive, index, player1Attacks);
         }
         else if (layerMask == LayerMask.NameToLayer("Player2Hurtbox"))
         {
-            ToogleRadioMenu(radioMenuPlayer2.gameObject, isActive, index);
+            ToogleRadioMenu(radioMenuPlayer2, isActive, index, player2Attacks);
         }
     }
 
-    private void ToogleRadioMenu(GameObject menu, bool isActive, int index)
+    private void ToogleRadioMenu(Transform menu, bool isActive, int index, AttackData[] attacks)
     {
-        menu.transform.GetChild(1).GetComponent<Image>().color = menuColors[index];
-        menu.SetActive(isActive);
-        menu.transform.GetChild(2).gameObject.SetActive(false);
+        menu.GetChild(1).GetComponent<Image>().color = menuColors[index];
+        menu.gameObject.SetActive(isActive);
+        menu.GetChild(2).gameObject.SetActive(false);
+        for (int i = 0; i < 4; i++)
+        {
+            menu.GetChild(i + 3).GetComponent<Image>().sprite = attacks[i + (4 * index)].attackIcon;
+        }
     }
 
     private void DeactivateRadioMenu(Transform menu, int cuadrant, string spellName)

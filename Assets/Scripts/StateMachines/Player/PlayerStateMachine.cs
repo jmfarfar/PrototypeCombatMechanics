@@ -43,7 +43,6 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
     public bool isRolling;
     [field: SerializeField] public bool IsChannelComplete { get; private set; }
     [field: SerializeField] public float ChargeTime { get; private set; } = 10f;
-    
 
     public bool isRadialMenuActive;
 
@@ -59,6 +58,10 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
 
     [field: SerializeField] public float ShieldReleaseTime { get; private set; }
     [field: SerializeField] public float parryTimePercentage { get; private set; }
+
+    private Action processAttackInput;
+    public Action bufferedAttack;
+    private int menuSelected;
 
     private Action processAttackInput;
     public Action bufferedAttack;
@@ -213,6 +216,7 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
 
     public void ActivateAttackInput()
     {
+
         if (processAttackInput != null) { return; }
         processAttackInput = GetActivateRadialMenu();
     }
@@ -303,3 +307,4 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
         ChargeTime -= Time.deltaTime;
     }
 }
+

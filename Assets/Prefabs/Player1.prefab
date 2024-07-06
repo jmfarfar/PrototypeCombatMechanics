@@ -62,7 +62,7 @@ Transform:
   m_Children:
   - {fileID: 5265083589176728942}
   m_Father: {fileID: 3476531127637510994}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -51.28322, y: 2.6413903, z: 5.5336676}
 --- !u!1 &414677618103607374
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +156,7 @@ Transform:
   m_Children:
   - {fileID: 3641813433763611535}
   m_Father: {fileID: 6401242356176602330}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 18.86349, y: 3.6426263, z: 37.1733}
 --- !u!1 &1070722184935644304
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,7 +188,7 @@ Transform:
   m_Children:
   - {fileID: 7876399294528429327}
   m_Father: {fileID: 3742613437351693562}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 29.899626, y: 0.14870279, z: 0.762631}
 --- !u!1 &1131881552085140943
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,7 +222,7 @@ Transform:
   - {fileID: 1948951964460279552}
   - {fileID: 2548131483461059215}
   m_Father: {fileID: 5895153495808957206}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 9.965744, y: -0.7167915, z: 5.423289}
 --- !u!1 &1298380167593958885
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,7 +254,7 @@ Transform:
   m_Children:
   - {fileID: 5866212081173435998}
   m_Father: {fileID: 37039136666828439}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 46.587643, y: 0.068141, z: 0.40443152}
 --- !u!1 &1462159199784112025
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +286,7 @@ Transform:
   m_Children:
   - {fileID: 964543277738669512}
   m_Father: {fileID: 773088042160209005}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -32.565514, y: 10.893666, z: -161.42386}
 --- !u!1 &1728235562258323779
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,7 +498,7 @@ Transform:
   m_Children:
   - {fileID: 2106779461270668453}
   m_Father: {fileID: 1971450857213800145}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 13.752055, y: 7.5347323, z: 7.934067}
 --- !u!1 &2396030616143007682
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,7 +575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49ddff488ba8d64c390f8a79aa04f34a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 10
+  <MaxHealth>k__BackingField: 1000
   <CurrentHealth>k__BackingField: 0
 --- !u!114 &1648676268412020031
 MonoBehaviour:
@@ -594,50 +594,8 @@ MonoBehaviour:
   <DashForce>k__BackingField: 1.5
   <Health>k__BackingField: {fileID: 8424423014621396897}
   <RotationSpeed>k__BackingField: 1200
-  <ProjectilePrefab>k__BackingField: {fileID: 6327006416360637003, guid: 0a9aeb4c934130348a4b4ab99d364689, type: 3}
   <Combatant>k__BackingField: {fileID: 0}
   <Animator>k__BackingField: {fileID: 4064383722386798661}
-  attacks:
-  - name: 
-    damage: 5
-    range: 20
-    activeTime: 0
-    stunTime: 0.7
-    attackAnimation: {fileID: 0}
-    attackEffects: 
-    attackEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: 
-    damage: 10
-    range: 8
-    activeTime: 0
-    stunTime: 0.9
-    attackAnimation: {fileID: 0}
-    attackEffects: 
-    attackEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: 
-    damage: 15
-    range: 20
-    activeTime: 0
-    stunTime: 1.2
-    attackAnimation: {fileID: 0}
-    attackEffects: 
-    attackEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: 
-    damage: 20
-    range: 5
-    activeTime: 0
-    stunTime: 1.2
-    attackAnimation: {fileID: 0}
-    attackEffects: 
-    attackEvent:
-      m_PersistentCalls:
-        m_Calls: []
   dashTime: 0.25
   dashCooldown: 0.1
   dashDistance: 3
@@ -681,15 +639,10 @@ MonoBehaviour:
   isShieldDepleting: 0
   isShieldDepleted: 0
   isRolling: 0
-  <RadialMenu>k__BackingField: []
-  <SpellNames>k__BackingField: []
   isRadialMenuActive: 0
-  selectedObject: {fileID: 0}
-  menuCenter: {fileID: 0}
-  highlightedSpellName: {fileID: 0}
   AttackManager: {fileID: 6784795115328361854}
   restrainedStateExitThreshold: 50
-  <ShieldReleaseTime>k__BackingField: 0.3
+  <ShieldReleaseTime>k__BackingField: 0.4
   <parryTimePercentage>k__BackingField: 0.5
 --- !u!114 &3565946824552977181
 MonoBehaviour:
@@ -716,15 +669,16 @@ MonoBehaviour:
     lichLord: {fileID: 7687485447221937533, guid: 14404bb796297e93f9bc1350be1fb52d, type: 3}
     ghostGuardian: {fileID: 7283491710560900133, guid: e79c54f45560c9311a4700eb8895a999, type: 3}
   negativeEnergyCosts:
-    archerSkeletonCost: 2
+    archerSkeletonCost: 5
     skeletonWallCost: 1
     portalSpectreCost: 5
-    lichLordCost: 4
-    ghostGuardianCost: 2
+    lichLordCost: 10
+    ghostGuardianCost: 4
+    necroticMistCost: 1
   negativeEnergyRatios:
-    necroticDart: 0.4
+    necroticDart: 0.5
     deathScythe: 1
-    necroticMist: 0.2
+    necroticMist: 0.5
     sacrifice: 0.3
   drainRatios:
     deathScytheDrainRatio: 0.1
@@ -758,8 +712,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   temporalNegativeEnergy: 0
-  persistentNegativeEnergy: 0
-  summoningSlots: 5
+  persistentNegativeEnergy: 3
+  summoningSlots: 10
   energyDecayRate: 0.1
 --- !u!1 &2481806759012908966
 GameObject:
@@ -792,7 +746,7 @@ Transform:
   m_Children:
   - {fileID: 1796085173522107324}
   m_Father: {fileID: 2476634886501047759}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 64.51327, y: 8.771353, z: 14.75509}
 --- !u!1 &2749233543924414582
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,7 +778,7 @@ Transform:
   m_Children:
   - {fileID: 4170052224147245716}
   m_Father: {fileID: 1948951964460279552}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.9458387, y: -25.657286, z: 0.32247722}
 --- !u!1 &2832818660992769714
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,7 +810,7 @@ Transform:
   m_Children:
   - {fileID: 5706468737926178468}
   m_Father: {fileID: 535458516307130180}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -3.5031638, y: 7.5195084, z: 18.137186}
 --- !u!1 &2971372076614923091
 GameObject:
   m_ObjectHideFlags: 0
@@ -950,7 +904,7 @@ Transform:
   m_Children:
   - {fileID: 1631230842277403542}
   m_Father: {fileID: 6401242356176602330}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 5.619039, y: -8.076308, z: -10.747935}
 --- !u!1 &3065495008078626559
 GameObject:
   m_ObjectHideFlags: 0
@@ -982,7 +936,7 @@ Transform:
   m_Children:
   - {fileID: 7040350190974524104}
   m_Father: {fileID: 1971450857213800145}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 21.339888, y: -1.9856616, z: -35.08073}
 --- !u!1 &3171580810249012661
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,7 +1118,7 @@ Transform:
   m_Children:
   - {fileID: 3738586958884480272}
   m_Father: {fileID: 6113606691635619105}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 42.135395, y: 0.3369923, z: 1.1044278}
 --- !u!1 &3329803935661413937
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,7 +1181,7 @@ Transform:
   m_Children:
   - {fileID: 5154583303809917272}
   m_Father: {fileID: 2106779461270668453}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 46.286366, y: -0.021375613, z: 0.33918604}
 --- !u!1 &3815213615752196993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1259,7 +1213,7 @@ Transform:
   m_Children:
   - {fileID: 7573323344138710458}
   m_Father: {fileID: 964543277738669512}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 67.81461, y: -36.233974, z: -49.187378}
 --- !u!1 &4121803835304269373
 GameObject:
   m_ObjectHideFlags: 0
@@ -1291,7 +1245,7 @@ Transform:
   m_Children:
   - {fileID: 2846126034398668073}
   m_Father: {fileID: 5987447677814632702}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 31.105114, y: 0.35485566, z: 0.37044957}
 --- !u!1 &4221958388493239533
 GameObject:
   m_ObjectHideFlags: 0
@@ -1323,7 +1277,7 @@ Transform:
   m_Children:
   - {fileID: 6401242356176602330}
   m_Father: {fileID: 1307695375885100055}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 8.473185, y: 3.161181, z: 110.22899}
 --- !u!1 &4269162421190676113
 GameObject:
   m_ObjectHideFlags: 0
@@ -1355,7 +1309,7 @@ Transform:
   m_Children:
   - {fileID: 2861796362127574507}
   m_Father: {fileID: 6986822021191908326}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 38.670216, y: 21.250082, z: -3.1639254}
 --- !u!1 &4326852576175436076
 GameObject:
   m_ObjectHideFlags: 0
@@ -1387,7 +1341,7 @@ Transform:
   m_Children:
   - {fileID: 2285249281570431288}
   m_Father: {fileID: 1971450857213800145}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.91531795, y: -8.505286, z: -0.32964736}
 --- !u!1 &4344748378279270165
 GameObject:
   m_ObjectHideFlags: 0
@@ -1419,7 +1373,7 @@ Transform:
   m_Children:
   - {fileID: 4932724360148478845}
   m_Father: {fileID: 1068046548862357502}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 8.473257, y: -0.8577323, z: 5.4014688}
 --- !u!1 &4405226390333269398
 GameObject:
   m_ObjectHideFlags: 0
@@ -1451,7 +1405,7 @@ Transform:
   m_Children:
   - {fileID: 6534252003863890440}
   m_Father: {fileID: 3772457378249879532}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -2.153742, y: -7.965655, z: -15.436686}
 --- !u!1 &4580275414414669998
 GameObject:
   m_ObjectHideFlags: 0
@@ -1483,7 +1437,7 @@ Transform:
   m_Children:
   - {fileID: 1828543276416656414}
   m_Father: {fileID: 6401242356176602330}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -4.8073554, y: 4.11541, z: 2.4455943}
 --- !u!1 &4702023931973170667
 GameObject:
   m_ObjectHideFlags: 0
@@ -1515,7 +1469,7 @@ Transform:
   m_Children:
   - {fileID: 1307695375885100055}
   m_Father: {fileID: 4932724360148478845}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 84.23302, y: -115.32402, z: 153.38142}
 --- !u!1 &4863683844595120468
 GameObject:
   m_ObjectHideFlags: 0
@@ -1547,7 +1501,7 @@ Transform:
   m_Children:
   - {fileID: 7130106556005011130}
   m_Father: {fileID: 2548131483461059215}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 34.47792, y: -50.84909, z: -19.382162}
 --- !u!1 &4962783619441955634
 GameObject:
   m_ObjectHideFlags: 0
@@ -1579,7 +1533,7 @@ Transform:
   m_Children:
   - {fileID: 7165801214086321530}
   m_Father: {fileID: 5900397015282889594}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 36.844593, y: 0.14473023, z: -0.10875995}
 --- !u!1 &5593766618907903555
 GameObject:
   m_ObjectHideFlags: 0
@@ -1591,6 +1545,7 @@ GameObject:
   - component: {fileID: 5110140504427846905}
   - component: {fileID: 4064383722386798661}
   - component: {fileID: 6784795115328361854}
+  - component: {fileID: 1347589727944819056}
   m_Layer: 8
   m_Name: Character
   m_TagString: Untagged
@@ -1650,12 +1605,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attacks:
-  - name: 1 NecroticDart
-    damage: 5
+  - name: NecroticDart
+    damage: 10
     range: 15
     activeTime: 0.3
-    stunTime: 0.5
-    attackAnimation: {fileID: 0}
+    stunTime: 0.2
+    attackAnimation: {fileID: 7400000, guid: 1a9e11ca9109efe0abb0ad7bd9ea01db, type: 2}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:
@@ -1672,8 +1627,32 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: 2 Soul Trap Scythe
-    damage: 10
+    attackIcon: {fileID: 21300000, guid: db1da28dd6163103a892db88c181dfaf, type: 3}
+  - name: Summon Bone Stalker
+    damage: 80
+    range: 40
+    activeTime: 10
+    stunTime: 1
+    attackAnimation: {fileID: 0}
+    attackEffects: 
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3565946824552977181}
+          m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
+          m_MethodName: SummonBoneStalker
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    attackIcon: {fileID: 21300000, guid: 3ef1a139d196a555ab6d73534e20136b, type: 3}
+  - name: Soul Trap Scythe
+    damage: 50
     range: 5
     activeTime: 0.5
     stunTime: 0.5
@@ -1694,74 +1673,9 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: 3 Summon Archer Skeleton
-    damage: 10
-    range: 10
-    activeTime: 0.3
-    stunTime: 0.5
-    attackAnimation: {fileID: 0}
-    attackEffects: 
-    attackEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3565946824552977181}
-          m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
-          m_MethodName: SummonArcherSkeleton
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - name: 4 Summon Skeleton Wall
-    damage: 0
-    range: 0
-    activeTime: 3
-    stunTime: 0
-    attackAnimation: {fileID: 0}
-    attackEffects: 
-    attackEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3565946824552977181}
-          m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
-          m_MethodName: SummonSkeletonWall
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - name: 5 Necrotic Mist
-    damage: 5
-    range: 10
-    activeTime: 5
-    stunTime: 0
-    attackAnimation: {fileID: 0}
-    attackEffects: 
-    attackEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3565946824552977181}
-          m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
-          m_MethodName: NecroticMist
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - name: 6 Phantom Onslaught
-    damage: 15
+    attackIcon: {fileID: 21300000, guid: 1abfcae831f005b4294a7769774d7c54, type: 3}
+  - name: Phantom Onslaught
+    damage: 80
     range: 10
     activeTime: 0.5
     stunTime: 1
@@ -1782,11 +1696,12 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: 7 Summon Bone Stalker
-    damage: 15
-    range: 30
+    attackIcon: {fileID: 21300000, guid: 01541213a362a05ee85594c44c201aaa, type: 3}
+  - name: Necrotic Mist
+    damage: 10
+    range: 10
     activeTime: 5
-    stunTime: 0.5
+    stunTime: 0
     attackAnimation: {fileID: 0}
     attackEffects: 
     attackEvent:
@@ -1794,7 +1709,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 3565946824552977181}
           m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
-          m_MethodName: SummonBoneStalker
+          m_MethodName: NecroticMist
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1804,7 +1719,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: 8 Sacrifice
+    attackIcon: {fileID: 21300000, guid: bf9a5aca49a3b2d809506c99398ca40b, type: 3}
+  - name: Sacrifice
     damage: 0
     range: 0
     activeTime: 1
@@ -1826,8 +1742,78 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: 9 Portal / Spectre
-    damage: 5
+    attackIcon: {fileID: 21300000, guid: a99756e743f0835d3a932f692e63e040, type: 3}
+  - name: Grip beyond the grave
+    damage: 0
+    range: 5
+    activeTime: 0.2
+    stunTime: 0
+    attackAnimation: {fileID: 0}
+    attackEffects: 07000000
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3565946824552977181}
+          m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
+          m_MethodName: GripBeyondTheGrave
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    attackIcon: {fileID: 21300000, guid: 89ca0cb72d9b16c26b762c7004b7f72d, type: 3}
+  - name: Summon Skeleton Wall
+    damage: 0
+    range: 0
+    activeTime: 3
+    stunTime: 0
+    attackAnimation: {fileID: 0}
+    attackEffects: 
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3565946824552977181}
+          m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
+          m_MethodName: SummonSkeletonWall
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    attackIcon: {fileID: 21300000, guid: 54bd3919bb40c1523b0cff32a215ae18, type: 3}
+  - name: Summon Archer Skeleton
+    damage: 25
+    range: 10
+    activeTime: 0.2
+    stunTime: 0.5
+    attackAnimation: {fileID: 0}
+    attackEffects: 
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3565946824552977181}
+          m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
+          m_MethodName: SummonArcherSkeleton
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    attackIcon: {fileID: 21300000, guid: 7940d31a1a5e04f39a66093e3903516a, type: 3}
+  - name: Portal / Spectre
+    damage: 25
     range: 15
     activeTime: 0.3
     stunTime: 1
@@ -1848,8 +1834,9 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: 10 Summon Lich Lord
-    damage: 15
+    attackIcon: {fileID: 21300000, guid: 1b11d7c8de7e9c4e59d05eb6ce311fa1, type: 3}
+  - name: Summon Lich Lord
+    damage: 50
     range: 10
     activeTime: 0.5
     stunTime: 1
@@ -1870,33 +1857,12 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: 11 Grip beyond the grave
-    damage: 0
-    range: 10
+    attackIcon: {fileID: 21300000, guid: 6c6f795f8eb730374b5fe08f37ee616c, type: 3}
+  - name: Ghost Guardian
+    damage: 50
+    range: 5
     activeTime: 0.5
-    stunTime: 0
-    attackAnimation: {fileID: 0}
-    attackEffects: 07000000
-    attackEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3565946824552977181}
-          m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
-          m_MethodName: GripBeyondTheGrave
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - name: 12 Ghost Guardian
-    damage: 10
-    range: 3
-    activeTime: 0.5
-    stunTime: 0.5
+    stunTime: 1
     attackAnimation: {fileID: 0}
     attackEffects: 
     attackEvent:
@@ -1904,7 +1870,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 3565946824552977181}
           m_TargetAssemblyTypeName: ArdidAttacks, Assembly-CSharp
-          m_MethodName: GhostGuardian
+          m_MethodName: SummonGhostGuardian
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1914,6 +1880,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+    attackIcon: {fileID: 21300000, guid: a71854feedc1017dbbb83d7bab4ad48b, type: 3}
   currentAttack:
     name: 
     damage: 0
@@ -1925,6 +1892,23 @@ MonoBehaviour:
     attackEvent:
       m_PersistentCalls:
         m_Calls: []
+    attackIcon: {fileID: 0}
+--- !u!111 &1347589727944819056
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5593766618907903555}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: 1a9e11ca9109efe0abb0ad7bd9ea01db, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &5649031632566379800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1958,7 +1942,7 @@ Transform:
   - {fileID: 3476531127637510994}
   - {fileID: 1068046548862357502}
   m_Father: {fileID: 5110140504427846905}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 2.325578, y: 58.252754, z: -4.1897864}
 --- !u!1 &5696501788971405927
 GameObject:
   m_ObjectHideFlags: 0
@@ -2021,7 +2005,7 @@ Transform:
   m_Children:
   - {fileID: 5564590364424118156}
   m_Father: {fileID: 3100130351505790810}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 32.255703, y: 0.3447313, z: 0.37318403}
 --- !u!1 &6049765366762032383
 GameObject:
   m_ObjectHideFlags: 0
@@ -2053,7 +2037,7 @@ Transform:
   m_Children:
   - {fileID: 8753293929985822314}
   m_Father: {fileID: 7059662306051024163}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 39.478428, y: -1.0822296, z: -1.9268199}
 --- !u!1 &6113930224056686505
 GameObject:
   m_ObjectHideFlags: 0
@@ -2085,7 +2069,7 @@ Transform:
   m_Children:
   - {fileID: 5895153495808957206}
   m_Father: {fileID: 773088042160209005}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 2.0078938, y: -0.52556974, z: 2.9072707}
 --- !u!1 &6242015611945569177
 GameObject:
   m_ObjectHideFlags: 0
@@ -2117,7 +2101,7 @@ Transform:
   m_Children:
   - {fileID: 8070975918390996393}
   m_Father: {fileID: 1918306591347567437}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 30.124954, y: 0.14009432, z: 0.37115818}
 --- !u!1 &6393207091268942205
 GameObject:
   m_ObjectHideFlags: 0
@@ -2149,7 +2133,7 @@ Transform:
   m_Children:
   - {fileID: 8255031497411789593}
   m_Father: {fileID: 6401242356176602330}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -13.082649, y: 16.812414, z: 11.476313}
 --- !u!1 &6650128705745939787
 GameObject:
   m_ObjectHideFlags: 0
@@ -2181,7 +2165,7 @@ Transform:
   m_Children:
   - {fileID: 859349256344192078}
   m_Father: {fileID: 6401242356176602330}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 5.616847, y: -21.511534, z: -20.340202}
 --- !u!1 &6671623013511725606
 GameObject:
   m_ObjectHideFlags: 0
@@ -2213,7 +2197,7 @@ Transform:
   m_Children:
   - {fileID: 5334984331421260603}
   m_Father: {fileID: 1828543276416656414}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 39.044685, y: 0.58929884, z: 0.20400777}
 --- !u!1 &7098774282150260972
 GameObject:
   m_ObjectHideFlags: 0
@@ -2245,7 +2229,7 @@ Transform:
   m_Children:
   - {fileID: 6113606691635619105}
   m_Father: {fileID: 1971450857213800145}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 16.185831, y: -5.2040277, z: 3.2864976}
 --- !u!1 &7264241922549126675
 GameObject:
   m_ObjectHideFlags: 0
@@ -2281,7 +2265,7 @@ Transform:
   - {fileID: 4606076819744201758}
   - {fileID: 3772457378249879532}
   m_Father: {fileID: 7130106556005011130}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -9.5702, y: -10.831341, z: 12.60118}
 --- !u!1 &7312292898029596107
 GameObject:
   m_ObjectHideFlags: 0
@@ -2313,7 +2297,7 @@ Transform:
   m_Children:
   - {fileID: 5641153645026652231}
   m_Father: {fileID: 4606076819744201758}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 26.155811, y: 0.063984714, z: -0.10651328}
 --- !u!1 &7419836059130181919
 GameObject:
   m_ObjectHideFlags: 0
@@ -2345,7 +2329,7 @@ Transform:
   m_Children:
   - {fileID: 1242373589401462826}
   m_Father: {fileID: 4932724360148478845}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 82.95098, y: 107.51265, z: -162.06111}
 --- !u!1 &7501357556639117771
 GameObject:
   m_ObjectHideFlags: 0
@@ -2377,7 +2361,7 @@ Transform:
   m_Children:
   - {fileID: 7855842634472653320}
   m_Father: {fileID: 8324708786793851129}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 26.889336, y: 0.10951233, z: -0.5203861}
 --- !u!1 &7591206822698176214
 GameObject:
   m_ObjectHideFlags: 0
@@ -2440,7 +2424,7 @@ Transform:
   m_Children:
   - {fileID: 566639802143125584}
   m_Father: {fileID: 3478253794761735604}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 18.035374, y: -0.21202882, z: -0.3321843}
 --- !u!1 &7702671816290775359
 GameObject:
   m_ObjectHideFlags: 0
@@ -2472,7 +2456,7 @@ Transform:
   m_Children:
   - {fileID: 2476634886501047759}
   m_Father: {fileID: 773088042160209005}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -34.447525, y: -13.265027, z: 164.53636}
 --- !u!1 &7722059463167381216
 GameObject:
   m_ObjectHideFlags: 0
@@ -2504,7 +2488,7 @@ Transform:
   m_Children:
   - {fileID: 3422047731485754412}
   m_Father: {fileID: 2285249281570431288}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 44.356636, y: -0.24469285, z: 0.2920018}
 --- !u!1 &7727594163896858898
 GameObject:
   m_ObjectHideFlags: 0
@@ -2536,7 +2520,7 @@ Transform:
   m_Children:
   - {fileID: 7059662306051024163}
   m_Father: {fileID: 7125833851132740881}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -46.52206, y: -11.510815, z: 17.596014}
 --- !u!1 &8058386092346695316
 GameObject:
   m_ObjectHideFlags: 0
@@ -2599,7 +2583,7 @@ Transform:
   m_Children:
   - {fileID: 1539113022113051842}
   m_Father: {fileID: 859349256344192078}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 36.47164, y: 0.21505176, z: -0.07012712}
 --- !u!1 &8307372356979132699
 GameObject:
   m_ObjectHideFlags: 0
@@ -2662,7 +2646,7 @@ Transform:
   m_Children:
   - {fileID: 3369832565957446936}
   m_Father: {fileID: 5265083589176728942}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 39.47284, y: 1.084144, z: 1.6873811}
 --- !u!1 &8395522475188879393
 GameObject:
   m_ObjectHideFlags: 0
@@ -2694,7 +2678,7 @@ Transform:
   m_Children:
   - {fileID: 7000381897851329952}
   m_Father: {fileID: 1631230842277403542}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 33.263752, y: 0.12954907, z: -0.5809806}
 --- !u!1 &8522763033009078286
 GameObject:
   m_ObjectHideFlags: 0
@@ -2757,7 +2741,7 @@ Transform:
   m_Children:
   - {fileID: 1190726295798206074}
   m_Father: {fileID: 4932724360148478845}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -20.120348, y: -25.044123, z: -5.9900494}
 --- !u!1 &8623558853573406297
 GameObject:
   m_ObjectHideFlags: 0
@@ -2789,7 +2773,7 @@ Transform:
   m_Children:
   - {fileID: 1971450857213800145}
   m_Father: {fileID: 1242373589401462826}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.008120284, y: -0.053788625, z: -43.169445}
 --- !u!1 &8680580286964356643
 GameObject:
   m_ObjectHideFlags: 0
@@ -2821,7 +2805,7 @@ Transform:
   m_Children:
   - {fileID: 7636383818948938505}
   m_Father: {fileID: 7040350190974524104}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -2.2900836, y: -1.3993164, z: 1.5051466}
 --- !u!1 &8911979764330166715
 GameObject:
   m_ObjectHideFlags: 0
@@ -2853,7 +2837,7 @@ Transform:
   m_Children:
   - {fileID: 4765211004381419610}
   m_Father: {fileID: 3641813433763611535}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -8.670038, y: 2.4915998, z: -13.620123}
 --- !u!1 &8935087852894802264
 GameObject:
   m_ObjectHideFlags: 0
@@ -2916,7 +2900,7 @@ Transform:
   m_Children:
   - {fileID: 3417577697030232783}
   m_Father: {fileID: 8255031497411789593}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 23.25635, y: -0.19815129, z: -0.3021031}
 --- !u!1 &9097787932287132879
 GameObject:
   m_ObjectHideFlags: 0
@@ -2948,7 +2932,7 @@ Transform:
   m_Children:
   - {fileID: 3100130351505790810}
   m_Father: {fileID: 1971450857213800145}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -10.680649, y: -13.1509905, z: -1.0244845}
 --- !u!1 &9151637692424270558
 GameObject:
   m_ObjectHideFlags: 0
@@ -2984,4 +2968,4 @@ Transform:
   - {fileID: 1918306591347567437}
   - {fileID: 535458516307130180}
   m_Father: {fileID: 2861796362127574507}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -15.898516, y: -21.118732, z: -5.9126825}

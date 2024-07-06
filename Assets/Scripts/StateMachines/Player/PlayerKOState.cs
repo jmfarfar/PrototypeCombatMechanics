@@ -14,7 +14,7 @@ public class PlayerKOState : PlayerBaseState
         stateMachine.Animator.CrossFadeInFixedTime(KOHash, 0.1f);
         stateMachine.Health.enabled = false;
         stateMachine.CharacterController.enabled = false;
-        GameManager.Instance.OnPlayerDefeated(stateMachine.gameObject.layer);
+        stateMachine.playerKO?.Invoke(stateMachine.gameObject.layer);
     }
 
     public override void Exit()

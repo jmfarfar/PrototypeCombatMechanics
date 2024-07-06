@@ -63,6 +63,7 @@ public class PlayerDashState : PlayerBaseState
                 stateMachine.ActivateAttackInput();
             }
 
+
             float speed = stateMachine.dashAccelerationCurve.Evaluate(timer / stateMachine.dashTime) * dashSpeed;
 
             stateMachine.CharacterController.Move(stateMachine.transform.forward * speed * Time.deltaTime);

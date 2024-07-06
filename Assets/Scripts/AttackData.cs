@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -27,4 +28,5 @@ public class AttackData
     public VisualEffect attackVfx;
     public AttackEffects[] attackEffects;
     public AttackEvent attackEvent;
+    public Sprite attackIcon;
 }

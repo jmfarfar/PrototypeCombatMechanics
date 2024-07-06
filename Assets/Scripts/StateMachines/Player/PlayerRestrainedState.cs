@@ -31,8 +31,6 @@ public class PlayerRestrainedState : PlayerBaseState
         {
             stateMachine.SwitchState(new PlayerMovementState(stateMachine));
         }
-
-        Debug.Log(restrainValue);
     }
 
     public override void Exit()
