@@ -9,7 +9,7 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
 {
     #region Properties
     [field: SerializeField] public IPlayerInput PlayerInput { get; private set; }
-    
+
     [field: SerializeField]
     public CharacterController CharacterController { get; set; }
     [field: SerializeField]
@@ -41,6 +41,8 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
     public bool isShieldDepleting;
     public bool isShieldDepleted;
     public bool isRolling;
+    [field: SerializeField] public bool IsChannelComplete { get; private set; }
+    [field: SerializeField] public float ChargeTime { get; private set; } = 10f;
 
     public bool isRadialMenuActive;
 
@@ -54,8 +56,12 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
     [HideInInspector] public Action<LayerMask, string, int> onRadialMenuExecuted;
     [HideInInspector] public Action<LayerMask, int, bool> onRadialMenuActivated;
 
-    [field: SerializeField] public float ShieldReleaseTime {get; private set;}
-    [field: SerializeField] public float parryTimePercentage {get; private set;}
+    [field: SerializeField] public float ShieldReleaseTime { get; private set; }
+    [field: SerializeField] public float parryTimePercentage { get; private set; }
+
+    private Action processAttackInput;
+    public Action bufferedAttack;
+    private int menuSelected;
 
     private Action processAttackInput;
     public Action bufferedAttack;
@@ -155,7 +161,7 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
         SwitchState(new PlayerMovementState(this));
     }
 
-    private void OnDestroy() 
+    private void OnDestroy()
     {
         GameManager.Instance.gameStart -= OnGameStart;
         GameManager.Instance.onPlayerDefeated -= OnPlayerDefeated;
@@ -210,7 +216,8 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
 
     public void ActivateAttackInput()
     {
-        if (processAttackInput != null){return;}
+
+        if (processAttackInput != null) { return; }
         processAttackInput = GetActivateRadialMenu();
     }
 
@@ -218,7 +225,7 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
     {
         processAttackInput = null;
     }
-    
+
     private Action GetActivateRadialMenu()
     {
         return () =>
@@ -283,4 +290,21 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
             ExecuteRadialMenu(menuSelected);
         };
     }
+
+    public void ChannelComplete()
+    {
+        IsChannelComplete = true;
+    }
+
+    public void ResetChargeTime()
+    {
+        ChargeTime = 10f;
+        IsChannelComplete = false;
+    }
+
+    public void DecreaseChargeTime()
+    {
+        ChargeTime -= Time.deltaTime;
+    }
 }
+

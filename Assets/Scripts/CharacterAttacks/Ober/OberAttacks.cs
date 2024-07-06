@@ -1,8 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
+using StateMachines.Player;
 using TreeEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.VFX;
 
 public class OberAttacks : GenericHitboxBehaviors
 {
@@ -17,13 +21,15 @@ public class OberAttacks : GenericHitboxBehaviors
     [SerializeField] private Transform enemy;
     [SerializeField] private AttackManager manager;
 
-    public List<BloodMoonConfig> Projectiles;
-    public List<salamanderConfig> Salamanders;
+    public List<BloodMoonConfig> projectiles;
+    public List<salamanderConfig> salamanders;
     public PlacementStrategy placementStrategy;
     Spawn salamander;
     Spawn projectile;
 
-    public float maxSpawns = 10;
+    float timeCounter = 0f;
+
+    public float maxSpawns = 3;
 
     [Serializable]
     public struct salamanderConfig
@@ -41,11 +47,10 @@ public class OberAttacks : GenericHitboxBehaviors
         public int damage;
     }
 
-
-
     public void SampleAttack(AttackData attackData)
     {
-        GameObject instance = InstantiateHitbox(sphereHitbox, transform.position, Quaternion.identity, attackData, out Hitbox hitbox);
+        GameObject instance = InstantiateHitbox(sphereHitbox, transform.position, Quaternion.identity, attackData,
+            out Hitbox hitbox);
 
         hitbox.SetUpHitboxActions(
             () =>
@@ -56,9 +61,7 @@ public class OberAttacks : GenericHitboxBehaviors
                     attackData.damage *= 2;
                 }
             },
-
             FollowTargetOverTime(enemy, instance.transform, attackData.range, attackData.activeTime),
-
             (Collider other) => { },
             () =>
             {
@@ -66,12 +69,17 @@ public class OberAttacks : GenericHitboxBehaviors
             }
         );
 
-        hitbox.gameObject.layer = LayerMask.NameToLayer("Player2Hitbox");
+        hitbox.gameObject.layer = AssignLayerToHitbox(gameObject.layer);
     }
+
+    #region FIREBREATH
 
     public void FireBreath(AttackData attackData)
     {
-        GameObject instance = InstantiateHitbox(fireBreathHitbox, transform.position + (transform.forward * attackData.range / 2), Quaternion.identity, attackData, out Hitbox hitbox);
+        GameObject instance = InstantiateHitbox(fireBreathHitbox,
+            transform.position + (transform.forward * attackData.range), transform.rotation, attackData,
+            out Hitbox hitbox);
+        // AudioManager.Instance.PlaySound(attackData.attackSFX);
 
         hitbox.SetUpHitboxActions(
             () =>
@@ -81,30 +89,28 @@ public class OberAttacks : GenericHitboxBehaviors
                     attackData.damage *= 2;
                 }
 
-                manager.onActiveFramesEnd += () =>
-                {
-                    Destroy(instance);
-                };
+                manager.onActiveFramesEnd += () => { Destroy(instance); };
             },
-            () =>
-            {
-            },
+            () => { },
             (Collider other) =>
             {
                 //StartCoroutine(BurnRoutine(3f, 10f, ));
                 Debug.Log("Hit by Fire Breath");
-
             },
             () => { manager.onActiveFramesEnd -= () => { Destroy(instance); }; }
         );
 
-        hitbox.gameObject.layer = LayerMask.NameToLayer("Player2Hitbox");
+        hitbox.gameObject.layer = AssignLayerToHitbox(gameObject.layer);
     }
 
+    #endregion
+
     #region SALAMANDER NEST
+
     public void SalamanderNest(AttackData attackData)
     {
-        GameObject nestInstance = InstantiateHitbox(salamanderNest, transform.position + (Vector3.forward * 2), Quaternion.identity, attackData, out Hitbox hitbox);
+        GameObject nestInstance = InstantiateHitbox(salamanderNest, transform.position + (Vector3.forward * 2),
+            Quaternion.identity, attackData, out Hitbox hitbox);
 
         hitbox.SetUpHitboxActions(
             () =>
@@ -112,35 +118,31 @@ public class OberAttacks : GenericHitboxBehaviors
                 //SpawnSalamanders(attackData);
                 StartCoroutine(SpawnSalamanders(attackData, nestInstance));
             },
-            () =>
-            {
-            },
+            () => { },
             (Collider other) => { }
         );
 
-        hitbox.gameObject.layer = LayerMask.NameToLayer("Player2Hitbox");
+        hitbox.gameObject.layer = AssignLayerToHitbox(gameObject.layer);
     }
 
     IEnumerator SpawnSalamanders(AttackData attackData, GameObject nest)
     {
         for (int i = 0; i < maxSpawns; i++)
         {
-            salamander = Create(Salamanders[i % Salamanders.Count], nest);
+            salamander = Create(salamanders[i % salamanders.Count], nest);
             salamander.transform.position = placementStrategy.SetPosition(nest.transform.position);
 
             // Salamander behavior
             salamander.GetComponent<Hitbox>().SetUpHitboxActions(
                 () => { },
                 FollowTargetOverTime(enemy, salamander.transform, attackData.range, attackData.activeTime),
-                (Collider other) =>
-                {
-                    Destroy(salamander.gameObject);
-                }
+                (Collider other) => { Destroy(salamander.gameObject); }
             );
 
-            salamander.GetComponent<Hitbox>().gameObject.layer = LayerMask.NameToLayer("Player2Hitbox");
+            salamander.GetComponent<Hitbox>().gameObject.layer = AssignLayerToHitbox(gameObject.layer);
             yield return new WaitForSeconds(5);
         }
+
         Destroy(nest.gameObject);
     }
 
@@ -153,8 +155,8 @@ public class OberAttacks : GenericHitboxBehaviors
 
     #endregion
 
-
     #region IMPETUS
+
     // Impetus
 
     public void Impetus(AttackData attackData)
@@ -180,41 +182,39 @@ public class OberAttacks : GenericHitboxBehaviors
 
     public void LavaFloor(AttackData attackData)
     {
-        GameObject lavaInstance = InstantiateHitbox(lavaFloor, enemy.transform.position, Quaternion.identity, attackData, out Hitbox hitbox);
+        GameObject lavaInstance = InstantiateHitbox(lavaFloor,
+            transform.position + (transform.forward * attackData.range), Quaternion.identity, attackData,
+            out Hitbox hitbox);
 
         hitbox.SetUpHitboxActions(
             () => { },
             () => { },
-            (Collider other) =>
-            {
-
-
-                //other.GetComponent<PlayerStateMachine>().Combatant.GetComponent<Health>().DecreaseHealth(attackData.damage);
-
-            },
+            (Collider other) => { },
             (Collider other) =>
             {
                 if (other.TryGetComponent<PlayerStateMachine>(out PlayerStateMachine opponent))
                 {
                     StartCoroutine(LavaFloorLifetime(attackData, lavaInstance.gameObject, opponent));
+                    opponent.GetComponent<Health>().DecreaseHealth(attackData.damage);
                 }
-
             },
-
             () => { }
         );
+
+        hitbox.gameObject.layer = AssignLayerToHitbox(gameObject.layer);
     }
 
     IEnumerator LavaFloorLifetime(AttackData data, GameObject instance, PlayerStateMachine opponent)
     {
-        float start = Time.time;
+        //float start = Time.time;
 
-        while (Time.time < start + data.activeTime)
-        {
-            yield return new WaitForSeconds(1f);
-            opponent.GetComponent<Health>().DecreaseHealth(data.damage);
+        //while (Time.time < start + 1f)
+        //{
+        //    opponent.GetComponent<Health>().DecreaseHealth(data.damage);
+        //    yield return new WaitForEndOfFrame();
 
-        }
+        //}
+        yield return new WaitForSeconds(data.activeTime);
         Destroy(instance);
     }
 
@@ -224,100 +224,56 @@ public class OberAttacks : GenericHitboxBehaviors
 
     public void Jump(AttackData attackData)
     {
-        GameObject impactInstance = InstantiateHitbox(impactZone, transform.position, Quaternion.identity, attackData, out Hitbox hitbox);
-        float animation = 0;
-        //float time = attackData.activeTime;
+        GameObject impactInstance = InstantiateHitbox(impactZone, transform.position, Quaternion.identity, attackData,
+            out Hitbox hitbox);
+
+
+        float time = attackData.activeTime;
+        GameObject parent = new GameObject("rotationParent");
+        parent.transform.position = transform.position;
+        Vector3 midPoint = (transform.position + enemy.position - new Vector3(1f, 1f, 0f)) / 2;
 
         hitbox.SetUpHitboxActions(
             () =>
             {
-                //impactInstance.SetActive(false);
+                impactInstance.transform.parent = gameObject.transform;
+                impactInstance.GetComponent<MeshRenderer>().enabled = false;
             },
-
-            //ParabolicJump(transform, transform.position, enemy.transform.position, 5f, attackData.activeTime),
-            //() =>
-            //{
-            //    time -= Time.deltaTime;
-
-            //    if (time > 0f)
-            //    {
-            //        animation += Time.deltaTime;
-
-            //        animation = animation % attackData.activeTime;
-
-            //        transform.position = Parabolic(transform.position, transform.forward * attackData.range, 5f, animation / attackData.activeTime);
-
-            //    }
-            //},
-
             () =>
             {
-                Vector3 direction = enemy.transform.position - transform.position;
-                Vector3 groundDirection = new Vector3(direction.x, 0, direction.z);
-                Vector3 targetPos = new Vector3(groundDirection.magnitude, direction.y, 0);
-                float height = targetPos.y + targetPos.magnitude / 2f;
+                time -= Time.deltaTime;
 
-                CalculatePathWithHeight(targetPos, height, out float v0, out float angle, out float time);
+                if (time > 0f)
+                {
+                    Debug.Log("Start");
+                    parent.transform.RotateAround(midPoint, transform.right,
+                        (175f * Time.deltaTime) / attackData.activeTime);
 
-                StopAllCoroutines();
-                StartCoroutine(ParabolicJump(groundDirection.normalized, v0, angle, time));
+                    transform.position = parent.transform.position;
+                }
+                else
+                {
+                    Debug.Log("Complete");
+                    impactInstance.GetComponent<MeshRenderer>().enabled = true;
+                    manager.CompleteAttack();
+                    impactInstance.transform.parent = null;
+                }
 
+                Debug.Log("Exit");
             },
+            (Collider other) => { },
             (Collider other) =>
             {
-                Destroy(impactInstance);
-            }
+                if (other.TryGetComponent<PlayerStateMachine>(out PlayerStateMachine opponent))
+                {
+                    StartCoroutine(LavaFloorLifetime(attackData, impactInstance.gameObject, opponent));
+                }
+                //Destroy(impactInstance);
+            },
+            () => { }
         );
 
-        hitbox.gameObject.layer = LayerMask.NameToLayer("Player2Hitbox");
-
-    }
-
-    public static Vector3 Parabolic(Vector3 start, Vector3 end, float height, float time)
-    {
-        Func<float, float> f = x => -4 * height * x * x + 4 * height * x;
-
-        var mid = Vector3.Lerp(start, end, time);
-
-        return new Vector3(mid.x, f(time) + Mathf.Lerp(start.y, end.y, time), mid.z);
-    }
-
-    IEnumerator ParabolicJump(Vector3 direction, float v0, float angle, float time)
-    {
-        float t = 0;
-        while (t < time)
-        {
-            float x = v0 * t * Mathf.Cos(angle);
-            float y = v0 * t * Mathf.Sin(angle) - (1f / 2f) * -Physics.gravity.y * Mathf.Pow(t, 2);
-
-            transform.position = transform.position + direction * x + Vector3.up * y;
-            t += Time.deltaTime;
-            yield return null;
-        }
-    }
-
-    private void CalculatePathWithHeight(Vector3 targetPos, float h, out float v0, out float angle, out float time)
-    {
-        float xt = targetPos.x;
-        float yt = targetPos.y;
-        float g = -Physics.gravity.y;
-
-        float b = Mathf.Sqrt(2 * g * h);
-        float a = (-0.5f * g);
-        float c = -yt;
-
-        float tplus = QuadraticEquation(a, b, c, 1);
-        float tmin = QuadraticEquation(a, b, c, -1);
-        time = tplus > tmin ? tplus : tmin;
-
-        angle = Mathf.Atan(b * time / xt);
-
-        v0 = b / Mathf.Sin(angle);
-    }
-
-    private float QuadraticEquation(float a, float b, float c, float sign)
-    {
-        return (-b + sign * Mathf.Sqrt(b * b - 4 * a * c)) / (2 * a);
+        hitbox.gameObject.layer = AssignLayerToHitbox(gameObject.layer);
     }
 
     #endregion
@@ -347,7 +303,6 @@ public class OberAttacks : GenericHitboxBehaviors
 
     IEnumerator ReduceDamage(AttackData attackData)
     {
-
         if (TryGetComponent<PlayerStateMachine>(out PlayerStateMachine player))
         {
             AttackData[] opponentAttackData = player.Combatant.GetComponentInChildren<AttackManager>().attacks;
@@ -355,14 +310,12 @@ public class OberAttacks : GenericHitboxBehaviors
 
             for (int i = 0; i < opponentAttackData.Length; i++)
             {
-
                 backup[i] = opponentAttackData[i].damage;
             }
 
 
             foreach (AttackData attack in opponentAttackData)
             {
-
                 attack.damage = (int)Mathf.Round(attack.damage * 0.7f); // 30% damage reduction
             }
 
@@ -372,13 +325,7 @@ public class OberAttacks : GenericHitboxBehaviors
             {
                 opponentAttackData[i].damage = backup[i];
             }
-
-            //foreach (AttackData attack in opponentAttackData)
-            //{
-            //    attack.damage = (int)Mathf.Ceil(attack.damage / 0.7f); // restore damage
-            //}
         }
-
     }
 
     #endregion
@@ -387,13 +334,11 @@ public class OberAttacks : GenericHitboxBehaviors
 
     public void FireWall(AttackData attackData)
     {
-        GameObject wallInstance = InstantiateHitbox(firewall, transform.position + Vector3.left, Quaternion.LookRotation(transform.position), attackData, out Hitbox hitbox);
+        GameObject wallInstance = InstantiateHitbox(firewall, transform.position + Vector3.left,
+            Quaternion.LookRotation(transform.position, Vector3.up), attackData, out Hitbox hitbox);
 
         hitbox.SetUpHitboxActions(
-            () =>
-            {
-                StartCoroutine(SpawnWall(attackData, wallInstance));
-            },
+            () => { StartCoroutine(SpawnWall(attackData, wallInstance)); },
             () => { },
             (Collider other) =>
             {
@@ -402,12 +347,10 @@ public class OberAttacks : GenericHitboxBehaviors
         );
 
         hitbox.gameObject.layer = LayerMask.NameToLayer("Player2Hitbox");
-
     }
 
     IEnumerator SpawnWall(AttackData data, GameObject instance)
     {
-
         yield return new WaitForSeconds(data.activeTime);
         Destroy(instance);
     }
@@ -418,18 +361,13 @@ public class OberAttacks : GenericHitboxBehaviors
 
     public void BloodMoon(AttackData attackData)
     {
-
-        GameObject moonInstance = InstantiateHitbox(bloodMoon, transform.position + (Vector3.up * 4), Quaternion.identity, attackData, out Hitbox hitbox);
+        GameObject moonInstance = InstantiateHitbox(bloodMoon, transform.position + (Vector3.up * 4),
+            Quaternion.identity, attackData, out Hitbox hitbox);
 
         hitbox.SetUpHitboxActions(
-            () =>
-            {
-                StartCoroutine(SpawnProjectiles(attackData, moonInstance));
-            },
+            () => { StartCoroutine(SpawnProjectiles(attackData, moonInstance)); },
             () => { },
             (Collider other) => { }
-
-
         );
 
         hitbox.gameObject.layer = LayerMask.NameToLayer("Player2Hitbox");
@@ -439,28 +377,27 @@ public class OberAttacks : GenericHitboxBehaviors
     {
         for (int i = 0; i < maxSpawns; i++)
         {
-            projectile = Create(Projectiles[i % Projectiles.Count], bloodMoon);
+            projectile = Create(projectiles[i % projectiles.Count], bloodMoon);
 
             projectile.transform.position = bloodMoon.transform.position;
 
             projectile.GetComponent<Hitbox>().SetUpHitboxActions(
                 () => { },
                 FollowTargetOverTime(enemy, projectile.transform, attackData.range, attackData.activeTime),
-                (Collider other) =>
-                {
-                    Destroy(projectile.gameObject);
-                }
+                (Collider other) => { Destroy(projectile.gameObject); }
             );
 
             projectile.GetComponent<Hitbox>().gameObject.layer = LayerMask.NameToLayer("Player2Hitbox");
             yield return new WaitForSeconds(5);
         }
+
         Destroy(bloodMoon);
     }
 
     private Spawn Create(BloodMoonConfig config, GameObject moon)
     {
-        GameObject spawn = Instantiate(config.projectile, moon.transform.position + (Vector3.forward * 3), Quaternion.identity);
+        GameObject spawn = Instantiate(config.projectile, moon.transform.position + (Vector3.forward * 3),
+            Quaternion.identity);
         Spawn spawnComponent = spawn.GetComponent<Spawn>();
         return spawnComponent;
     }
@@ -471,7 +408,52 @@ public class OberAttacks : GenericHitboxBehaviors
 
     public void Concentration(AttackData attackData)
     {
-        Debug.Log("Concentration");
+        // float chargeTime = timeCounter > 0f ? timeCounter : attackData.activeTime * 100f;
+
+        PlayerStateMachine playerStateMachine = GetComponent<PlayerStateMachine>();
+
+        Debug.Log("Before while");
+
+        Debug.Log("Charging");
+        
+        // stop movement and enter charge state
+        if (!playerStateMachine.IsChannelComplete)
+        {
+            playerStateMachine.SwitchState(new PlayerChannelState(playerStateMachine, attackData));
+        }
+        // suspend charge when changing to block state and return to movement state
+        else
+        {
+            Debug.Log("Start coroutine");
+            // StartCoroutine(FireConcentration(playerStateMachine, attackData));
+            FireConcentration(playerStateMachine, attackData);
+            playerStateMachine.ResetChargeTime();
+        }
+    }
+
+    private void FireConcentration(PlayerStateMachine playerStateMachine, AttackData attackData)
+    {
+        Debug.Log("Begin coroutine");
+        // float time = Time.time;
+
+        Debug.Log("Fire Concentration");
+        // playerStateMachine.Speed = 10f;
+
+        GameObject instance = InstantiateHitbox(sphereHitbox, transform.position, Quaternion.identity, attackData,
+            out Hitbox hitbox);
+        //while (Time.time < time + attackData.activeTime + 1f)
+        //{
+
+
+        hitbox.SetUpHitboxActions(
+            () => { },
+            FollowTargetOverTime(enemy, instance.transform, attackData.range, attackData.activeTime),
+            (Collider other) => { Destroy(instance); }
+        );
+        hitbox.gameObject.layer = AssignLayerToHitbox(gameObject.layer);
+
+        //}
+        // yield return new WaitForEndOfFrame();
     }
 
     #endregion
@@ -481,35 +463,42 @@ public class OberAttacks : GenericHitboxBehaviors
 
     public void Pyromaniac(AttackData attackData)
     {
+        StartCoroutine(SpawnFirePyro(attackData));
+    }
 
-        GameObject instance = InstantiateHitbox(sphereHitbox, transform.position, Quaternion.identity, attackData, out Hitbox hitbox);
-        float time = attackData.activeTime;
-        float animation = 0;
+    IEnumerator SpawnFirePyro(AttackData attackData)
+    {
+        for (int i = 0; i < 10 * attackData.activeTime; i++)
+        {
+            GameObject instance = InstantiateHitbox(sphereHitbox, transform.position, Quaternion.identity, attackData,
+                out Hitbox hitbox);
+            //pyro.transform.position = transform.position;/* placementStrategy.SetPosition(transform.position);*/
+            Vector3 midPoint = new Vector3();
+            Vector3 randomPosition = placementStrategy.SetPosition(transform.position);
+            Vector3 vectorRandPos = (transform.position - randomPosition).normalized;
+            Vector3 offsetPoint = new Vector3();
 
-        hitbox.SetUpHitboxActions(
-            () => { },
-            () =>
-            {
-
-                time -= Time.deltaTime;
-
-                if (time > 0f)
+            // Pyro behavior
+            hitbox.SetUpHitboxActions(
+                () =>
                 {
-                    animation += Time.deltaTime;
+                    midPoint = (transform.position + randomPosition) / 2;
+                    offsetPoint = new Vector3(midPoint.x, -Vector3.Distance(midPoint, transform.position) + 1f,
+                        midPoint.z);
+                },
+                () =>
+                {
+                    float angle = (180f * Time.deltaTime) / 0.5f;
+                    Vector3 axis = Vector3.Cross(vectorRandPos, Vector3.up);
+                    instance.transform.RotateAround(offsetPoint, axis, angle);
+                },
+                (Collider other) => { Destroy(instance); }
+            );
 
-                    animation = animation % attackData.activeTime;
-
-                    transform.position = Parabolic(transform.position, placementStrategy.SetPosition(transform.position), 5f, animation / attackData.activeTime);
-
-                }
-            },
-            (Collider other) => { }
-        );
+            instance.layer = AssignLayerToHitbox(gameObject.layer);
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     #endregion
-
-
-
-
 }

@@ -126,6 +126,7 @@ MonoBehaviour:
     activeTime: 0
     stunTime: 0
     attackAnimation: {fileID: 0}
+    attackSFX: {fileID: 0}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:

@@ -52,34 +52,7 @@ public class GenericHitboxBehaviors : MonoBehaviour
                 Destroy(objectToMove.gameObject);
             }
         };
-    }
-
-    //public Action ParabolicJump(Transform objectToMove, Vector3 start, Vector3 end, float height, float time)
-    //{
-    //    float startTime = time;
-    //    return () =>
-    //    {
-
-    //        time -= Time.deltaTime;
-    //        Func<float, float> f = x => -4 * height * x * x + 4 * height * x;
-
-    //        if (time > 0f)
-    //        {
-
-    //            var mid = Vector3.Lerp(end, start, time);
-
-    //            objectToMove.transform.position = new Vector3(mid.x, f(time) + Mathf.Lerp(end.y, start.y, time), mid.z);
-    //            //Debug.Log(objectToMove.transform.position);
-    //            Debug.Log(f(time));
-
-    //        }
-    //        //else
-    //        //{
-    //        //    Destroy(objectToMove.gameObject);
-    //        //}
-
-    //    };
-    //}
+    }    
 
     public Action DestroyHitboxAfterSeconds(GameObject hitbox, float seconds)
     {

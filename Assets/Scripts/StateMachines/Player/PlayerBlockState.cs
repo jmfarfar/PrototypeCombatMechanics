@@ -36,7 +36,7 @@ public class PlayerBlockState : PlayerBaseState
 
     public override void Tick(float deltaTime)
     {
-        if (isShieldReleasing){return;}
+        if (isShieldReleasing) { return; }
 
         if (stateMachine.colliderState != Hitbox.ColliderStates.SHIELDSTUN)
         {
@@ -70,7 +70,7 @@ public class PlayerBlockState : PlayerBaseState
                 stateMachine.shieldEnergy = 0f;
             }
         }
-        
+
         stateMachine.shieldEnergy -= attackData.damage * 0.05f;
     }
 
@@ -96,7 +96,7 @@ public class PlayerBlockState : PlayerBaseState
         stateMachine.isShieldDepleting = false;
 
         stateMachine.Animator.CrossFadeInFixedTime(movementStateHash, stateMachine.ShieldReleaseTime);
-        
+
         while (timer < stateMachine.ShieldReleaseTime)
         {
             if (timer < stateMachine.ShieldReleaseTime * stateMachine.parryTimePercentage)

@@ -5,8 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="RandomCircle", menuName ="Placements/CircleAnnulus")]
 public class RandomCirclePlacer : PlacementStrategy
 {
-    public float minDistance;
-    public float maxDistance = 10f;
+    public float minDistance = 1f;
+    public float maxDistance = 5f;
 
     public override Vector3 SetPosition(Vector3 origin)
     {

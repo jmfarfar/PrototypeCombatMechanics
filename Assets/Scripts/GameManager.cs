@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set;}
+    public static GameManager Instance { get; private set; }
     public Action<LayerMask> onPlayerDefeated;
     public Action<int> roundStart;
     public Action gameStart;
@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     PlayerStateMachine[] players;
     [SerializeField] private RoundDataSO roundData;
 
-    private void Awake() 
+    private void Awake()
     {
         if (Instance == null)
         {
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator Start() 
+    private IEnumerator Start()
     {
         yield return new WaitForEndOfFrame();
         roundStart?.Invoke(roundData.round);
@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
         }
 
         roundData.round++;
+
         numberOfRounds++;
         StartCoroutine(NextRoundRoutine());
     }
@@ -106,6 +107,7 @@ public class GameManager : MonoBehaviour
         CalculateRoundWinner(playerLayer);
 
         if(IsPlayerMatchWinner(playerLayer))return;
+
 
         onPlayerDefeated?.Invoke(playerLayer);
         StartCoroutine(NextRoundRoutine());
@@ -161,6 +163,14 @@ public class GameManager : MonoBehaviour
     }
 
     private void OnDestroy() 
+    {
+        foreach (PlayerStateMachine player in players)
+        {
+            player.playerKO -= OnPlayerDefeated;
+        }
+    }
+
+    private void OnDestroy()
     {
         foreach (PlayerStateMachine player in players)
         {

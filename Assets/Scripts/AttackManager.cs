@@ -14,7 +14,7 @@ public class AttackManager : MonoBehaviour
 
     public void StartAttack(int index)
     {
-        if (index >= attacks.Length) {attackCompletedEvent?.Invoke(); return;}
+        if (index >= attacks.Length) { attackCompletedEvent?.Invoke(); return; }
 
         currentAttack = attacks[index];
     }
@@ -44,3 +44,4 @@ public class AttackManager : MonoBehaviour
         activateAttackInput?.Invoke();
     }
 }
+

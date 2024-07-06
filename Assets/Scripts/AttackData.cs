@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using UnityEngine;
+using UnityEngine.VFX;
 
 [Serializable]
 public class AttackData
@@ -23,6 +24,8 @@ public class AttackData
     public float activeTime;
     public float stunTime;
     public AnimationClip attackAnimation;
+    public AudioClip attackSfx;
+    public VisualEffect attackVfx;
     public AttackEffects[] attackEffects;
     public AttackEvent attackEvent;
     public Sprite attackIcon;
