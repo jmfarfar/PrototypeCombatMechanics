@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.VFX;
 
 [Serializable]
 public class AttackData
@@ -22,7 +23,8 @@ public class AttackData
     public float activeTime;
     public float stunTime;
     public AnimationClip attackAnimation;
-    public AudioClip attackSFX;
+    public AudioClip attackSfx;
+    public VisualEffect attackVfx;
     public AttackEffects[] attackEffects;
     public AttackEvent attackEvent;
 }

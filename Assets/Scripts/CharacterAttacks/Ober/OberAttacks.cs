@@ -79,7 +79,7 @@ public class OberAttacks : GenericHitboxBehaviors
         GameObject instance = InstantiateHitbox(fireBreathHitbox,
             transform.position + (transform.forward * attackData.range), transform.rotation, attackData,
             out Hitbox hitbox);
-        AudioManager.Instance.PlaySound(attackData.attackSFX);
+        // AudioManager.Instance.PlaySound(attackData.attackSFX);
 
         hitbox.SetUpHitboxActions(
             () =>

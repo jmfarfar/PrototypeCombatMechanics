@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public class Flamethrower : MonoBehaviour, IAnimationEffects
+public class Flamethrower : MonoBehaviour
 {
     public VisualEffect flamethrower;
     public AudioClip flamethrowerAudioClip;    

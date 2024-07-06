@@ -588,6 +588,23 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1411501930}
   m_SourcePrefab: {fileID: 100100000, guid: 127f2aeb66e207b50b5eb7ea1eb509c1, type: 3}
+--- !u!1 &964863139 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1632743147741517545, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+  m_PrefabInstance: {fileID: 8321781935747325150}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &964863145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964863139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 999b3eb6bd25315498152b87f33b8105, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1201028392
 GameObject:
   m_ObjectHideFlags: 0
@@ -2529,6 +2546,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3337474742709272771, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: attacks.Array.data[1].attackSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: de27666fac28abf49ba50c1316d697a0, type: 3}
+    - target: {fileID: 3337474742709272771, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: attacks.Array.data[1].attackVfx
+      value: 
+      objectReference: {fileID: 1525532343}
+    - target: {fileID: 3337474742709272771, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
       propertyPath: attacks.Array.data[0].activeTime
       value: 5
       objectReference: {fileID: 0}
@@ -3024,6 +3049,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 7260557540844694278, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7270415442032987316, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 2.4781964
@@ -3244,6 +3273,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 8812059188704609041, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8960359734715993624, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -3280,7 +3313,10 @@ PrefabInstance:
     - {fileID: 3420486803029942981, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1632743147741517545, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 964863145}
   m_SourcePrefab: {fileID: 100100000, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

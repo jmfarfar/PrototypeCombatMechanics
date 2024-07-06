@@ -80628,7 +80628,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: StartEffect
+    functionName: Attack1StartEffect
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -80649,7 +80649,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 1.6666666
-    functionName: EndEffect
+    functionName: Attack1EndEffect
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
