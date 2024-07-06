@@ -2119,6 +2119,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 745673425195330722, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: m_SkinWidth
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 747983376489973492, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 49.483654
@@ -2398,6 +2402,10 @@ PrefabInstance:
     - target: {fileID: 3824683787373365391, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
       propertyPath: highlightedSpellName
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3824683787373365391, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: <Speed>k__BackingField
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3824683787373365391, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
       propertyPath: <Combatant>k__BackingField
