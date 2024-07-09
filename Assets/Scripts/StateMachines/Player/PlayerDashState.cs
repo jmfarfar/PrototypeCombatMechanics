@@ -12,7 +12,8 @@ public class PlayerDashState : PlayerBaseState
 
     public override void Enter()
     {
-        stateMachine.Animator.CrossFadeInFixedTime(dashHash, 0.1f);
+        stateMachine.Animator.CrossFadeInFixedTime(dashHash, 0.01f);
+        stateMachine.Animator.CrossFadeInFixedTime("Empty", 0f, 1);
 
         Vector2 movementInput = stateMachine.PlayerInput.GetMovementInputVector();
 
