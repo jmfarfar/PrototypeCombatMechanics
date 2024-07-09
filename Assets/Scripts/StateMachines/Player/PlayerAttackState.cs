@@ -7,6 +7,7 @@ public class PlayerAttackState : PlayerBaseState
 {
     int index;
     AnimatorOverrideController animatorOverrideController;
+    RuntimeAnimatorController originalAnimatorController;
 
     public PlayerAttackState(PlayerStateMachine stateMachine, int attackIndex) : base(stateMachine)
     {
@@ -27,16 +28,20 @@ public class PlayerAttackState : PlayerBaseState
             stateMachine.SwitchState(new PlayerMovementState(stateMachine));
             return;
         }
+
+        originalAnimatorController = stateMachine.Animator.runtimeAnimatorController;
         
-        animatorOverrideController = new AnimatorOverrideController(stateMachine.Animator.runtimeAnimatorController);
+        animatorOverrideController = new AnimatorOverrideController(originalAnimatorController);
         animatorOverrideController["BasicAttackAnimation"] = stateMachine.AttackManager.attacks[index].attackAnimation;
         stateMachine.Animator.runtimeAnimatorController = animatorOverrideController;
 
-        stateMachine.Animator.CrossFadeInFixedTime(AttackHash, 0.1f);
+        stateMachine.Animator.CrossFadeInFixedTime(AttackHash, 0.1f, 0);
+        stateMachine.Animator.CrossFadeInFixedTime("Empty", 0f, 1);
     }
 
     public override void Exit()
     {
+        stateMachine.Animator.runtimeAnimatorController = originalAnimatorController;
         stateMachine.AttackManager.attackCompletedEvent -= ReturnToMovingState;
         stateMachine.AttackManager.CancelAttack();
         stateMachine.StopAllCoroutines();

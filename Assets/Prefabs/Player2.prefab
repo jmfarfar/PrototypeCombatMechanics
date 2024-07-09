@@ -1404,7 +1404,7 @@ MonoBehaviour:
     range: 5
     activeTime: 1
     stunTime: 0.5
-    attackAnimation: {fileID: 7400000, guid: c1942995a9bfca140a8f9c0ae26ff4c6, type: 2}
+    attackAnimation: {fileID: -363008079710523200, guid: 4d51d5698587904b6badaea70a0be342, type: 3}
     attackSfx: {fileID: 0}
     attackVfx: {fileID: 0}
     attackEffects: 02000000
