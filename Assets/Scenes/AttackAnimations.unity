@@ -2421,10 +2421,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 2153700916361317459, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.908
-      objectReference: {fileID: 0}
     - target: {fileID: 2269014385860508631, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 8.46775
@@ -2526,29 +2522,9 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3337474742709272771, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
-      propertyPath: attacks.Array.data[4].range
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3337474742709272771, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
       propertyPath: attacks.Array.data[1].attackSFX
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 3337474742709272771, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
-      propertyPath: attacks.Array.data[1].attackSfx
-      value: 
-      objectReference: {fileID: 8300000, guid: de27666fac28abf49ba50c1316d697a0, type: 3}
-    - target: {fileID: 3337474742709272771, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
-      propertyPath: attacks.Array.data[1].attackVfx
-      value: 
-      objectReference: {fileID: 1525532343}
-    - target: {fileID: 3337474742709272771, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
-      propertyPath: attacks.Array.data[0].activeTime
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3337474742709272771, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
-      propertyPath: attacks.Array.data[11].attackAnimation
-      value: 
-      objectReference: {fileID: 7400000, guid: 895d7c14743a1b04c849369e2927bafb, type: 2}
     - target: {fileID: 3420486803029942981, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
       propertyPath: <Combatant>k__BackingField
       value: 
@@ -3241,6 +3217,38 @@ PrefabInstance:
       propertyPath: flamethrower
       value: 
       objectReference: {fileID: 1525532343}
+    - target: {fileID: 8623906853497246452, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: fireBreathHitbox
+      value: 
+      objectReference: {fileID: 1191260500703550224, guid: 37ed624b91ad5d64580a01cdb9fd3d52, type: 3}
+    - target: {fileID: 8623906853497246452, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: projectiles.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8623906853497246452, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: salamanders.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8623906853497246452, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: projectiles.Array.data[0].damage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8623906853497246452, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: salamanders.Array.data[0].damage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8623906853497246452, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: salamanders.Array.data[0].health
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8623906853497246452, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: projectiles.Array.data[0].projectile
+      value: 
+      objectReference: {fileID: 6327006416360637003, guid: 0a9aeb4c934130348a4b4ab99d364689, type: 3}
+    - target: {fileID: 8623906853497246452, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: salamanders.Array.data[0].spawnPrefab
+      value: 
+      objectReference: {fileID: 9180315362219446597, guid: e2871bdfcdd7341458161167b5144722, type: 3}
     - target: {fileID: 8670957815349121573, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 70.6813
@@ -3306,7 +3314,7 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 3420486803029942981, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

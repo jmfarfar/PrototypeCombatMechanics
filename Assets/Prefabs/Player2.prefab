@@ -1315,7 +1315,6 @@ GameObject:
   - component: {fileID: 7198695539708236885}
   - component: {fileID: 3337474742709272771}
   - component: {fileID: 8463165309902400367}
-  - component: {fileID: 1788527545920986578}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -1332,7 +1331,7 @@ Transform:
   m_GameObject: {fileID: 1632743147741517545}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.78, z: 0}
+  m_LocalPosition: {x: 0, y: -0.908, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1374,39 +1373,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attacks:
-  - name: Pyromaniac
-    damage: 0
-    range: 10
-    activeTime: 0.5
-    stunTime: 0.5
-    attackAnimation: {fileID: 7400000, guid: 73455bb4e495c254191b6c0e55710612, type: 2}
-    attackSfx: {fileID: 0}
-    attackVfx: {fileID: 0}
-    attackEffects: 02000000
-    attackEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 8623906853497246452}
-          m_TargetAssemblyTypeName: OberAttacks, Assembly-CSharp
-          m_MethodName: Pyromaniac
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    attackIcon: {fileID: 0}
   - name: FireBreath
     damage: 15
     range: 5
     activeTime: 1
     stunTime: 0.5
-    attackAnimation: {fileID: -363008079710523200, guid: 4d51d5698587904b6badaea70a0be342, type: 3}
-    attackSfx: {fileID: 0}
-    attackVfx: {fileID: 0}
+    attackAnimation: {fileID: 7400000, guid: c1942995a9bfca140a8f9c0ae26ff4c6, type: 2}
+    attackSfx: {fileID: 8300000, guid: de27666fac28abf49ba50c1316d697a0, type: 3}
+    attackVfx: {fileID: 1986006405636780769}
     attackEffects: 02000000
     attackEvent:
       m_PersistentCalls:
@@ -1476,7 +1450,7 @@ MonoBehaviour:
     attackIcon: {fileID: 0}
   - name: LavaFloor
     damage: 1
-    range: 0
+    range: 10
     activeTime: 5
     stunTime: 0
     attackAnimation: {fileID: 7400000, guid: 895d7c14743a1b04c849369e2927bafb, type: 2}
@@ -1654,7 +1628,7 @@ MonoBehaviour:
     range: 10
     activeTime: 0.5
     stunTime: 0.5
-    attackAnimation: {fileID: 7400000, guid: 05d2cdc2d6d77494a97fd92026385eb7, type: 2}
+    attackAnimation: {fileID: 7400000, guid: 895d7c14743a1b04c849369e2927bafb, type: 2}
     attackSfx: {fileID: 0}
     attackVfx: {fileID: 0}
     attackEffects: 02000000
@@ -1664,6 +1638,31 @@ MonoBehaviour:
         - m_Target: {fileID: 8623906853497246452}
           m_TargetAssemblyTypeName: OberAttacks, Assembly-CSharp
           m_MethodName: Concentration
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    attackIcon: {fileID: 0}
+  - name: Pyromaniac
+    damage: 0
+    range: 10
+    activeTime: 5
+    stunTime: 0.5
+    attackAnimation: {fileID: 7400000, guid: 73455bb4e495c254191b6c0e55710612, type: 2}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
+    attackEffects: 02000000
+    attackEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8623906853497246452}
+          m_TargetAssemblyTypeName: OberAttacks, Assembly-CSharp
+          m_MethodName: Pyromaniac
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1709,20 +1708,6 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &1788527545920986578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1632743147741517545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17a2ee0fafb68c54dbc9018c97b37bbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flamethrower: {fileID: 1986006405636780769}
-  flamethrowerAudioClip: {fileID: 8300000, guid: de27666fac28abf49ba50c1316d697a0, type: 3}
 --- !u!1 &1664114067300714092
 GameObject:
   m_ObjectHideFlags: 0
