@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerBlockState : PlayerBaseState
 {
     readonly int blockHash = Animator.StringToHash("Block");
-    readonly int stunHash = Animator.StringToHash("Stun");
+    readonly int blockStunHash = Animator.StringToHash("BlockHit");
     readonly int movementStateHash = Animator.StringToHash("MovementState");
     float startTime;
     bool isShieldReleasing;
@@ -18,7 +18,8 @@ public class PlayerBlockState : PlayerBaseState
 
     public override void Enter()
     {
-        stateMachine.Animator.CrossFadeInFixedTime(blockHash, 0.1f);
+        stateMachine.Animator.CrossFadeInFixedTime(blockHash, 0.02f);
+        stateMachine.Animator.CrossFadeInFixedTime("Empty", 0f, 1);
         stateMachine.colliderState = Hitbox.ColliderStates.BLOCKING;
 
         stateMachine.shieldHit += OnShieldHit;
@@ -60,7 +61,7 @@ public class PlayerBlockState : PlayerBaseState
     void OnShieldHit(AttackData attackData)
     {
         startTime = Time.time;
-        stateMachine.Animator.CrossFadeInFixedTime(stunHash, 0.1f);
+        stateMachine.Animator.CrossFadeInFixedTime(blockStunHash, 0.1f);
         stateMachine.StartCoroutine(ShieldStun(attackData.stunTime / 2));
 
         for (int i = 0; i < attackData.attackEffects.Length; i++)
