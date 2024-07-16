@@ -18,6 +18,7 @@ public class PlayerBlockState : PlayerBaseState
 
     public override void Enter()
     {
+        stateMachine.ShieldCollider.enabled = true;
         stateMachine.Animator.CrossFadeInFixedTime(blockHash, 0.02f);
         stateMachine.Animator.CrossFadeInFixedTime("Empty", 0f, 1);
         stateMachine.colliderState = Hitbox.ColliderStates.BLOCKING;
@@ -28,7 +29,8 @@ public class PlayerBlockState : PlayerBaseState
     }
 
     public override void Exit()
-    {        
+    {
+        stateMachine.ShieldCollider.enabled = false;
         // stateMachine.StopCoroutine(OnShieldReleaseRoutine());
         stateMachine.StopAllCoroutines();
         stateMachine.colliderState = Hitbox.ColliderStates.ACTIVE;

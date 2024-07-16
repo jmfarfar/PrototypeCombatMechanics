@@ -12,6 +12,9 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
 
     [field: SerializeField]
     public CharacterController CharacterController { get; set; }
+    
+    [field: SerializeField]
+    public SphereCollider ShieldCollider { get; set; }
     [field: SerializeField]
     public float Speed { get; set; }
     [field: SerializeField]
