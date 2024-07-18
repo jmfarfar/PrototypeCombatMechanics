@@ -24,6 +24,7 @@ public class ArdidAttacks : GenericHitboxBehaviors
         public GameObject spectrePortal;
         public GameObject lichLord;
         public GameObject ghostGuardian;
+        public GameObject necroticDart;
     }
 
     [Serializable] private struct EnergyCosts
@@ -131,7 +132,7 @@ public class ArdidAttacks : GenericHitboxBehaviors
     public void NecroticDart(AttackData attackData)
     {
         GameObject hitboxInstance = InstantiateHitbox(
-            generalReferences.sphereHitbox, 
+            summoningReferences.necroticDart, 
             transform.position,
             Quaternion.identity,
             attackData,
