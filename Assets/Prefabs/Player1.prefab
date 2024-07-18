@@ -514,6 +514,7 @@ GameObject:
   - component: {fileID: 3565946824552977181}
   - component: {fileID: 1791738227198925901}
   - component: {fileID: 3617397833193917087}
+  - component: {fileID: 2260848941789219874}
   m_Layer: 8
   m_Name: Player1
   m_TagString: Untagged
@@ -590,6 +591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <CharacterController>k__BackingField: {fileID: 9146839054247398961}
+  <ShieldCollider>k__BackingField: {fileID: 2260848941789219874}
   <Speed>k__BackingField: 10
   <DashForce>k__BackingField: 1.5
   <Health>k__BackingField: {fileID: 8424423014621396897}
@@ -639,6 +641,8 @@ MonoBehaviour:
   isShieldDepleting: 0
   isShieldDepleted: 0
   isRolling: 0
+  <IsChannelComplete>k__BackingField: 0
+  <ChargeTime>k__BackingField: 10
   isRadialMenuActive: 0
   AttackManager: {fileID: 6784795115328361854}
   restrainedStateExitThreshold: 50
@@ -715,6 +719,27 @@ MonoBehaviour:
   persistentNegativeEnergy: 3
   summoningSlots: 10
   energyDecayRate: 0.1
+--- !u!135 &2260848941789219874
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2396030616143007682}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Radius: 1.2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2481806759012908966
 GameObject:
   m_ObjectHideFlags: 0
@@ -1611,6 +1636,8 @@ MonoBehaviour:
     activeTime: 0.3
     stunTime: 0.2
     attackAnimation: {fileID: 7400000, guid: 1a9e11ca9109efe0abb0ad7bd9ea01db, type: 2}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:
@@ -1634,6 +1661,8 @@ MonoBehaviour:
     activeTime: 10
     stunTime: 1
     attackAnimation: {fileID: 0}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:
@@ -1657,6 +1686,8 @@ MonoBehaviour:
     activeTime: 0.5
     stunTime: 0.5
     attackAnimation: {fileID: 7400000, guid: 1d77e74a2221fa67083df90c7b2bf5a7, type: 2}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:
@@ -1680,6 +1711,8 @@ MonoBehaviour:
     activeTime: 0.5
     stunTime: 1
     attackAnimation: {fileID: 0}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 0100000006000000
     attackEvent:
       m_PersistentCalls:
@@ -1703,6 +1736,8 @@ MonoBehaviour:
     activeTime: 5
     stunTime: 0
     attackAnimation: {fileID: 0}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:
@@ -1726,6 +1761,8 @@ MonoBehaviour:
     activeTime: 1
     stunTime: 0
     attackAnimation: {fileID: 0}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:
@@ -1749,6 +1786,8 @@ MonoBehaviour:
     activeTime: 0.2
     stunTime: 0
     attackAnimation: {fileID: 0}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 07000000
     attackEvent:
       m_PersistentCalls:
@@ -1772,6 +1811,8 @@ MonoBehaviour:
     activeTime: 3
     stunTime: 0
     attackAnimation: {fileID: 0}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:
@@ -1795,6 +1836,8 @@ MonoBehaviour:
     activeTime: 0.2
     stunTime: 0.5
     attackAnimation: {fileID: 0}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:
@@ -1818,6 +1861,8 @@ MonoBehaviour:
     activeTime: 0.3
     stunTime: 1
     attackAnimation: {fileID: 0}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:
@@ -1841,6 +1886,8 @@ MonoBehaviour:
     activeTime: 0.5
     stunTime: 1
     attackAnimation: {fileID: 0}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:
@@ -1864,6 +1911,8 @@ MonoBehaviour:
     activeTime: 0.5
     stunTime: 1
     attackAnimation: {fileID: 0}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:
@@ -1888,6 +1937,8 @@ MonoBehaviour:
     activeTime: 0
     stunTime: 0
     attackAnimation: {fileID: 0}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:

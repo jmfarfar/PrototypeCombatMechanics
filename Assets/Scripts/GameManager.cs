@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public string gameSceneName;
     PlayerStateMachine[] players;
     [SerializeField] private RoundDataSO roundData;
+    [SerializeField] private float hitPauseTime = 1f;
 
     private void Awake()
     {
@@ -79,9 +80,9 @@ public class GameManager : MonoBehaviour
         gameStart?.Invoke();
     }
 
-    public void HitPause(float time)
+    public void HitPause()
     {
-        StartCoroutine(HitPauseRoutine(time));
+        StartCoroutine(HitPauseRoutine(hitPauseTime));
     }
 
     IEnumerator HitPauseRoutine(float time)
