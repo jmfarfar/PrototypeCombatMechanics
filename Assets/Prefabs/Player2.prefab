@@ -4001,13 +4001,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CharacterController>k__BackingField: {fileID: 745673425195330722}
   <ShieldCollider>k__BackingField: {fileID: 429628810638687301}
-  <Speed>k__BackingField: 10
-  <DashForce>k__BackingField: 1.5
+  <Speed>k__BackingField: 8
+  <DashForce>k__BackingField: 1.2
   <Health>k__BackingField: {fileID: 3947659475152461671}
   <RotationSpeed>k__BackingField: 1200
   <Combatant>k__BackingField: {fileID: 0}
   <Animator>k__BackingField: {fileID: 7198695539708236885}
-  dashTime: 0.25
+  dashTime: 0.5
   dashCooldown: 0.1
   dashDistance: 3
   dashInvulnerabilityTime: 0.7
@@ -4056,7 +4056,7 @@ MonoBehaviour:
   AttackManager: {fileID: 3337474742709272771}
   restrainedStateExitThreshold: 50
   <ShieldReleaseTime>k__BackingField: 0.3
-  <parryTimePercentage>k__BackingField: 0.55
+  <ParryFrameWindow>k__BackingField: 2
 --- !u!114 &8623906853497246452
 MonoBehaviour:
   m_ObjectHideFlags: 0
