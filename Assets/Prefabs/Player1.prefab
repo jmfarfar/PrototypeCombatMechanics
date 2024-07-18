@@ -1656,7 +1656,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 21300000, guid: 3ef1a139d196a555ab6d73534e20136b, type: 3}
+    attackIcon: {fileID: 21300000, guid: 04108d8bb5e2f3b4ca89dd7b094ad3ad, type: 3}
   - name: Soul Trap Scythe
     damage: 50
     range: 5
@@ -1681,7 +1681,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 21300000, guid: 1abfcae831f005b4294a7769774d7c54, type: 3}
+    attackIcon: {fileID: 21300000, guid: ef7ba996ac557bb46a36d6f29df2351e, type: 3}
   - name: Phantom Onslaught
     damage: 80
     range: 10

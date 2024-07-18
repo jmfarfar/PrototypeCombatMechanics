@@ -1423,7 +1423,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 0}
+    attackIcon: {fileID: 21300000, guid: 91c2527facfe7f04cbd6cbec698b7a09, type: 3}
   - name: SalamanderNest
     damage: 100
     range: 20
