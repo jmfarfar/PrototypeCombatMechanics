@@ -39,6 +39,8 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
     public Action<Vector3> rollEvent;
     public Action<LayerMask> playerKO;
 
+    [field: SerializeField]public GameObject shieldVFX { get; private set; }
+    private Vector3 shieldOffset; 
     public float maxShieldEnergy = 1f;
     [HideInInspector] public float shieldEnergy;
     public bool isShieldDepleting;

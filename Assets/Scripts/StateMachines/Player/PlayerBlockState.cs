@@ -23,6 +23,13 @@ public class PlayerBlockState : PlayerBaseState
             stateMachine.SwitchState(new PlayerMovementState(stateMachine));
             return; 
         }
+        stateMachine.shieldVFX.gameObject.SetActive(true);
+        var particles = stateMachine.shieldVFX.GetComponentsInChildren<ParticleSystem>();
+        foreach (ParticleSystem particle in particles)
+        {
+            particle.Play();
+        }
+        
         stateMachine.ShieldCollider.enabled = true;
         stateMachine.Animator.CrossFadeInFixedTime(blockHash, 0.02f);
         stateMachine.Animator.CrossFadeInFixedTime("Empty", 0f, 1);
@@ -43,6 +50,12 @@ public class PlayerBlockState : PlayerBaseState
         stateMachine.StopAllCoroutines();
         stateMachine.isShieldDepleting = false;
         stateMachine.colliderState = Hitbox.ColliderStates.ACTIVE;
+        var particles = stateMachine.shieldVFX.GetComponentsInChildren<ParticleSystem>();
+        foreach (ParticleSystem particle in particles)
+        {
+            particle.Stop();
+        }
+        stateMachine.shieldVFX.gameObject.SetActive(false);
     }
 
     public override void Tick(float deltaTime)
