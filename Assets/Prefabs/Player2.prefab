@@ -1315,6 +1315,7 @@ GameObject:
   - component: {fileID: 7198695539708236885}
   - component: {fileID: 3337474742709272771}
   - component: {fileID: 8463165309902400367}
+  - component: {fileID: 6388746963929158731}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -1708,6 +1709,18 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &6388746963929158731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632743147741517545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 999b3eb6bd25315498152b87f33b8105, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1664114067300714092
 GameObject:
   m_ObjectHideFlags: 0
@@ -4045,6 +4058,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   colliderState: 0
+  <shieldVFX>k__BackingField: {fileID: 0}
   maxShieldEnergy: 3
   shieldEnergy: 5
   isShieldDepleting: 0
@@ -4056,7 +4070,7 @@ MonoBehaviour:
   AttackManager: {fileID: 3337474742709272771}
   restrainedStateExitThreshold: 50
   <ShieldReleaseTime>k__BackingField: 0.3
-  <parryTimePercentage>k__BackingField: 0.55
+  <ParryFrameWindow>k__BackingField: 2
 --- !u!114 &8623906853497246452
 MonoBehaviour:
   m_ObjectHideFlags: 0
