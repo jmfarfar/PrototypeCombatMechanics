@@ -637,7 +637,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   colliderState: 0
-  <shieldVFX>k__BackingField: {fileID: 0}
+  <shieldVFX>k__BackingField: {fileID: 7603383280816854830}
   maxShieldEnergy: 3
   shieldEnergy: 5
   isShieldDepleting: 0
@@ -648,7 +648,7 @@ MonoBehaviour:
   isRadialMenuActive: 0
   AttackManager: {fileID: 6784795115328361854}
   restrainedStateExitThreshold: 50
-  <ShieldReleaseTime>k__BackingField: 0.4
+  <ShieldReleaseTime>k__BackingField: 0.3
   <ParryFrameWindow>k__BackingField: 2
 --- !u!114 &3565946824552977181
 MonoBehaviour:
@@ -3082,5 +3082,10 @@ PrefabInstance:
 --- !u!4 &1965404771052544014 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4163448174128156434, guid: 64de381601671814292a0e3bd6f73294, type: 3}
+  m_PrefabInstance: {fileID: 2486285201703546652}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7603383280816854830 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5405916013292304434, guid: 64de381601671814292a0e3bd6f73294, type: 3}
   m_PrefabInstance: {fileID: 2486285201703546652}
   m_PrefabAsset: {fileID: 0}
