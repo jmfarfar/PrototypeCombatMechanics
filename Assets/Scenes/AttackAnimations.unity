@@ -2337,6 +2337,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 192270096}
     - target: {fileID: 8623906853497246452, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
+      propertyPath: fireBreathHitbox
+      value: 
+      objectReference: {fileID: 1191260500703550224, guid: 37ed624b91ad5d64580a01cdb9fd3d52, type: 3}
+    - target: {fileID: 8623906853497246452, guid: 7a8315f87c8c8b6c3b7148731b2cc341, type: 3}
       propertyPath: projectiles.Array.size
       value: 1
       objectReference: {fileID: 0}

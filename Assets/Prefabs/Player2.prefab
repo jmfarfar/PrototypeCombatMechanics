@@ -1379,7 +1379,7 @@ MonoBehaviour:
     range: 5
     activeTime: 1
     stunTime: 0.5
-    attackAnimation: {fileID: 7400000, guid: c1942995a9bfca140a8f9c0ae26ff4c6, type: 2}
+    attackAnimation: {fileID: -363008079710523200, guid: 4d51d5698587904b6badaea70a0be342, type: 3}
     attackSfx: {fileID: 8300000, guid: de27666fac28abf49ba50c1316d697a0, type: 3}
     attackVfx: {fileID: 1986006405636780769}
     attackEffects: 02000000
@@ -4084,7 +4084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphereHitbox: {fileID: 6327006416360637003, guid: 0a9aeb4c934130348a4b4ab99d364689, type: 3}
-  fireBreathHitbox: {fileID: 4367031842467170618, guid: 7dc25c12e1fd2f748a33c11ee8e39eb4, type: 3}
+  fireBreathHitbox: {fileID: 1191260500703550224, guid: 37ed624b91ad5d64580a01cdb9fd3d52, type: 3}
   salamanderNest: {fileID: 5263728034556087349, guid: d0913ebe8c44645488f366426fdd5783, type: 3}
   lavaFloor: {fileID: 292650543827331819, guid: 4afac84e85995ae4c8261853b8bbb218, type: 3}
   impactZone: {fileID: 292650543827331819, guid: 4afac84e85995ae4c8261853b8bbb218, type: 3}
@@ -4093,8 +4093,14 @@ MonoBehaviour:
   isFuryActive: 0
   enemy: {fileID: 0}
   manager: {fileID: 3337474742709272771}
-  projectiles: []
-  salamanders: []
+  projectiles:
+  - projectile: {fileID: 6327006416360637003, guid: 0a9aeb4c934130348a4b4ab99d364689, type: 3}
+    damage: 20
+  salamanders:
+  - spawnPrefab: {fileID: 9180315362219446597, guid: e2871bdfcdd7341458161167b5144722, type: 3}
+    health: 0
+    damage: 20
+    attackRange: 0
   placementStrategy: {fileID: 11400000, guid: e3dd2c806b9f56c44ab7c820ca0a11ed, type: 2}
   maxSpawns: 10
 --- !u!135 &429628810638687301
