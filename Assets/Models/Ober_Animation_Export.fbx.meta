@@ -252,6 +252,13 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.6786026
+        functionName: Attack1EndEffect
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 999b3eb6bd25315498152b87f33b8105, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.82893324
         functionName: CompleteAttack
         data: 

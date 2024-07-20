@@ -38,6 +38,7 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
     public Action<AttackData> shieldHit;
     public Action<Vector3> rollEvent;
     public Action<LayerMask> playerKO;
+    public Action<int> onAttackStart;
 
     [field: SerializeField]public GameObject shieldVFX { get; private set; }
     private Vector3 shieldOffset; 
@@ -281,6 +282,7 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
         if (spellNumber > currentSpell + 3) return;
 
         onRadialMenuExecuted?.Invoke(gameObject.layer, AttackManager.attacks[spellNumber].name, cuadrant);
+        // onAttackStart?.Invoke(spellNumber);
 
         bufferedAttack = () => {
             SwitchState(new PlayerAttackState(this, spellNumber));

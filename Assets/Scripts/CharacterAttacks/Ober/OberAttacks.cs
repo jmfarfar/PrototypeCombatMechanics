@@ -82,7 +82,7 @@ public class OberAttacks : GenericHitboxBehaviors
     public void FireBreath(AttackData attackData)
     {
         GameObject instance = InstantiateHitbox(fireBreathHitbox,
-            transform.position + (transform.forward * (attackData.range/2)), transform.rotation, attackData,
+            transform.position + (transform.forward * (attackData.range)), transform.rotation, attackData,
             out Hitbox hitbox);
         instance.transform.localScale = new Vector3(instance.transform.localScale.x, instance.transform.localScale.y,
             attackData.range);

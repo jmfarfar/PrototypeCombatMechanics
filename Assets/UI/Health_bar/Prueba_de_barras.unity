@@ -625,6 +625,7 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+
 --- !u!1 &1920357537
 GameObject:
   m_ObjectHideFlags: 0

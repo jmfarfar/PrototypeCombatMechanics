@@ -3,6 +3,7 @@ using UnityEngine;
 public class EffectsManager : MonoBehaviour, IAnimationEffects
 {
     private AttackData[] attackData;
+    private PlayerStateMachine[] players;
     [field: SerializeField] public IPlayerInput PlayerInput { get; private set; }
 
     // Start is called before the first frame update
@@ -10,6 +11,13 @@ public class EffectsManager : MonoBehaviour, IAnimationEffects
     {
         attackData = GetComponent<AttackManager>().attacks;
         PlayerInput = GetComponentInParent<IPlayerInput>();
+
+        players = FindObjectsOfType<PlayerStateMachine>();
+
+        foreach (PlayerStateMachine player in players)
+        {
+            player.onAttackStart += OnAttackStart;
+        }
     }
 
     public void StartEffect(int test)
@@ -21,6 +29,21 @@ public class EffectsManager : MonoBehaviour, IAnimationEffects
         }
 
         PlayerInput.GetRadialMenuQuadrant();
+    }
+
+    public void OnAttackStart(int attackIndex)
+    {
+        AudioManager.Instance.PlaySound(attackData[attackIndex].attackSfx);
+        attackData[attackIndex].attackVfx.Play();
+    }
+
+    public void OnAttackEnd(int attackIndex)
+    {
+        attackData[attackIndex].attackVfx.Stop();
+        foreach (PlayerStateMachine player in players)
+        {
+            player.onAttackStart -= OnAttackStart;
+        }
     }
 
     public void Attack1StartEffect()
