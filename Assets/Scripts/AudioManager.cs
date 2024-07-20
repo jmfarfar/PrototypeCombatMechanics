@@ -10,10 +10,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource backgroundMusic;
 
     private static AudioManager instance;
-    public static AudioManager Instance
-    {
-        get { return instance; }
-    }
+    public static AudioManager Instance => instance;
 
     private void Awake()
     {
