@@ -8,4 +8,6 @@ AnimatorOverrideController:
   m_PrefabAsset: {fileID: 0}
   m_Name: ArdidAnimations
   m_Controller: {fileID: 9100000, guid: 5a4e002accd453e43b884615c930fe3e, type: 2}
-  m_Clips: []
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 057fb67d0a48cda4aa8d88b8d633ff45, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 057fb67d0a48cda4aa8d88b8d633ff45, type: 2}

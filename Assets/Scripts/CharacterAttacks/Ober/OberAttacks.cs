@@ -55,17 +55,22 @@ public class OberAttacks : GenericHitboxBehaviors
         hitbox.SetUpHitboxActions(
             () =>
             {
-                //manager.onActiveFramesEnd += () => { Destroy(instance); }; 
+                // manager.onActiveFramesEnd += () => { Destroy(instance); }; 
                 if (isFuryActive)
                 {
                     attackData.damage *= 2;
                 }
             },
             FollowTargetOverTime(enemy, instance.transform, attackData.range, attackData.activeTime),
-            (Collider other) => { },
+            (Collider other) =>
+            {
+                Destroy(instance);
+                
+            },
             () =>
             {
-                //manager.onActiveFramesEnd -= () => { Destroy(instance); }; 
+                // manager.onActiveFramesEnd -= () => { Destroy(instance); }; 
+                // Destroy(instance);
             }
         );
 
@@ -77,8 +82,10 @@ public class OberAttacks : GenericHitboxBehaviors
     public void FireBreath(AttackData attackData)
     {
         GameObject instance = InstantiateHitbox(fireBreathHitbox,
-            transform.position + (transform.forward * attackData.range), transform.rotation, attackData,
+            transform.position + (transform.forward * (attackData.range/2)), transform.rotation, attackData,
             out Hitbox hitbox);
+        instance.transform.localScale = new Vector3(instance.transform.localScale.x, instance.transform.localScale.y,
+            attackData.range);
         // AudioManager.Instance.PlaySound(attackData.attackSFX);
 
         hitbox.SetUpHitboxActions(
@@ -96,6 +103,7 @@ public class OberAttacks : GenericHitboxBehaviors
             {
                 //StartCoroutine(BurnRoutine(3f, 10f, ));
                 Debug.Log("Hit by Fire Breath");
+                
             },
             () => { manager.onActiveFramesEnd -= () => { Destroy(instance); }; }
         );
@@ -136,7 +144,13 @@ public class OberAttacks : GenericHitboxBehaviors
             salamander.GetComponent<Hitbox>().SetUpHitboxActions(
                 () => { },
                 FollowTargetOverTime(enemy, salamander.transform, attackData.range, attackData.activeTime),
-                (Collider other) => { Destroy(salamander.gameObject); }
+                (Collider other) =>
+                {
+                    if (salamander.gameObject != null)
+                    {
+                        Destroy(salamander.gameObject);
+                    }
+                }
             );
 
             salamander.GetComponent<Hitbox>().gameObject.layer = AssignLayerToHitbox(gameObject.layer);

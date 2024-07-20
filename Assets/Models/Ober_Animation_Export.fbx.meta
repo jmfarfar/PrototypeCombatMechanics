@@ -3,37 +3,7 @@ guid: 4d51d5698587904b6badaea70a0be342
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Beard
-    second: {fileID: 2100000, guid: 7c40227d289e3fbc09110dd97989c488, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Body
-    second: {fileID: 2100000, guid: 1d331ecf3fa0fef088990291526d38d4, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Clothing
-    second: {fileID: 2100000, guid: 3237337fe4466efea8d78c78a02f143b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Eyebrows
-    second: {fileID: 2100000, guid: b441c2e0dc7acb3fd9a5fecb605abafa, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Eyes
-    second: {fileID: 2100000, guid: f17c273a78889da2189bb9e9ed7891bc, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Hair
-    second: {fileID: 2100000, guid: 7af0990c29c2a72bd92509ce94594821, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -62,6 +32,93 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations:
+    - serializedVersion: 16
+      name: ARM-Ober|Ober_blocking_baked_L_Ober_Animations.blend
+      takeName: ARM-Ober|Ober_blocking_baked_L_Ober_Animations.blend
+      internalID: 5457408749223878265
+      firstFrame: 0
+      lastFrame: 119
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: ARM-Ober|Ober_dash_L_Ober_Animations.blend
+      takeName: ARM-Ober|Ober_dash_L_Ober_Animations.blend
+      internalID: -3401679961405111328
+      firstFrame: 0
+      lastFrame: 29
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: ARM-Ober|Ober_hitReaction1_baked_L_Ober_Animations.blend
+      takeName: ARM-Ober|Ober_hitReaction1_baked_L_Ober_Animations.blend
+      internalID: 6516055714609831985
+      firstFrame: 0
+      lastFrame: 139
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: ARM-Ober|Ober_Idle_baked_L_Ober_Animations.blend
       takeName: ARM-Ober|Ober_Idle_baked_L_Ober_Animations.blend
@@ -121,18 +178,18 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: ARM-Ober|Ober_blocking_baked_L_Ober_Animations.blend
-      takeName: ARM-Ober|Ober_blocking_baked_L_Ober_Animations.blend
-      internalID: 5457408749223878265
+      name: ARM-Ober|Ober_blockingHitReact_L_Ober_Animations.blend
+      takeName: ARM-Ober|Ober_blockingHitReact_L_Ober_Animations.blend
+      internalID: -5720969939610525505
       firstFrame: 0
-      lastFrame: 119
+      lastFrame: 59
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -145,6 +202,70 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: ARM-Ober|Ober_fireBreath_L_Ober_Animations.blend
+      takeName: ARM-Ober|Ober_fireBreath_L_Ober_Animations.blend
+      internalID: -363008079710523200
+      firstFrame: 0
+      lastFrame: 89
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0
+        functionName: Attack1StartEffect
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 999b3eb6bd25315498152b87f33b8105, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.33212867
+        functionName: ExecuteAttack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: e4c73d981e490b909b50a1077f65e9fd, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.53686583
+        functionName: EndActiveFrames
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: e4c73d981e490b909b50a1077f65e9fd, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.82893324
+        functionName: CompleteAttack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: e4c73d981e490b909b50a1077f65e9fd, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.65217394
+        functionName: Attack1EndEffect
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 999b3eb6bd25315498152b87f33b8105, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -216,7 +337,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

@@ -15,7 +15,9 @@ public class PlayerStunState : PlayerBaseState
     public override void Enter()
     {
         stateMachine.Animator.fireEvents = false;
-        stateMachine.Animator.CrossFadeInFixedTime(StunHash, 0.1f);
+        // stateMachine.Animator.CrossFadeInFixedTime(StunHash, 0.1f, 0);
+        stateMachine.Animator.CrossFadeInFixedTime(StunHash, 0f, 1);
+        stateMachine.Animator.SetLayerWeight(1, duration);
     }
 
     public override void Exit()
