@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,7 +19,7 @@ public class RadioMenuManager : MonoBehaviour
 
     private void Start() 
     {
-        players = FindObjectsOfType<PlayerStateMachine>();
+        players = FindObjectsOfType<PlayerStateMachine>().OrderBy(p => LayerMask.LayerToName(p.gameObject.layer)).ToArray();
 
         foreach (PlayerStateMachine player in players)
         {

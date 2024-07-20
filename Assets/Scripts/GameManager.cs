@@ -170,4 +170,13 @@ public class GameManager : MonoBehaviour
             player.playerKO -= OnPlayerDefeated;
         }
     }
+
+#if UNITY_EDITOR
+    
+    private void OnApplicationQuit()
+    {
+        roundData.ResetData();
+    }
+    
+#endif
 }
