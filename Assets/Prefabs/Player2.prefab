@@ -1398,7 +1398,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 0}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: FireBreath
     damage: 15
     range: 5
@@ -1448,7 +1448,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 21300000, guid: 91c2527facfe7f04cbd6cbec698b7a09, type: 3}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: Impetus
     damage: 0
     range: 0
@@ -1473,7 +1473,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 0}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: LavaFloor
     damage: 1
     range: 0
@@ -1498,7 +1498,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 0}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: FireFist
     damage: 5
     range: 10
@@ -1523,7 +1523,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 0}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: Jump
     damage: 20
     range: 10
@@ -1548,7 +1548,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 0}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: Fury
     damage: 20
     range: 10
@@ -1573,7 +1573,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 0}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: ScaleHardness
     damage: 0
     range: 0
@@ -1598,7 +1598,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 0}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: Firewall
     damage: 10
     range: 0
@@ -1623,7 +1623,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 0}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: BloodMoon
     damage: 0
     range: 10
@@ -1648,7 +1648,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 0}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: Concentration
     damage: 20
     range: 10
@@ -1673,7 +1673,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 0}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   currentAttack:
     name: 
     damage: 0

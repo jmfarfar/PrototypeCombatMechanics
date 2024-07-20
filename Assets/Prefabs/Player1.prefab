@@ -1706,7 +1706,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 21300000, guid: 01541213a362a05ee85594c44c201aaa, type: 3}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: Necrotic Mist
     damage: 10
     range: 10
@@ -1731,7 +1731,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 21300000, guid: bf9a5aca49a3b2d809506c99398ca40b, type: 3}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: Sacrifice
     damage: 0
     range: 0
@@ -1756,7 +1756,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 21300000, guid: a99756e743f0835d3a932f692e63e040, type: 3}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: Grip beyond the grave
     damage: 0
     range: 5
@@ -1781,7 +1781,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 21300000, guid: 89ca0cb72d9b16c26b762c7004b7f72d, type: 3}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: Summon Skeleton Wall
     damage: 0
     range: 0
@@ -1806,7 +1806,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 21300000, guid: 54bd3919bb40c1523b0cff32a215ae18, type: 3}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: Summon Archer Skeleton
     damage: 25
     range: 10
@@ -1831,7 +1831,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 21300000, guid: 7940d31a1a5e04f39a66093e3903516a, type: 3}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: Portal / Spectre
     damage: 25
     range: 15
@@ -1856,7 +1856,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 21300000, guid: 1b11d7c8de7e9c4e59d05eb6ce311fa1, type: 3}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: Summon Lich Lord
     damage: 50
     range: 10
@@ -1881,7 +1881,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 21300000, guid: 6c6f795f8eb730374b5fe08f37ee616c, type: 3}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: Ghost Guardian
     damage: 50
     range: 5
@@ -1906,7 +1906,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 21300000, guid: a71854feedc1017dbbb83d7bab4ad48b, type: 3}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   currentAttack:
     name: 
     damage: 0
