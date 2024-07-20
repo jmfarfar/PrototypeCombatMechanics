@@ -12,6 +12,9 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
 
     [field: SerializeField]
     public CharacterController CharacterController { get; set; }
+    
+    [field: SerializeField]
+    public SphereCollider ShieldCollider { get; set; }
     [field: SerializeField]
     public float Speed { get; set; }
     [field: SerializeField]
@@ -37,6 +40,8 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
     public Action<LayerMask> playerKO;
     public Action<int> onAttackStart;
 
+    [field: SerializeField]public GameObject shieldVFX { get; private set; }
+    private Vector3 shieldOffset; 
     public float maxShieldEnergy = 1f;
     [HideInInspector] public float shieldEnergy;
     public bool isShieldDepleting;
@@ -58,7 +63,8 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
     [HideInInspector] public Action<LayerMask, int, bool> onRadialMenuActivated;
 
     [field: SerializeField] public float ShieldReleaseTime { get; private set; }
-    [field: SerializeField] public float parryTimePercentage { get; private set; }
+    [field: SerializeField] public int ParryFrameWindow { get; private set; } = 2;
+    public bool HasParried {get; private set;}
 
     private Action processAttackInput;
     public Action bufferedAttack;
@@ -95,8 +101,11 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
         {
             Debug.Log($"Parried {hitbox.attackData.name}");
             Physics.IgnoreCollision(GetComponent<Collider>(), other);
-            GameManager.Instance.HitPause(1f);
+            GameManager.Instance.HitPause();
             SwitchState(new PlayerMovementState(this));
+            HasParried = true;
+            colliderState = Hitbox.ColliderStates.INACTIVE;
+            Invoke(nameof(FinishParryInvulnerability), 0.1f);
         }
         else if (colliderState == Hitbox.ColliderStates.RESTRAINED)
         {
@@ -303,6 +312,12 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
     public void DecreaseChargeTime()
     {
         ChargeTime -= Time.deltaTime;
+    }
+
+    void FinishParryInvulnerability()
+    {
+        HasParried = false;
+        colliderState = Hitbox.ColliderStates.ACTIVE;
     }
 }
 

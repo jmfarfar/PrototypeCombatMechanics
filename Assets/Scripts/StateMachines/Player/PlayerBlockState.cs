@@ -18,9 +18,22 @@ public class PlayerBlockState : PlayerBaseState
 
     public override void Enter()
     {
+        if (stateMachine.HasParried) 
+        {
+            stateMachine.SwitchState(new PlayerMovementState(stateMachine));
+            return; 
+        }
+        stateMachine.shieldVFX.gameObject.SetActive(true);
+        var particles = stateMachine.shieldVFX.GetComponentsInChildren<ParticleSystem>();
+        foreach (ParticleSystem particle in particles)
+        {
+            particle.Play();
+        }
+        
+        stateMachine.ShieldCollider.enabled = true;
         stateMachine.Animator.CrossFadeInFixedTime(blockHash, 0.02f);
         stateMachine.Animator.CrossFadeInFixedTime("Empty", 0f, 1);
-        stateMachine.colliderState = Hitbox.ColliderStates.BLOCKING;
+        stateMachine.StartCoroutine(ParryRoutine());
 
         stateMachine.shieldHit += OnShieldHit;
 
@@ -28,11 +41,21 @@ public class PlayerBlockState : PlayerBaseState
     }
 
     public override void Exit()
-    {        
+    {
+        if (stateMachine.HasParried) {return;}
+
+        stateMachine.shieldHit -= OnShieldHit;
+        stateMachine.ShieldCollider.enabled = false;
         // stateMachine.StopCoroutine(OnShieldReleaseRoutine());
         stateMachine.StopAllCoroutines();
-        stateMachine.colliderState = Hitbox.ColliderStates.ACTIVE;
         stateMachine.isShieldDepleting = false;
+        stateMachine.colliderState = Hitbox.ColliderStates.ACTIVE;
+        var particles = stateMachine.shieldVFX.GetComponentsInChildren<ParticleSystem>();
+        foreach (ParticleSystem particle in particles)
+        {
+            particle.Stop();
+        }
+        stateMachine.shieldVFX.gameObject.SetActive(false);
     }
 
     public override void Tick(float deltaTime)
@@ -100,14 +123,7 @@ public class PlayerBlockState : PlayerBaseState
 
         while (timer < stateMachine.ShieldReleaseTime)
         {
-            if (timer < stateMachine.ShieldReleaseTime * stateMachine.parryTimePercentage)
-            {
-                stateMachine.colliderState = Hitbox.ColliderStates.PARRY;
-            }            
-            else
-            {
-                stateMachine.colliderState = Hitbox.ColliderStates.ACTIVE;
-            }
+            stateMachine.colliderState = Hitbox.ColliderStates.ACTIVE;
 
             if (timer < stateMachine.ShieldReleaseTime * 0.5f)
             {
@@ -119,5 +135,12 @@ public class PlayerBlockState : PlayerBaseState
         }
 
         stateMachine.SwitchState(new PlayerMovementState(stateMachine));
+    }
+
+    IEnumerator ParryRoutine()
+    {
+        stateMachine.colliderState = Hitbox.ColliderStates.PARRY;
+        yield return new WaitForSeconds(stateMachine.ParryFrameWindow / 60f);
+        stateMachine.colliderState = Hitbox.ColliderStates.BLOCKING;
     }
 }

@@ -514,6 +514,7 @@ GameObject:
   - component: {fileID: 3565946824552977181}
   - component: {fileID: 1791738227198925901}
   - component: {fileID: 3617397833193917087}
+  - component: {fileID: 2260848941789219874}
   m_Layer: 8
   m_Name: Player1
   m_TagString: Untagged
@@ -535,6 +536,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5110140504427846905}
+  - {fileID: 1965404771052544014}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &9146839054247398961
@@ -590,6 +592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <CharacterController>k__BackingField: {fileID: 9146839054247398961}
+  <ShieldCollider>k__BackingField: {fileID: 2260848941789219874}
   <Speed>k__BackingField: 10
   <DashForce>k__BackingField: 1.5
   <Health>k__BackingField: {fileID: 8424423014621396897}
@@ -634,16 +637,19 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   colliderState: 0
+  <shieldVFX>k__BackingField: {fileID: 7603383280816854830}
   maxShieldEnergy: 3
   shieldEnergy: 5
   isShieldDepleting: 0
   isShieldDepleted: 0
   isRolling: 0
+  <IsChannelComplete>k__BackingField: 0
+  <ChargeTime>k__BackingField: 10
   isRadialMenuActive: 0
   AttackManager: {fileID: 6784795115328361854}
   restrainedStateExitThreshold: 50
-  <ShieldReleaseTime>k__BackingField: 0.4
-  <parryTimePercentage>k__BackingField: 0.5
+  <ShieldReleaseTime>k__BackingField: 0.3
+  <ParryFrameWindow>k__BackingField: 2
 --- !u!114 &3565946824552977181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -715,6 +721,27 @@ MonoBehaviour:
   persistentNegativeEnergy: 3
   summoningSlots: 10
   energyDecayRate: 0.1
+--- !u!135 &2260848941789219874
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2396030616143007682}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Radius: 1.2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2481806759012908966
 GameObject:
   m_ObjectHideFlags: 0
@@ -1611,6 +1638,8 @@ MonoBehaviour:
     activeTime: 0.3
     stunTime: 0.2
     attackAnimation: {fileID: 7400000, guid: 1a9e11ca9109efe0abb0ad7bd9ea01db, type: 2}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:
@@ -1627,13 +1656,15 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 21300000, guid: db1da28dd6163103a892db88c181dfaf, type: 3}
+    attackIcon: {fileID: 21300000, guid: a9fc38563aa09a341ac6a916baa6ff54, type: 3}
   - name: Summon Bone Stalker
     damage: 80
     range: 40
     activeTime: 10
     stunTime: 1
     attackAnimation: {fileID: 0}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:
@@ -1650,13 +1681,15 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 21300000, guid: 3ef1a139d196a555ab6d73534e20136b, type: 3}
+    attackIcon: {fileID: 21300000, guid: 04108d8bb5e2f3b4ca89dd7b094ad3ad, type: 3}
   - name: Soul Trap Scythe
     damage: 50
     range: 5
     activeTime: 0.5
     stunTime: 0.5
     attackAnimation: {fileID: 7400000, guid: 1d77e74a2221fa67083df90c7b2bf5a7, type: 2}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:
@@ -1673,13 +1706,15 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 21300000, guid: 1abfcae831f005b4294a7769774d7c54, type: 3}
+    attackIcon: {fileID: 21300000, guid: ef7ba996ac557bb46a36d6f29df2351e, type: 3}
   - name: Phantom Onslaught
     damage: 80
     range: 10
     activeTime: 0.5
     stunTime: 1
     attackAnimation: {fileID: 0}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 0100000006000000
     attackEvent:
       m_PersistentCalls:
@@ -1696,13 +1731,15 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 21300000, guid: 01541213a362a05ee85594c44c201aaa, type: 3}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: Necrotic Mist
     damage: 10
     range: 10
     activeTime: 5
     stunTime: 0
     attackAnimation: {fileID: 0}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:
@@ -1719,13 +1756,15 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 21300000, guid: bf9a5aca49a3b2d809506c99398ca40b, type: 3}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: Sacrifice
     damage: 0
     range: 0
     activeTime: 1
     stunTime: 0
     attackAnimation: {fileID: 0}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:
@@ -1742,13 +1781,15 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 21300000, guid: a99756e743f0835d3a932f692e63e040, type: 3}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: Grip beyond the grave
     damage: 0
     range: 5
     activeTime: 0.2
     stunTime: 0
     attackAnimation: {fileID: 0}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 07000000
     attackEvent:
       m_PersistentCalls:
@@ -1765,13 +1806,15 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 21300000, guid: 89ca0cb72d9b16c26b762c7004b7f72d, type: 3}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: Summon Skeleton Wall
     damage: 0
     range: 0
     activeTime: 3
     stunTime: 0
     attackAnimation: {fileID: 0}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:
@@ -1788,13 +1831,15 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 21300000, guid: 54bd3919bb40c1523b0cff32a215ae18, type: 3}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: Summon Archer Skeleton
     damage: 25
     range: 10
     activeTime: 0.2
     stunTime: 0.5
     attackAnimation: {fileID: 0}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:
@@ -1811,13 +1856,15 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 21300000, guid: 7940d31a1a5e04f39a66093e3903516a, type: 3}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: Portal / Spectre
     damage: 25
     range: 15
     activeTime: 0.3
     stunTime: 1
     attackAnimation: {fileID: 0}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:
@@ -1834,13 +1881,15 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 21300000, guid: 1b11d7c8de7e9c4e59d05eb6ce311fa1, type: 3}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: Summon Lich Lord
     damage: 50
     range: 10
     activeTime: 0.5
     stunTime: 1
     attackAnimation: {fileID: 0}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:
@@ -1857,13 +1906,15 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 21300000, guid: 6c6f795f8eb730374b5fe08f37ee616c, type: 3}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   - name: Ghost Guardian
     damage: 50
     range: 5
     activeTime: 0.5
     stunTime: 1
     attackAnimation: {fileID: 0}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:
@@ -1880,7 +1931,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    attackIcon: {fileID: 21300000, guid: a71854feedc1017dbbb83d7bab4ad48b, type: 3}
+    attackIcon: {fileID: 21300000, guid: 9ce9e74460fd253499950af0f99bf769, type: 3}
   currentAttack:
     name: 
     damage: 0
@@ -1888,6 +1939,8 @@ MonoBehaviour:
     activeTime: 0
     stunTime: 0
     attackAnimation: {fileID: 0}
+    attackSfx: {fileID: 0}
+    attackVfx: {fileID: 0}
     attackEffects: 
     attackEvent:
       m_PersistentCalls:
@@ -2969,3 +3022,70 @@ Transform:
   - {fileID: 535458516307130180}
   m_Father: {fileID: 2861796362127574507}
   m_LocalEulerAnglesHint: {x: -15.898516, y: -21.118732, z: -5.9126825}
+--- !u!1001 &2486285201703546652
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7806726281509107298}
+    m_Modifications:
+    - target: {fileID: 4163448174128156434, guid: 64de381601671814292a0e3bd6f73294, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4163448174128156434, guid: 64de381601671814292a0e3bd6f73294, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4163448174128156434, guid: 64de381601671814292a0e3bd6f73294, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4163448174128156434, guid: 64de381601671814292a0e3bd6f73294, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4163448174128156434, guid: 64de381601671814292a0e3bd6f73294, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4163448174128156434, guid: 64de381601671814292a0e3bd6f73294, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4163448174128156434, guid: 64de381601671814292a0e3bd6f73294, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4163448174128156434, guid: 64de381601671814292a0e3bd6f73294, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4163448174128156434, guid: 64de381601671814292a0e3bd6f73294, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4163448174128156434, guid: 64de381601671814292a0e3bd6f73294, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5405916013292304434, guid: 64de381601671814292a0e3bd6f73294, type: 3}
+      propertyPath: m_Name
+      value: vfx_Ardid_Shield
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 64de381601671814292a0e3bd6f73294, type: 3}
+--- !u!4 &1965404771052544014 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4163448174128156434, guid: 64de381601671814292a0e3bd6f73294, type: 3}
+  m_PrefabInstance: {fileID: 2486285201703546652}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7603383280816854830 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5405916013292304434, guid: 64de381601671814292a0e3bd6f73294, type: 3}
+  m_PrefabInstance: {fileID: 2486285201703546652}
+  m_PrefabAsset: {fileID: 0}
