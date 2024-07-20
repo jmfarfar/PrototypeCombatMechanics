@@ -201,25 +201,6 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
 
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = new Color(0.5f, 0.5f, 1f, 0.2f);
-        if (colliderState == Hitbox.ColliderStates.PARRY)
-        {
-            Gizmos.color = new(1f, 1f, 1f, 0.3f);
-        }
-        Gizmos.DrawSphere(transform.position, shieldEnergy);
-
-        float barHeight = (float)Health.CurrentHealth / (float)Health.MaxHealth * 2f;
-        Gizmos.color = new Color(0f, 1f, 0f, 1f);
-        Gizmos.DrawCube(transform.position +
-        Vector3.up + (Vector3.up * barHeight / 2), new Vector3(
-            0.3f,
-            barHeight,
-            0.3f)
-        );
-    }
-
     public void ActivateAttackInput()
     {
 
