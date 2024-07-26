@@ -10,28 +10,34 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource backgroundMusic;
 
     private static AudioManager instance;
-    public static AudioManager Instance => instance;
+
+    public static AudioManager Instance
+    {
+        get { return instance; }
+    }
 
     private void Awake()
     {
-        if (instance == null)
+        if (instance != null)
         {
-            instance = this;
         }
         else
         {
-            Destroy(gameObject);
-            DontDestroyOnLoad(this);
+            instance = this;
+            // Destroy(gameObject);
+            DontDestroyOnLoad(instance);
         }
 
         audioSource = GetComponent<AudioSource>();
-
     }
 
     public void PlaySound(AudioClip clip, AudioMixerGroup mixer = null)
     {
         if (mixer == null)
+        {
             audioSource.PlayOneShot(clip);
+            audioSource.loop = true;
+        }
         else
         {
             audioSource.PlayOneShot(clip);
@@ -42,5 +48,36 @@ public class AudioManager : MonoBehaviour
     public void PlayAmbiental(AudioClip clip)
     {
         backgroundMusic.PlayOneShot(clip);
+    }
+
+    public void PlayAmbiental()
+    {
+        backgroundMusic.Play();
+    }
+
+    public void StopBackgroundClip()
+    {
+        if (backgroundMusic.isPlaying)
+        {
+            backgroundMusic.Stop();
+        }
+    }
+
+    public void StopClip()
+    {
+        if (audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+    }
+
+    public bool IsPlaying()
+    {
+        return audioSource.isPlaying;
+    }
+
+    public bool IsBackgroundPlaying()
+    {
+        return backgroundMusic.isPlaying;
     }
 }
