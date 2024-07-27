@@ -139,7 +139,11 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
                         return;
                     }
 
-                    SwitchState(new PlayerKnockdownState(this, 3f));
+                    Vector3 hitDirection =
+                        transform.position - other.transform.position;
+                    hitDirection.y = 0f;
+
+                    SwitchState(new PlayerKnockdownState(this, 1f, hitDirection.normalized));
                     return;
                 }
 

@@ -4016,13 +4016,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CharacterController>k__BackingField: {fileID: 745673425195330722}
   <ShieldCollider>k__BackingField: {fileID: 429628810638687301}
-  <Speed>k__BackingField: 10
-  <DashForce>k__BackingField: 1.5
+  <Speed>k__BackingField: 8
+  <DashForce>k__BackingField: 1.2
   <Health>k__BackingField: {fileID: 3947659475152461671}
   <RotationSpeed>k__BackingField: 1200
   <Combatant>k__BackingField: {fileID: 0}
   <Animator>k__BackingField: {fileID: 7198695539708236885}
-  dashTime: 0.25
+  dashTime: 0.5
   dashCooldown: 0.1
   dashDistance: 3
   dashInvulnerabilityTime: 0.7
