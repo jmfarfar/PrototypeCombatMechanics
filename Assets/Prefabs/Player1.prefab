@@ -5668,7 +5668,7 @@ MonoBehaviour:
     range: 15
     activeTime: 0.3
     stunTime: 0.2
-    attackAnimation: {fileID: 7400000, guid: 1a9e11ca9109efe0abb0ad7bd9ea01db, type: 2}
+    attackAnimation: {fileID: 5617115092900024924, guid: dedb79c8c77703ed781617868ef00b97, type: 3}
     attackSfx: {fileID: 0}
     attackVfx: {fileID: 0}
     attackEffects: 
