@@ -2233,6 +2233,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5110140504427846905}
+  - {fileID: 1965404771052544014}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &9146839054247398961
@@ -2333,6 +2334,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   colliderState: 0
+  <shieldVFX>k__BackingField: {fileID: 7603383280816854830}
   maxShieldEnergy: 3
   shieldEnergy: 5
   isShieldDepleting: 0

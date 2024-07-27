@@ -55,17 +55,22 @@ public class OberAttacks : GenericHitboxBehaviors
         hitbox.SetUpHitboxActions(
             () =>
             {
-                //manager.onActiveFramesEnd += () => { Destroy(instance); }; 
+                // manager.onActiveFramesEnd += () => { Destroy(instance); }; 
                 if (isFuryActive)
                 {
                     attackData.damage *= 2;
                 }
             },
             FollowTargetOverTime(enemy, instance.transform, attackData.range, attackData.activeTime),
-            (Collider other) => { },
+            (Collider other) =>
+            {
+                Destroy(instance);
+                
+            },
             () =>
             {
-                //manager.onActiveFramesEnd -= () => { Destroy(instance); }; 
+                // manager.onActiveFramesEnd -= () => { Destroy(instance); }; 
+                // Destroy(instance);
             }
         );
 
@@ -98,6 +103,7 @@ public class OberAttacks : GenericHitboxBehaviors
             {
                 //StartCoroutine(BurnRoutine(3f, 10f, ));
                 Debug.Log("Hit by Fire Breath");
+                
             },
             () => { manager.onActiveFramesEnd -= () => { Destroy(instance); }; }
         );

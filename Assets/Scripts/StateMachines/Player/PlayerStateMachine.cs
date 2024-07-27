@@ -38,7 +38,10 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
     public Action<AttackData> shieldHit;
     public Action<Vector3> rollEvent;
     public Action<LayerMask> playerKO;
+    public Action<int> onAttackStart;
 
+    [field: SerializeField]public GameObject shieldVFX { get; private set; }
+    private Vector3 shieldOffset; 
     public float maxShieldEnergy = 1f;
     [HideInInspector] public float shieldEnergy;
     public bool isShieldDepleting;
@@ -202,25 +205,6 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
 
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = new Color(0.5f, 0.5f, 1f, 0.2f);
-        if (colliderState == Hitbox.ColliderStates.PARRY)
-        {
-            Gizmos.color = new(1f, 1f, 1f, 0.3f);
-        }
-        Gizmos.DrawSphere(transform.position, shieldEnergy);
-
-        float barHeight = (float)Health.CurrentHealth / (float)Health.MaxHealth * 2f;
-        Gizmos.color = new Color(0f, 1f, 0f, 1f);
-        Gizmos.DrawCube(transform.position +
-        Vector3.up + (Vector3.up * barHeight / 2), new Vector3(
-            0.3f,
-            barHeight,
-            0.3f)
-        );
-    }
-
     public void ActivateAttackInput()
     {
 
@@ -283,6 +267,7 @@ public class PlayerStateMachine : StateMachine, IPlayerStateMachine
         if (spellNumber > currentSpell + 3) return;
 
         onRadialMenuExecuted?.Invoke(gameObject.layer, AttackManager.attacks[spellNumber].name, cuadrant);
+        // onAttackStart?.Invoke(spellNumber);
 
         bufferedAttack = () => {
             SwitchState(new PlayerAttackState(this, spellNumber));

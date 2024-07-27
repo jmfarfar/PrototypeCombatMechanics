@@ -231,6 +231,13 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0
+        functionName: Attack1StartEffect
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 999b3eb6bd25315498152b87f33b8105, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.33212867
         functionName: ExecuteAttack
         data: 
@@ -245,10 +252,24 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.6786026
+        functionName: Attack1EndEffect
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 999b3eb6bd25315498152b87f33b8105, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.82893324
         functionName: CompleteAttack
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: e4c73d981e490b909b50a1077f65e9fd, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.65217394
+        functionName: Attack1EndEffect
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 999b3eb6bd25315498152b87f33b8105, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
